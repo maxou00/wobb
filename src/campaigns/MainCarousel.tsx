@@ -12,13 +12,13 @@ export function MainCarousel() {
             showArrows={false}
             showStatus={false}>
             <div>
-                <img src={Skills} alt="skills"/>
+                <img height="240" style={{objectFit: 'cover'}} src={Skills} alt="skills"/>
             </div>
             <div>
-                <img src={Skills} alt="skills"/>
+                <img height="240" style={{objectFit: 'cover'}} src={Skills} alt="skills"/>
             </div>
             <div>
-                <img src={Skills} alt="skills"/>
+                <img height="240" style={{objectFit: 'cover'}} src={Skills} alt="skills"/>
             </div>
         </Carousel>
     </div>

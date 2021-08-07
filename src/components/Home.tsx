@@ -14,10 +14,12 @@ export function Home() {
         <div className={styles.header}>
             <TopAppBar />
         </div>
-        <Box padding={8} className={styles.main}>
+        <Box padding={1} className={styles.main}>
             <Switch>
                 <Route path={Routes.MyCampaigns}>
-                    <MyCampaigns />
+                    <Container>
+                        <MyCampaigns />
+                    </Container>
                 </Route>
                 <Route path={Routes.BaseCampaigns} exact>
                     <Redirect to={Routes.campaigns("posted")} />
