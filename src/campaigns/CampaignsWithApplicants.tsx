@@ -1,7 +1,88 @@
-
+import { Avatar, IconButton, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from "@material-ui/core";
+import { __tr } from "../i18n";
+import { MdPerson, MdMoreVert } from "react-icons/md";
+import { Link } from "react-router-dom";
+import styles from "../styles/CampaignTable.module.scss";
+import { StyledTableHeading } from "../components/custom";
 
 export function CampaignsWithApplicants() {
-    return <div>
-        <p>Campaign with applicants</p>
+    return <div className={styles.section}>
+        <TableContainer>
+            <Table>
+                <TableHead>
+                    <TableRow>
+                        <StyledTableHeading className={styles.colTitle}>{__tr("campaigns")}</StyledTableHeading>
+                        <StyledTableHeading className={styles.colTitle}>{__tr("status")}</StyledTableHeading>
+                        <StyledTableHeading className={styles.colTitle}>{__tr("applicants")}</StyledTableHeading>
+                        <StyledTableHeading className={styles.colTitle}></StyledTableHeading>
+                    </TableRow>
+                </TableHead>
+                <TableBody>
+                    <TableRow>
+                        <TableCell>
+                            <div className={styles.campaignTitleRow}>
+                                <Avatar>
+                                    <MdPerson size={24} />
+                                </Avatar>
+                                <Typography variant="body1" className={styles.title}>Stich With Biba</Typography>
+                            </div>
+                        </TableCell>
+                        <TableCell>
+                            Active
+                        </TableCell>
+                        <TableCell className={styles.cellLast}>
+                            <Link to="/">View(150)</Link>
+                        </TableCell>
+                        <TableCell>
+                            <IconButton size="small">
+                                <MdMoreVert size={24} />
+                            </IconButton>
+                        </TableCell>
+                    </TableRow>
+                    <TableRow>
+                        <TableCell>
+                            <div className={styles.campaignTitleRow}>
+                                <Avatar>
+                                    <MdPerson size={24} />
+                                </Avatar>
+                                <Typography variant="body1" className={styles.title}>Stich With Biba</Typography>
+                            </div>
+                        </TableCell>
+                        <TableCell>
+                            Active
+                        </TableCell>
+                        <TableCell>
+                            <Link to="/">View(13)</Link>
+                        </TableCell>
+                        <TableCell>
+                            <IconButton size="small">
+                                <MdMoreVert size={24} />
+                            </IconButton>
+                        </TableCell>
+                    </TableRow>
+                    <TableRow>
+                        <TableCell className={styles.cellLast}>
+                            <div className={styles.campaignTitleRow}>
+                                <Avatar>
+                                    <MdPerson size={24} />
+                                </Avatar>
+                                <Typography variant="body1" className={styles.title}>Stich With Biba</Typography>
+                            </div>
+                        </TableCell>
+                        <TableCell className={styles.cellLast}>
+                            Closed
+                        </TableCell>
+                        <TableCell className={styles.cellLast}>
+                            <Link to="/">View(19)</Link>
+                        </TableCell>
+                        <TableCell className={styles.cellLast}>
+                            <IconButton size="small">
+                                <MdMoreVert size={24} />
+                            </IconButton>
+                        </TableCell>
+                    </TableRow>
+                </TableBody>
+            </Table>
+        </TableContainer>
     </div>
 }

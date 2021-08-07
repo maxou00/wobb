@@ -23,6 +23,11 @@
 }
 
 .logoWrapper {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+
     .title {
         font-weight: bold;
     }
@@ -53,7 +58,7 @@
 
     input {
         margin-left: 4px;
-        font-size: $fontSizeHeading;
+        font-size: $fontSizeBodyText;
     }
 }
 
@@ -86,6 +91,8 @@
         font-weight: 500;
         text-align: center;
         font-size: $fontSizeBodyText;
+        display: inline-block;
+        white-space: nowrap;
     }
 
     &:hover {
@@ -125,6 +132,135 @@
 
         .title {
             margin: 0px 8px;
+        }
+    }
+}
+
+
+.drawer_menu {
+    width: 320px;
+    height: 100%;
+    padding: 0px;
+    box-shadow: 1px 1px 4px #00000060;
+    background-color: $colorWhite;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+
+    .searchInput {
+        margin: 8px;
+    }
+
+    .navigation {
+        width: 100%;
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: flex-start;
+
+        .navigationItem {
+            width: 100%;
+            flex-direction: row;
+            align-items: center;
+            justify-content: flex-start;
+            border-bottom: none;
+            height: 46px;
+
+            .icon {
+                flex-grow: 0;
+                width: auto;
+            }
+
+            .title {
+                margin-left: 8px;
+            }
+
+            &:hover {
+                background: $colorSurface;
+            }
+        
+            &.navigationItemActive {
+                background: $colorPrimary;
+                
+                .icon {
+
+                    * {
+                        fill: white;
+                    }
+
+                }
+
+                .title {
+                    color: $colorWhite;
+                }
+            }
+
+        }
+    }
+
+    .me {
+        display: none;
+    }
+}
+
+@media screen and (max-width: 1410px) {
+    .toolbar {
+        padding: 0% 10%;
+    }
+}
+
+@media screen and (max-width: 1230px) {
+    .toolbar {
+        padding: 0px 16px;
+    }
+}
+
+@media screen and (max-width: 1080px) {
+    .toolbar {
+        padding: 0px 4px;
+    }
+}
+
+@media screen and (max-width: 996px) {
+    .toolbar {
+        height: auto;
+        padding: 0px;
+
+        justify-content: space-around;
+    }
+
+    .logoWrapper {
+        padding: 8px 8px;
+    }
+
+    .actions {
+        flex-grow: calc(2/3);
+        padding: 0px 8px;
+        justify-content: center;
+    }
+
+    .searchInput {
+        flex-grow: calc(2/3);
+        margin: 0px 0px;
+    }
+}
+
+@media screen and (max-width: 780px) {
+
+    .toolbar {
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: center;
+        padding: 8px 0px;
+    }
+
+    .actions {
+        flex-grow: 0;
+        width: 100%;
+    }
+
+    .logoWrapper {
+        .title {
+            margin-left: 8px;
         }
     }
 }

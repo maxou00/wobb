@@ -3,6 +3,7 @@ import { __tr } from "../i18n";
 import { MdPerson, MdMoreVert } from "react-icons/md";
 import { Link } from "react-router-dom";
 import styles from "../styles/CampaignTable.module.scss";
+import { StyledTableHeading } from "../components/custom";
 
 export function CampaignsWithDeliverables() {
     return <div className={styles.section}>
@@ -10,10 +11,10 @@ export function CampaignsWithDeliverables() {
             <Table>
                 <TableHead>
                     <TableRow>
-                        <TableCell className={styles.colTitle}>{__tr("campaigns")}</TableCell>
-                        <TableCell className={styles.colTitle}>{__tr("status")}</TableCell>
-                        <TableCell className={styles.colTitle}>{__tr("deliverables")}</TableCell>
-                        <TableCell className={styles.colTitle}></TableCell>
+                        <StyledTableHeading className={styles.colTitle}>{__tr("campaigns")}</StyledTableHeading>
+                        <StyledTableHeading className={styles.colTitle}>{__tr("status")}</StyledTableHeading>
+                        <StyledTableHeading className={styles.colTitle}>{__tr("deliverables")}</StyledTableHeading>
+                        <StyledTableHeading className={styles.colTitle}></StyledTableHeading>
                     </TableRow>
                 </TableHead>
                 <TableBody>
@@ -58,7 +59,7 @@ export function CampaignsWithDeliverables() {
                         </TableCell>
                     </TableRow>
                     <TableRow>
-                        <TableCell>
+                        <TableCell className={styles.cellLast}>
                             <div className={styles.campaignTitleRow}>
                                 <Avatar>
                                     <MdPerson size={24} />
@@ -66,13 +67,13 @@ export function CampaignsWithDeliverables() {
                                 <Typography variant="body1" className={styles.title}>Stich With Biba</Typography>
                             </div>
                         </TableCell>
-                        <TableCell>
+                        <TableCell className={styles.cellLast}>
                             Applied
                         </TableCell>
-                        <TableCell>
+                        <TableCell className={styles.cellLast}>
                             <Link to="/">View Task</Link>
                         </TableCell>
-                        <TableCell>
+                        <TableCell className={styles.cellLast}>
                             <IconButton size="small">
                                 <MdMoreVert size={24} />
                             </IconButton>

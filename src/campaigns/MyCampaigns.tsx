@@ -37,17 +37,17 @@ export function MyCampaigns() {
         <Grid item xs={12} md={8} lg={6} >
             <Box className={styles.contentSurface}>
                 {
-                    status && status === "applied" &&
+                    status && status === "posted" &&
                     <CampaignsWithApplicants />
                 }
                 {
-                    status && status === "posted" &&
+                    status && status === "applied" &&
                     <CampaignsWithDeliverables />
                 }
             </Box>
         </Grid>
         <Grid item md={12} lg={3}>
-            <Grid container spacing={1}>
+            <Grid container spacing={2}>
                 <Grid item xs={12} md={6} lg={12}>
                     <Box className={styles.contentSurface}>
                         <BoxNewCampaign />

@@ -1,5 +1,6 @@
 
 export const Routes = {
+    About: '/about',
     Base: '/',
     Home: '/app',
     Discover: "/app/discover",
@@ -13,6 +14,7 @@ export const Routes = {
     Messages: "/app/threads",
     Notifications: "/app/notifications",
     MyProfile: "/app/my-profile",
+    HelpAndSupport: "/support",
     Auth: '/auth',
     Login: '/auth/login',
     Signup: '/auth/signup',

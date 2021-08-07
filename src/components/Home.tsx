@@ -17,9 +17,10 @@ export function Home() {
         <Box padding={8} className={styles.main}>
             <Switch>
                 <Route path={Routes.MyCampaigns}>
-                    <Container>
-                        <MyCampaigns />
-                    </Container>
+                    <MyCampaigns />
+                </Route>
+                <Route path={Routes.BaseCampaigns} exact>
+                    <Redirect to={Routes.campaigns("posted")} />
                 </Route>
                 <Route path={Routes.Home} exact>
                     <Redirect to={Routes.campaigns("applied")} />

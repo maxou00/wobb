@@ -2,12 +2,11 @@
 
 .section {
     padding: 8px 24px;
-
 }
 
 .colTitle {
     text-transform: uppercase;
-    font-size: $fontSizeHeading;
+    font-size: 21px;
     color: $colorGrayV3;
 }
 
@@ -21,4 +20,8 @@
         margin-left: 4px;
         font-size: $fontSizeBodyText;
     }
+}
+
+.cellLast {
+    border-bottom: none;
 }

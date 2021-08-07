@@ -12,7 +12,7 @@ export function CampaignTabs() {
             {__tr("posted")}
         </NavLink>
         <Switch>
-            <Route path={Routes.MyCampaigns}>
+            <Route path={Routes.BaseCampaigns} exact>
                 <Redirect to={Routes.campaigns("applied")}/>
             </Route>
         </Switch>
