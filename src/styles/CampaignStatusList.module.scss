@@ -1,0 +1,38 @@
+@import "./variables.scss";
+@import "./common-campaign.scss";
+
+.region {
+    padding: 0;
+}
+
+.filterItem {
+    border-left: 1px solid transparent;
+    transition: all 0.25ms linear;
+
+    &.active {
+        border-left: 8px solid $colorPrimary;
+    }
+
+}
+
+.itemText {
+    text-transform: uppercase;
+    font-weight: 500;
+    font-size: $fontSizeTextPrimary;
+    color: $colorGrayV2;
+    transition: all 0.25ms linear;
+
+    &.active {
+        color: $colorPrimary;
+    }
+}
+
+.count {
+    color: colorGrayV3;
+    font-weight: 600;
+    font-size: $fontSizeTextPrimary;
+
+    &.active {
+        color: $colorPrimary;
+    }
+}

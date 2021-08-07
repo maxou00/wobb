@@ -1,0 +1,25 @@
+@import "./variables.scss";
+
+.campaignTabs {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+.campaignTab {
+    min-width: 120px;
+    text-align: center;
+    padding: 16px 24px;
+    font-weight: 600;
+    text-decoration: none;
+    color: $colorGrayV2;
+    font-size: $fontSizeHeading;
+    border-bottom: 4px solid $colorGrayV1;
+    transition: all .3s linear;
+}
+
+.activeCampaignTab {
+    color: $colorPrimary;
+    border-bottom-color: $colorPrimary;
+}

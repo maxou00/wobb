@@ -1,0 +1,35 @@
+.region {
+    padding: 4px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+}
+
+.header {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    border-bottom: 1px solid $colorGrayV1;
+    padding: 0px 8px;
+
+    .title {
+        margin-left: 8px;
+        text-align: left;
+        color: $colorGrayV2;
+        text-transform: uppercase;
+    }
+}
+
+
+.content {
+    padding: 16px;
+    width: 100%;
+
+    p {
+        font-size: $fontSizeBodyText;
+        color: $colorGrayV2;
+    }
+}

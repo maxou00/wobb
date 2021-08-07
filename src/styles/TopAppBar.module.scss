@@ -1,34 +1,51 @@
 @import "./variables.scss";
 
-.toolbar{
+.toolbar {
+    width: 100%;
+    height: $headerHeight;
+    padding: 0px 15%;
+    background: $colorWhite;
     display: flex;
     flex-direction: row;
     align-items: center;
-    justify-content: space-around;
-    border-bottom: 1px solid $colorGrayV1;
-    box-shadow: 1px 1px 2px $colorGrayV1;
-    padding: 8px;
+    justify-content: center;
 }
 
-.titleWrapper {
-    .title {
-        font-weight: bold;
-    }
-}
+.container {
+    height: 100%;
+    margin: 0;
+    padding: 0;
 
-.actions {
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
 }
 
+.logoWrapper {
+    .title {
+        font-weight: bold;
+    }
+}
+
+.actions {
+    flex-grow: 1;
+    height: 100%;
+    margin: 0%;
+    padding: 0;
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+}
+
 .searchInput {
-    border: 1px solid $colorGrayV1;
+    flex-grow: calc(2 / 3);
     border-radius: 4px;
-    padding: 4px 8px;
+    padding: 8px 8px;
     margin: 0px 24px;
-    box-shadow: 1px 1px 4px $colorGrayV1;
+    background: $colorSurface;
 
     path {
         fill: $colorGrayV2;
@@ -36,15 +53,16 @@
 
     input {
         margin-left: 4px;
-        font-size: $fontSizeBodyText;
+        font-size: $fontSizeHeading;
     }
-} 
+}
 
 .navigation {
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: center;
+    height: 100%;
 }
 
 .navigationItem {
@@ -54,10 +72,14 @@
     align-items: center;
     justify-content: center;
     color: $colorGrayV3;
-    margin: 0 8px;
+    height: $headerHeight;
+    padding: 4px 16px;
+    border-bottom: 4px solid transparent;
 
     .icon {
-
+        width: 100%;
+        height: 28px;
+        text-align: center;
     }
 
     .title {
@@ -65,8 +87,44 @@
         text-align: center;
         font-size: $fontSizeBodyText;
     }
+
+    &:hover {
+        background: $colorSurface;
+    }
+
+    &.navigationItemActive {
+        border-bottom: 4px solid $colorGrayV2;
+    }
 }
 
-.navigationItemActive {
+.me {
+    border: none;
+    height: 100%;
+    width: auto;
+    padding: 0px 16px;
+    background: transparent;
 
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    .picture {
+        border-radius: 24px;
+        background: $colorSurface;
+        height: 28px;
+        width: 28px;
+    }
+
+    .titleWrapper {
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-around;
+
+        .title {
+            margin: 0px 8px;
+        }
+    }
 }

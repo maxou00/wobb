@@ -1,0 +1,24 @@
+@import "./variables.scss";
+
+.section {
+    padding: 8px 24px;
+
+}
+
+.colTitle {
+    text-transform: uppercase;
+    font-size: $fontSizeHeading;
+    color: $colorGrayV3;
+}
+
+.campaignTitleRow {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+
+    .title {
+        margin-left: 4px;
+        font-size: $fontSizeBodyText;
+    }
+}

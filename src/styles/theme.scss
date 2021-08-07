@@ -6,6 +6,8 @@
     --color-primary: #012FB7;
     --color-primary-dark: #080C4E;
 
+    --color-surface: #fafafa;
+    
     --color-gray-v1: #DDDDDD;
     --color-gray-v2: #848484;
     --color-gray-v3: #484848;
@@ -19,9 +21,13 @@
 
     --font-family: 'Poppins', sans-serif;
 
-    --font-size-heading: 14px;
-    --font-size-body-text: 12px;
-    --font-size-any-small: 10px;
-    --font-size-cta-button: 14px;
+    --font-size-heading: 18px;
+    --font-size-cta-button: 16px;
+    --font-size-text-primary: 16px;
+    --font-size-body-text: 14px;
+    --font-size-any-small: 12px;
 
+    --header-height: 64px;
+
+    --surface-corner-radius: 8px;
 }

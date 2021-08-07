@@ -1,0 +1,10 @@
+@import "./variables.scss";
+@import "./common-campaign.scss";
+
+
+.campaign {
+    width: 100%;
+    background: $colorSurface;
+    margin: 8px 0px;
+    border-radius: 4px;
+}

@@ -1,50 +1,57 @@
-import { InputBase, Toolbar, Typography } from "@material-ui/core";
-import { NotificationImportant, Search } from "@material-ui/icons";
+import { InputBase } from "@material-ui/core";
 import { NavLink } from "react-router-dom";
+import { __tr } from "../i18n";
+import { Routes } from "../routes";
 import styles from "../styles/TopAppBar.module.scss";
+import { IconBrowse, IconChat, IconHeart, IconMegaphone, IconSearch } from "./Icons";
+import { Logo } from "./Logo";
+import { MdPeople, MdArrowDropDown } from "react-icons/md";
 
 export function TopAppBar() {
-    return <Toolbar className={styles.toolbar}>
-        <div className={styles.titleWrapper}>
-            <Typography variant="h5" className={styles.title}>Wobb.ai</Typography>
+    return <div className={styles.toolbar}>
+        <div className={styles.logoWrapper}>
+            <Logo size={72} />
         </div>
         <div className={styles.actions}>
             <InputBase
-                placeholder="Search"
-                startAdornment={<Search fontSize="small" />}
+                placeholder={__tr("searchSomething")}
+                startAdornment={<IconSearch size={24} />}
                 className={styles.searchInput} />
             <nav className={styles.navigation}>
-                <NavLink to="/my-campaigns" className={styles.navigationItem} activeClassName={styles.navigationItemActive}>
+                <NavLink to={Routes.Discover} className={styles.navigationItem} activeClassName={styles.navigationItemActive}>
                     <div className={styles.icon}>
-                        <NotificationImportant />
+                        <IconBrowse size={24} />
                     </div>
-                    <span className={styles.title}>My Campaigns</span>
+                    <span className={styles.title}>{__tr("discover")}</span>
                 </NavLink>
-                <NavLink to="/influencers" className={styles.navigationItem} activeClassName={styles.navigationItemActive}>
+                <NavLink to={Routes.BaseCampaigns} className={styles.navigationItem} activeClassName={styles.navigationItemActive}>
                     <div className={styles.icon}>
-                        <NotificationImportant />
+                        <IconMegaphone size={24} />
                     </div>
-                    <span className={styles.title}>Browse Influencers</span>
+                    <span className={styles.title}>{__tr("myCampaigns")}</span>
                 </NavLink>
-                <NavLink to="/influencers" className={styles.navigationItem} activeClassName={styles.navigationItemActive}>
+                <NavLink to={Routes.Messages} className={styles.navigationItem} activeClassName={styles.navigationItemActive}>
                     <div className={styles.icon}>
-                        <NotificationImportant />
+                        <IconChat size={24} />
                     </div>
-                    <span className={styles.title}>Messages</span>
+                    <span className={styles.title}>{__tr("messages")}</span>
                 </NavLink>
-                <NavLink to="/notifications" className={styles.navigationItem} activeClassName={styles.navigationItemActive}>
+                <NavLink to={Routes.Notifications} className={styles.navigationItem} activeClassName={styles.navigationItemActive}>
                     <div className={styles.icon}>
-                        <NotificationImportant />
+                        <IconHeart size={24} />
                     </div>
-                    <span className={styles.title}>Notifications</span>
+                    <span className={styles.title}>{__tr("notifications")}</span>
                 </NavLink>
-                <NavLink to="/profile/me" className={styles.navigationItem} activeClassName={styles.navigationItemActive}>
-                    <div className={styles.icon}>
-                        <NotificationImportant />
+                <button className={styles.me}>
+                    <div className={styles.picture}>
+                        <MdPeople size={24} />
                     </div>
-                    <span className={styles.title}>Profile</span>
-                </NavLink>
+                    <div className={styles.titleWrapper}>
+                        <span className={styles.title}>{__tr("me")}</span>
+                        <MdArrowDropDown size={24}/>
+                    </div>
+                </button>
             </nav>
         </div>
-    </Toolbar>
+    </div>
 }

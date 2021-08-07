@@ -1,18 +1,26 @@
 
 export const CssVariables = {
+    
     colorPrimary: 'var(--color-primary)',
     colorPrimaryDark: 'var(--color-primary-dark)',
+    colorSurface: 'var(--color-surface)',
+
     colorGrayV1: 'var(--color-gray-v1)',
     colorGrayV2: 'var(--color-gray-v2)',
     colorGrayV3: 'var(--color-gray-v3)',
     colorGrayV4: 'var(--color-gray-v4)',
+
     colorWhite: 'var(--color-white)',
+
     colorSuccess: 'var(--color-success)',
     colorError: 'var(--color-error)',
     colorWarning: 'var(--color-warning)',
+
     fontFamily: 'var(--font-family)',
     fontSizeHeading: 'var(--font-size-heading)',
     fontSizeBodyText: 'var(--font-size-body-text)',
     fontSizeAnySmall: 'var(--font-size-any-small)',
     fontSizeCtaButton: 'var(--font-size-cta-button)',
+    fontSizeTextPrimary: 'var(--font-size-text-primary)',
+    surfaceCornerRadius: 'var(--surface-corner-radius)'
 }

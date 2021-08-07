@@ -1,0 +1,10 @@
+@import "./variables.scss";
+
+.page {
+    min-height: 100vh;
+    background: $colorSurface;
+}
+
+.header {
+    background: $colorWhite;
+}

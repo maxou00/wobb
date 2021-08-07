@@ -1,0 +1,7 @@
+@import "./variables.scss";
+
+.contentSurface {
+    background: $colorWhite;
+    border-radius: $surfaceCornerRadius;
+    min-height: 120px;
+}
