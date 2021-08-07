@@ -1,0 +1,43 @@
+@import  "./variables.scss";
+
+.messagingOverlay {
+    background: transparent;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: row-reverse;
+    align-items: flex-end;
+    justify-content: flex-start;
+    pointer-events: none;
+    padding: 0px 8px;
+
+    --thread-list-width: 380px;
+    --chatbox-width: 340px;
+}
+
+.threadListWrapper {
+    background: white;
+    border-top-left-radius: 16px;
+    border-top-right-radius: 16px;
+    box-shadow: 1px 1px 8px $colorGrayV2;
+    width: var(--thread-list-width);
+    height: 80vh;
+}
+
+.activeChatBoxes {
+    flex-grow: 1;
+    height: auto;
+    display: flex;
+    flex-direction: row-reverse;
+    align-items: center;
+    justify-content: flex-start;
+    //overflow: hidden;
+    padding: 0px 8px;
+    pointer-events: pass-through;
+}
+
+.chatBoxWrapper {
+    width: var(--chatbox-width);
+    height: 420px;
+    padding: 4px;
+}

@@ -1,0 +1,72 @@
+@import "./variables.scss";
+
+.toolbar{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+    border-bottom: 1px solid $colorGrayV1;
+    box-shadow: 1px 1px 2px $colorGrayV1;
+    padding: 8px;
+}
+
+.titleWrapper {
+    .title {
+        font-weight: bold;
+    }
+}
+
+.actions {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.searchInput {
+    border: 1px solid $colorGrayV1;
+    border-radius: 4px;
+    padding: 4px 8px;
+    margin: 0px 24px;
+    box-shadow: 1px 1px 4px $colorGrayV1;
+
+    path {
+        fill: $colorGrayV2;
+    }
+
+    input {
+        margin-left: 4px;
+        font-size: $fontSizeBodyText;
+    }
+} 
+
+.navigation {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+.navigationItem {
+    text-decoration: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: $colorGrayV3;
+    margin: 0 8px;
+
+    .icon {
+
+    }
+
+    .title {
+        font-weight: 500;
+        text-align: center;
+        font-size: $fontSizeBodyText;
+    }
+}
+
+.navigationItemActive {
+
+}

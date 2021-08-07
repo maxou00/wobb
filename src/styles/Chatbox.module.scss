@@ -1,0 +1,144 @@
+@import "./variables.scss";
+
+.chatbox {
+    width: 100%;
+    height: 100%;
+    box-shadow: 1px 1px 8px $colorGrayV1;
+    display: grid;
+    grid-template-columns: auto;
+    grid-template-rows: 46px auto;
+    border-radius: 8px;
+    border: 1px solid $colorGrayV1;
+    position: relative;
+
+    --min-controls-height: 46px;
+    --border-radius: 8px;
+    --scollzone-surface: #eee;
+}
+
+.header {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding: 4px 8px;
+    background: $colorWhite;
+    border-top-left-radius: var(--border-radius);
+    border-top-right-radius: var(--border-radius);
+    border-bottom: 1px solid $colorGrayV1;
+
+    .participant {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: flex-start;
+
+        .text {
+            margin-left: 4px;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            justify-content: flex-start;
+
+            .fullName {
+                font-size: $fontSizeHeading;
+                margin: 0;
+                padding: 0;
+                color: $colorGrayV4;
+                white-space: nowrap;
+                text-overflow: ellipsis;
+            }
+
+            .lastActivity {
+                font-size: $fontSizeAnySmall;
+                color: $colorGrayV2;
+                margin: 0;
+                padding: 0;
+            }
+        }
+    }
+
+    .actions {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: flex-end;
+    }
+}
+
+.scrollableZone {
+    background: var(--scollzone-surface);
+    padding-bottom: var(--min-controls-height);
+    border-bottom-left-radius: var(--border-radius);
+    border-bottom-right-radius: var(--border-radius);
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+.controlsWrapper {
+    background: $colorWhite;
+    width: 100%;
+    border-top: 1px solid $colorGrayV1;
+    min-height: var(--min-controls-height);
+    max-height: calc( 100% -  2 * var(--min-controls-height) );
+    border-bottom-left-radius: var(--border-radius);
+    border-bottom-right-radius: var(--border-radius);
+
+    position: absolute;
+    bottom: 0;
+}
+
+.controls {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.inputWrapper {
+    width: 100%;
+    padding: 4px;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: center;
+    background: transparent;
+}
+
+.input {
+    flex-grow: 1;
+    transition: all 250ms linear;
+    font-size: 12px;
+
+    * {
+        font-size: 12px !important;
+    }
+}
+
+
+.btnControls {
+    width: 100%;
+    padding: 4px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    border-top: 1px solid $colorGrayV1;
+
+    .icons {
+        flex-grow: 1;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: flex-start;
+
+        .icon {
+            margin: 0px 4px;
+
+            &:hover {
+                color: $colorPrimary;
+            }
+        }
+    }
+}

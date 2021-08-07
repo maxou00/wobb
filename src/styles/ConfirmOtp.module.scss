@@ -1,0 +1,23 @@
+@import "./Login.module.scss";
+
+.timerWrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    .timer {
+        color: $colorGrayV2;
+        padding: 8px 0px;
+    }
+}
+
+.resendBtn {
+    border: none;
+    font-weight: 600;
+    color: $colorPrimary;
+    background: transparent;
+
+    &:hover {
+        color: $colorPrimaryDark;
+    }
+}

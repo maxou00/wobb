@@ -1,0 +1,77 @@
+@import "./variables.scss";
+
+.singleLineInput {
+    margin: 8px 0px;
+
+    .label {
+        font-weight: 500;
+        font-size: $fontSizeHeading;
+        margin: 8px 0px;
+        display: block;
+    }
+
+    .inputRow {
+        border: 1px solid $colorGrayV1;
+        padding: 0px 8px;
+        border-radius: 4px;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.25s linear;
+
+        .input {
+            flex-grow: 1;
+            height: 44px;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            color: $colorPrimaryDark;
+            font-size: $fontSizeBodyText;
+        }
+    }
+
+    .hintAndErrors {
+        * {
+            font-size: $fontSizeAnySmall;
+            color: $colorGrayV2;
+            transition: all 250ms linear;
+        }
+
+        .hint {
+            
+        }
+
+        .error {
+            color: $colorError;
+        }
+    }
+
+    &:focus-within {
+        .inputRow {
+            border: 1px solid $colorPrimaryDark;
+        }
+    }
+}
+
+.otp {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+
+    .otpCase {
+        border: 1px solid $colorGrayV1;
+        margin: 0px 3px;
+        width: 36px !important;
+        height: 36px;
+        text-align: center;
+        border-radius: 2px;
+        outline: none;
+
+        &:hover,
+        &:focus {
+            border-color: $colorPrimary;
+        }
+    }
+}

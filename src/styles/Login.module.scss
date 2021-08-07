@@ -1,0 +1,112 @@
+@import "./variables.scss";
+
+.loginWrapper {
+    width: 100%;
+
+    * {
+        color: $colorGrayV4;
+    }
+}
+
+.formWrapper {
+    border: 1px solid $colorGrayV1;
+    padding: 12px 24px;
+    border-radius: 2px;
+}
+
+.form {
+
+}
+
+.subtitle {
+    font-size: $fontSizeHeading;
+    color: $colorGrayV2;
+}
+
+.passwordRecoveryLink {
+    font-weight: bold;
+    color: $colorPrimary;
+    text-decoration: none;
+    font-size: $fontSizeCtaButton;
+}
+
+
+.btnSubmit {
+    border: none;
+    background: $colorPrimary;
+    transition: all .25ms linear;
+    width: 100%;
+    height: 46px;
+
+    font-weight: bold;
+    color: $colorWhite;
+    border-radius: 4px;
+
+    &:hover {
+        background: $colorPrimaryDark;
+    }
+}
+
+
+.lined {
+    width: 80%;
+    height: 2px;
+    background: $colorGrayV1;
+    position: relative;
+
+    .text {
+        position: absolute;
+        background: $colorWhite;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%,-50%);
+        padding: 2px 24px;
+        font-size: $fontSizeBodyText;
+    }
+}
+
+.googleSignin {
+    @extend .btnSubmit;
+    background: transparent;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid $colorGrayV1;
+
+    .icon {
+        margin: 0px 8px;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .text {
+        color: $colorPrimary;
+        margin: 0px 8px;
+    }
+
+    &:hover {
+        background-color: $colorGrayV1;
+    }
+}
+
+
+.callToSignup {
+    font-size: $fontSizeBodyText;
+    margin-right: 4px;
+}
+
+.signupLink {
+    font-size: $fontSizeBodyText;
+    text-decoration: none;
+    font-weight: 600;
+    margin-left: 4px;
+}
+
+@media screen and (max-width: 480px) {
+    .formWrapper {
+        padding: 8px;
+    }
+}
