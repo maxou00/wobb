@@ -1,5 +1,5 @@
 import { css } from "@emotion/css";
-import { Box, Divider } from "@material-ui/core";
+import { Box, Divider, Typography } from "@material-ui/core";
 import { MdAttachment } from "react-icons/md";
 import { IconAttachment, IconFilter, IconFolder, IconInstagram } from "../components/Icons";
 import { CssVariables } from "../css-variables";
@@ -42,8 +42,8 @@ const styles = {
 }
 export function DeliverableDashboard() {
     return <Box>
-        <Box paddingX={2} paddingY={.5}>
-            <h4>{__tr("dashboard")}</h4>
+        <Box marginBottom={1} padding={2} display="flex" flexDirection="row" alignItems="center" justifyContent="flex-start">
+            <Typography variant="h6" style={{textTransform: 'uppercase'}}>{__tr("dashboard")}</Typography>
         </Box>
         <Divider />
         <Box padding={4}>
@@ -51,7 +51,7 @@ export function DeliverableDashboard() {
                 <span className={styles.counter}>367</span>
                 <div className={styles.details}>
                     <span className={styles.icon}>
-                        <IconFolder size={24}/>
+                        <IconFolder size={24} />
                     </span>
                     <span className={styles.title}>{__tr("deliverables")}</span>
                 </div>
@@ -60,7 +60,7 @@ export function DeliverableDashboard() {
                 <span className={styles.counter}>15</span>
                 <div className={styles.details}>
                     <span className={styles.icon}>
-                        <IconAttachment size={24}/>
+                        <IconAttachment size={24} />
                     </span>
                     <span className={styles.title}>{__tr("contentApproved")}</span>
                 </div>
@@ -69,7 +69,7 @@ export function DeliverableDashboard() {
                 <span className={styles.counter}>15</span>
                 <div className={styles.details}>
                     <span className={styles.icon}>
-                        <IconInstagram size={24}/>
+                        <IconInstagram size={24} />
                     </span>
                     <span className={styles.title}>{__tr("postComplete")}</span>
                 </div>

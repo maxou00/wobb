@@ -1,5 +1,6 @@
 import { Box, Button, Divider, InputAdornment, MenuItem, TextField, Typography } from "@material-ui/core";
 import { useCallback, useState } from "react";
+import { IconFilter } from "../components/Icons";
 import { InvertedSlider } from "../components/InvertedSlider";
 import { TextTransformNoneButton } from "../components/TextTransformNoneButton";
 import { __tr } from "../i18n";
@@ -94,8 +95,13 @@ export function ApplicantsFilter() {
 
 
     return <Box>
-        <Box padding={2} display="flex" flexDirection="row" alignItems="center" justifyContent="space-between">
-            <Typography variant="h6">{__tr("filter")}</Typography>
+        <Box marginBottom={1} padding={2} display="flex" flexDirection="row" alignItems="center" justifyContent="space-between">
+            <Box marginRight={1} display="flex" flexDirection="row" alignItems="center" justifyContent="flex-start">
+                <Box marginRight={1}>
+                    <IconFilter size={24} />
+                </Box>
+                <Typography variant="h6" style={{textTransform: 'uppercase'}}>{__tr("filter")}</Typography>
+            </Box>
             <TextTransformNoneButton size="small" variant="text" color="primary">{__tr("clearAll")}</TextTransformNoneButton>
         </Box>
         <Divider />
@@ -146,13 +152,13 @@ export function ApplicantsFilter() {
                 <Box marginBottom={1}>
                     <Typography variant="body2">{__tr("engagementRate")}</Typography>
                 </Box>
-                    <InvertedSlider
-                        min={1}
-                        max={5}
-                        maxTitle="5+%"
-                        minTitle="1%"
-                        value={filter.engagementRate}
-                        onChange={onEngagementRateChange} />
+                <InvertedSlider
+                    min={1}
+                    max={5}
+                    maxTitle="5+%"
+                    minTitle="1%"
+                    value={filter.engagementRate}
+                    onChange={onEngagementRateChange} />
             </Box>
             <Box marginY={4}>
                 <Box marginBottom={1}>

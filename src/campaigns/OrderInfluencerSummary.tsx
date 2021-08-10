@@ -1,5 +1,5 @@
 import { css } from "@emotion/css";
-import { Box, Button, Divider, withStyles } from "@material-ui/core";
+import { Box, Button, Divider, Typography, withStyles } from "@material-ui/core";
 import { IconCart } from "../components/Icons";
 import { TextTransformNoneButton } from "../components/TextTransformNoneButton";
 import { CssVariables } from "../css-variables";
@@ -36,11 +36,13 @@ const styles = {
 }
 export function OrderInfluencerSummary() {
     return <Box>
-        <Box paddingX={2} paddingY={.5}>
-            <Box marginRight={1}>
-                <IconCart size={24} />
+        <Box marginBottom={1} padding={2} display="flex" flexDirection="row" alignItems="center" justifyContent="space-between">
+            <Box display="flex" flexDirection="row" alignItems="center" justifyContent="flex-start">
+                <Box marginRight={1}>
+                    <IconCart size={24} />
+                </Box>
+                <Typography variant="h6" style={{ textTransform: 'uppercase' }}>{__tr("orderSummary")}</Typography>
             </Box>
-            <h4>{__tr("orderSummary")}</h4>
         </Box>
         <Divider />
         <Box padding={4}>
