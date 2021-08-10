@@ -1,5 +1,5 @@
 import { Box, Container, Grid } from "@material-ui/core";
-import { useRouteMatch } from "react-router";
+import { useLocation } from "react-router";
 import { AppMetadata } from "../components/AppMetadata";
 import { BoxNewCampaign } from "./BoxNewCampaign";
 import { BoxRecommendedCampaigns } from "./BoxRecommendedCampaigns";
@@ -11,10 +11,13 @@ import { MainCarousel } from "./MainCarousel";
 import styles from "../styles/MyCampaigns.module.scss";
 import { useState } from "react";
 import { CampaignFilters } from "../core";
+import qs from "querystring";
+import { useMemo } from "react";
 
 export function MyCampaigns() {
     const [filter, setActiveFilter] = useState(CampaignFilters[0]);
-    const status = (useRouteMatch().params as any).status as string;
+    const location = useLocation()
+    const status = useMemo(() => qs.parse(location.search.replace("?", "")).filter || "applied", [location]);    
 
     return <Grid container spacing={2}>
         <Grid item xs={12}>

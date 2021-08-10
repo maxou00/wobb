@@ -6,8 +6,18 @@ export const Routes = {
     Discover: "/app/discover",
     BaseCampaigns: "/app/campaigns",
     MyCampaigns:  "/app/campaigns/:status",
-    campaigns(status: "applied" | "posted") {
-        return `${this.BaseCampaigns}/${status}`;
+    campaigns(status: string) {
+        return `${this.BaseCampaigns}?filter=${status}`;
+    },
+
+    BaseViewCampaigns: "/app/campaigns/view",
+
+    viewCampaign(id: string) {
+        return `${this.BaseViewCampaigns}/${id}`
+    },
+
+    viewCampaignApplicants(campaign: string, filter: string = '') {
+        return `${this.viewCampaign(campaign)}/applicants${filter ? `?filter=${filter}` : ''}`
     },
 
     PostedCampaigns: "/app/campaigns/posted",

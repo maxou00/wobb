@@ -14,9 +14,10 @@
     font-weight: 600;
     text-decoration: none;
     color: $colorGrayV2;
-    font-size: $fontSizeHeading;
+    font-size: $fontSizeTextPrimary;
     border-bottom: 4px solid $colorGrayV1;
     transition: all .3s linear;
+    cursor: pointer;
 }
 
 .activeCampaignTab {

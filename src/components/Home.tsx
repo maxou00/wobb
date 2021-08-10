@@ -1,28 +1,25 @@
 import { TopAppBar } from "./TopAppBar";
-import { UserPool } from "../core/constants";
-import { useMemo } from "react";
 import styles from "../styles/Home.module.scss";
 import { Box, Container } from "@material-ui/core";
 import { MyCampaigns } from "../campaigns/MyCampaigns";
 import { Redirect, Route, Switch } from "react-router";
 import { Routes } from "../routes";
+import { ViewCampaign } from "../campaigns/ViewCampaign";
 
 export function Home() {
-    const user = useMemo(() => UserPool.getCurrentUser(), []);
-
     return <div className={styles.page}>
         <div className={styles.header}>
             <TopAppBar />
         </div>
         <Box padding={1} className={styles.main}>
             <Switch>
-                <Route path={Routes.MyCampaigns}>
+                <Route path={Routes.viewCampaign(":id")}>
+                    <ViewCampaign />
+                </Route>
+                <Route path={Routes.BaseCampaigns} exact>
                     <Container>
                         <MyCampaigns />
                     </Container>
-                </Route>
-                <Route path={Routes.BaseCampaigns} exact>
-                    <Redirect to={Routes.campaigns("posted")} />
                 </Route>
                 <Route path={Routes.Home} exact>
                     <Redirect to={Routes.campaigns("applied")} />
