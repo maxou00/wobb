@@ -1,7 +1,6 @@
 import { css } from "@emotion/css";
 import { Box, Button, Checkbox, IconButton, Table, TableBody, TableCell, TableHead, TableRow, TableSortLabel, withStyles } from "@material-ui/core";
 import { Delete } from "@material-ui/icons";
-import { Timeline, TimelineItem, TimelineConnector, TimelineSeparator, TimelineContent, TimelineDot } from "@material-ui/lab";
 import { CSSProperties } from "react";
 import { MdArrowDropDown } from "react-icons/md";
 import { DeliverableLine } from "../components/DeliverableLine";

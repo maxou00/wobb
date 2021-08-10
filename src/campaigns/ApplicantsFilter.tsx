@@ -1,4 +1,4 @@
-import { Box, Button, Divider, InputAdornment, MenuItem, TextField, Typography } from "@material-ui/core";
+import { Box, Divider, InputAdornment, MenuItem, TextField, Typography } from "@material-ui/core";
 import { useCallback, useState } from "react";
 import { IconFilter } from "../components/Icons";
 import { InvertedSlider } from "../components/InvertedSlider";

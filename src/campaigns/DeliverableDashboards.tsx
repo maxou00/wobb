@@ -1,7 +1,6 @@
 import { css } from "@emotion/css";
 import { Box, Divider, Typography } from "@material-ui/core";
-import { MdAttachment } from "react-icons/md";
-import { IconAttachment, IconFilter, IconFolder, IconInstagram } from "../components/Icons";
+import { IconAttachment, IconFolder, IconInstagram } from "../components/Icons";
 import { CssVariables } from "../css-variables";
 import { __tr } from "../i18n";
 
