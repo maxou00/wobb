@@ -1,5 +1,7 @@
 import { css } from "@emotion/css";
 import { Box, Divider } from "@material-ui/core";
+import { MdAttachment } from "react-icons/md";
+import { IconAttachment, IconFilter, IconFolder, IconInstagram } from "../components/Icons";
 import { CssVariables } from "../css-variables";
 import { __tr } from "../i18n";
 
@@ -27,7 +29,6 @@ const styles = {
     `,
 
     icon: css`
-        background: red;
         width: 24px;
         height: 24px;
         display: block;
@@ -49,21 +50,27 @@ export function DeliverableDashboard() {
             <div className={styles.resume}>
                 <span className={styles.counter}>367</span>
                 <div className={styles.details}>
-                    <span className={styles.icon}></span>
+                    <span className={styles.icon}>
+                        <IconFolder size={24}/>
+                    </span>
                     <span className={styles.title}>{__tr("deliverables")}</span>
                 </div>
             </div>
             <div className={styles.resume}>
                 <span className={styles.counter}>15</span>
                 <div className={styles.details}>
-                    <span className={styles.icon}></span>
+                    <span className={styles.icon}>
+                        <IconAttachment size={24}/>
+                    </span>
                     <span className={styles.title}>{__tr("contentApproved")}</span>
                 </div>
             </div>
             <div className={styles.resume}>
                 <span className={styles.counter}>15</span>
                 <div className={styles.details}>
-                    <span className={styles.icon}></span>
+                    <span className={styles.icon}>
+                        <IconInstagram size={24}/>
+                    </span>
                     <span className={styles.title}>{__tr("postComplete")}</span>
                 </div>
             </div>

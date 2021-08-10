@@ -1,8 +1,10 @@
 import { css } from "@emotion/css";
 import { Box, Button, Checkbox, IconButton, Table, TableBody, TableCell, TableHead, TableRow, TableSortLabel, withStyles } from "@material-ui/core";
 import { Delete } from "@material-ui/icons";
+import { Timeline, TimelineItem, TimelineConnector, TimelineSeparator, TimelineContent, TimelineDot } from "@material-ui/lab";
 import { CSSProperties } from "react";
 import { MdArrowDropDown } from "react-icons/md";
+import { DeliverableLine } from "../components/DeliverableLine";
 import { TextTransformNoneButton } from "../components/TextTransformNoneButton";
 import { CssVariables } from "../css-variables";
 import { __tr } from "../i18n";
@@ -42,12 +44,51 @@ const actionsStyles = {
     `
 }
 
-const tableStyles: {[key: string]: CSSProperties}  = {
+const tableStyles: { [key: string]: CSSProperties } = {
     th: {
         background: 'white',
         fontSize: CssVariables.fontSizeTextPrimary,
         textTransform: 'uppercase'
-    }
+    },
+}
+
+const customStyles = {
+    cellDeliverables: css`
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    `,
+    deliverableWrapper: css`
+        width: auto;
+        margin-bottom: 4px;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: flex-end;
+    `,
+    title: css`
+        color: ${CssVariables.colorGrayV3};
+        width: 120px;
+        text-overflow: ellipsis;
+    `,
+    deliverable: css`
+        width: 100px;
+        height: 50px;
+        padding: 8px;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+    `,
+    sizedCell: css`
+        min-height: 100px;
+        display: flex;
+        flex-direction: column;
+        align-items:center;
+        justify-content: space-around;
+    `,
+    date: css``,
 }
 
 function ApplicantTableHeader(props: { filter: string }) {
@@ -113,16 +154,27 @@ function ApplicantRow(props: { filter: string }) {
                 <ApplicantItem />
             </TableCell>
             <TableCell>
-                <p>Deliverables goes here</p>
-                <p>Deliverables goes here</p>
+                <ApplicantDeliverables />
             </TableCell>
             <TableCell>
-                <p>Post date here for each delv.</p>
-                <p>Post date here for each delv.</p>
+                <Box display="flex" flexDirection="column" alignItems="center" justifyContent="center">
+                    <Box height={50} display="flex" flexDirection="column" alignItems="center" justifyContent="center">
+                        <span>Today</span>
+                    </Box>
+                    <Box height={50} display="flex" flexDirection="column" alignItems="center" justifyContent="center">
+                        <span>Yesterday</span>
+                    </Box>
+                </Box>
             </TableCell>
             <TableCell>
-                <p>View Post</p>
-                <p>View Story</p>
+                <Box display="flex" flexDirection="column" alignItems="center" justifyContent="center">
+                    <Box height={50} display="flex" flexDirection="column" alignItems="center" justifyContent="center">
+                        <span>View Post</span>
+                    </Box>
+                    <Box height={50} display="flex" flexDirection="column" alignItems="center" justifyContent="center">
+                        <span>Completed</span>
+                    </Box>
+                </Box>
             </TableCell>
         </TableRow>
     }
@@ -140,6 +192,23 @@ function ApplicantRow(props: { filter: string }) {
             <ApplicableActions filter={props.filter} />
         </TableCell>
     </TableRow>
+}
+
+function ApplicantDeliverables() {
+    return <div className={customStyles.cellDeliverables}>
+        <div className={customStyles.deliverableWrapper}>
+            <span className={customStyles.title}>1.Reel</span>
+            <div className={customStyles.deliverable}>
+                <DeliverableLine size="100%" />
+            </div>
+        </div>
+        <div className={customStyles.deliverableWrapper}>
+            <span className={customStyles.title}>2. Static Story</span>
+            <div className={customStyles.deliverable}>
+                <DeliverableLine size="100%" />
+            </div>
+        </div>
+    </div>
 }
 
 export function ApplicableActions(props: { filter: string }) {

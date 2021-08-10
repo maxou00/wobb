@@ -1,5 +1,6 @@
 import { css } from "@emotion/css";
 import { Box, Button, Divider, withStyles } from "@material-ui/core";
+import { IconCart } from "../components/Icons";
 import { TextTransformNoneButton } from "../components/TextTransformNoneButton";
 import { CssVariables } from "../css-variables";
 import { __tr } from "../i18n";
@@ -36,6 +37,9 @@ const styles = {
 export function OrderInfluencerSummary() {
     return <Box>
         <Box paddingX={2} paddingY={.5}>
+            <Box marginRight={1}>
+                <IconCart size={24} />
+            </Box>
             <h4>{__tr("orderSummary")}</h4>
         </Box>
         <Divider />
