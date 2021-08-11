@@ -4,6 +4,9 @@ export const Routes = {
     Base: '/',
     Home: '/app',
     Discover: "/app/discover",
+    discoverWithFilter(filter: string) {
+        return this.Discover+"?filter="+filter;
+    },
     BaseCampaigns: "/app/campaigns",
     MyCampaigns:  "/app/campaigns/:status",
     campaigns(status: string) {

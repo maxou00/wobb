@@ -3,7 +3,7 @@ import { ApplicantsFilter } from "./ApplicantsFilter";
 import styles from "../styles/MyCampaigns.module.scss";
 import { AppMetadata } from "../components/AppMetadata";
 import { ApplicantsTable } from "./ApplicantsTable";
-import { useUrlParam } from "./hooks";
+import { useUrlQuery } from "./hooks";
 import { __tr } from "../i18n";
 import { TextTransformNoneButton } from "../components/TextTransformNoneButton";
 import { CssVariables } from "../css-variables";
@@ -22,7 +22,7 @@ const WhiteButton = withStyles({
 })(TextTransformNoneButton);
 
 export function Applicants() {
-    const filter = useUrlParam("filter", "applied");
+    const filter = useUrlQuery("filter", "applied");
 
     return <Grid container spacing={2}>
         <Grid item xs={12}>

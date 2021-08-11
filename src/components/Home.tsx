@@ -5,6 +5,7 @@ import { MyCampaigns } from "../campaigns/MyCampaigns";
 import { Redirect, Route, Switch } from "react-router";
 import { Routes } from "../routes";
 import { ViewCampaign } from "../campaigns/ViewCampaign";
+import { DiscoverScreen } from "../discover";
 
 export function Home() {
     return <div className={styles.page}>
@@ -13,6 +14,9 @@ export function Home() {
         </div>
         <Box padding={1} className={styles.main}>
             <Switch>
+                <Route path={Routes.Discover}>
+                    <DiscoverScreen />
+                </Route>
                 <Route path={Routes.viewCampaign(":id")}>
                     <ViewCampaign />
                 </Route>

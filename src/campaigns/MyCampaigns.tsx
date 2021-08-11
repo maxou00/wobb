@@ -17,16 +17,18 @@ import { useMemo } from "react";
 export function MyCampaigns() {
     const [filter, setActiveFilter] = useState(CampaignFilters[0]);
     const location = useLocation()
-    const status = useMemo(() => qs.parse(location.search.replace("?", "")).filter || "applied", [location]);    
+    const status = useMemo(() => qs.parse(location.search.replace("?", "")).filter || "applied", [location]);
 
     return <Grid container spacing={2}>
         <Grid item xs={12}>
             <Container>
-                <MainCarousel />
+                <Box paddingTop={4} paddingBottom={2}>
+                    <MainCarousel />
+                </Box>
             </Container>
         </Grid>
         <Grid item xs={12}>
-            <Box paddingY={4}>
+            <Box paddingY={2}>
                 <Container>
                     <CampaignTabs />
                 </Container>
