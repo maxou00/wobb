@@ -14,7 +14,7 @@ export function Campaigns() {
             <CampaignList />
         </Grid>
         <Grid item xs={4}>
-            <Paper elevation={0}>
+            <Paper elevation={1}>
                 <CampaignFilter />
             </Paper>
         </Grid>

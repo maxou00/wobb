@@ -1,4 +1,5 @@
 import { css } from "@emotion/css"
+import { Paper } from "@material-ui/core"
 import { MdLink } from "react-icons/md"
 import { Link } from "react-router-dom"
 import { IconCash, IconCoins, IconPlatform } from "../components/Icons"
@@ -80,68 +81,70 @@ const styles = {
 }
 
 export function CampaignRow() {
-    return <div className={styles.wrapper}>
-        <table className={styles.table}>
-            <tbody>
-                <tr>
-                    <td rowSpan={2} align="center" className={styles.cell}>
-                        <div className={styles.img}></div>
-                    </td>
-                    <td className={styles.cell}>
-                        <span className={styles.campaignTitle}>Earn with Wobb</span>
-                    </td>
-                    <td className={styles.cell}>
-                        <div className={styles.contentHeaderCell}>
-                            <span className={styles.contentIcon}>
-                                <IconPlatform size={16} />
-                            </span>
-                            <span className={styles.contentKey}>
-                                {__tr("platform")}
-                            </span>
-                        </div>
-                    </td>
-                    <td className={styles.cell}>
-                        <div className={styles.contentHeaderCell}>
-                            <span className={styles.contentIcon}>
-                                <IconCash size={16} />
-                            </span>
-                            <span className={styles.contentKey}>{__tr("cash")}</span>
-                        </div>
-                    </td>
-                    <td className={styles.cell}>
-                        <div className={styles.contentHeaderCell}>
-                            <span className={styles.contentIcon}>
-                                <IconCoins size={16} />
-                            </span>
-                            <span className={styles.contentKey}>{__tr("coins")}</span>
-                        </div>
-                    </td>
-                    <td className={styles.cell}></td>
-                </tr>
-                <tr>
-                    <td className={styles.cell} >
-                        <Link to="/" className={styles.campaignLink}>
-                            <span className="url">Wobb.ai</span>
-                            <span className="icon">
-                                <MdLink size={16} />
-                            </span>
-                        </Link>
-                    </td>
-                    <td className={styles.cell}>
-                        <span className={styles.contentValue}>Youtube</span>
-                    </td>
-                    <td className={styles.cell}>
-                        <span className={styles.contentValue}>Rs5000</span>
-                    </td>
-                    <td className={styles.cell}>
-                        <span className={styles.contentValue}>1000</span>
-                    </td>
-                    <td className={styles.cell} align="center">
-                        <Link to="/" className={styles.campaignActionLink}>{__tr("viewDetails")}</Link>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-        <span className={styles.badge}>active</span>
-    </div>
+    return <Paper elevation={1}>
+        <div className={styles.wrapper}>
+            <table className={styles.table}>
+                <tbody>
+                    <tr>
+                        <td rowSpan={2} align="center" className={styles.cell}>
+                            <div className={styles.img}></div>
+                        </td>
+                        <td className={styles.cell}>
+                            <span className={styles.campaignTitle}>Earn with Wobb</span>
+                        </td>
+                        <td className={styles.cell}>
+                            <div className={styles.contentHeaderCell}>
+                                <span className={styles.contentIcon}>
+                                    <IconPlatform size={16} />
+                                </span>
+                                <span className={styles.contentKey}>
+                                    {__tr("platform")}
+                                </span>
+                            </div>
+                        </td>
+                        <td className={styles.cell}>
+                            <div className={styles.contentHeaderCell}>
+                                <span className={styles.contentIcon}>
+                                    <IconCash size={16} />
+                                </span>
+                                <span className={styles.contentKey}>{__tr("cash")}</span>
+                            </div>
+                        </td>
+                        <td className={styles.cell}>
+                            <div className={styles.contentHeaderCell}>
+                                <span className={styles.contentIcon}>
+                                    <IconCoins size={16} />
+                                </span>
+                                <span className={styles.contentKey}>{__tr("coins")}</span>
+                            </div>
+                        </td>
+                        <td className={styles.cell}></td>
+                    </tr>
+                    <tr>
+                        <td className={styles.cell} >
+                            <Link to="/" className={styles.campaignLink}>
+                                <span className="url">Wobb.ai</span>
+                                <span className="icon">
+                                    <MdLink size={16} />
+                                </span>
+                            </Link>
+                        </td>
+                        <td className={styles.cell}>
+                            <span className={styles.contentValue}>Youtube</span>
+                        </td>
+                        <td className={styles.cell}>
+                            <span className={styles.contentValue}>Rs5000</span>
+                        </td>
+                        <td className={styles.cell}>
+                            <span className={styles.contentValue}>1000</span>
+                        </td>
+                        <td className={styles.cell} align="center">
+                            <Link to="/" className={styles.campaignActionLink}>{__tr("viewDetails")}</Link>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <span className={styles.badge}>active</span>
+        </div>
+    </Paper>
 }

@@ -15,7 +15,7 @@ export function Influencers() {
             <InfluencerList />
         </Grid>
         <Grid item xs={4}>
-            <Paper elevation={0}>
+            <Paper elevation={1}>
                 <InfluencerFilter />
             </Paper>
         </Grid>

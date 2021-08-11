@@ -1,8 +1,6 @@
 import { css } from "@emotion/css"
+import { Paper } from "@material-ui/core"
 import { yellow } from "@material-ui/core/colors"
-import { MdLink } from "react-icons/md"
-import { Link } from "react-router-dom"
-import { IconCash, IconCoins, IconPlatform } from "../components/Icons"
 import { TextTransformNoneButton } from "../components/TextTransformNoneButton"
 import { CssVariables } from "../css-variables"
 import { __tr } from "../i18n"
@@ -83,49 +81,51 @@ const styles = {
 }
 
 export function InfluencerRow() {
-    return <div className={styles.wrapper}>
-        <table className={styles.table}>
-            <tbody>
-                <tr>
-                    <td rowSpan={2} align="center" className={styles.cell}>
-                        <div className={styles.img}></div>
-                    </td>
-                    <td className={styles.cell}>
-                        <span className={styles.influencerName}>Earn with Wobb</span>
-                    </td>
-                    <td className={styles.cell}>
-                        <div className={styles.contentHeaderCell}>
-                            <span className={styles.contentKey}>
-                                {__tr("followers")}
-                            </span>
-                        </div>
-                    </td>
-                    <td className={styles.cell}>
-                        <div className={styles.contentHeaderCell}>
-                            <span className={styles.contentKey}>{__tr("engagementRate")}</span>
-                        </div>
-                    </td>
-                    <td className={styles.cell}></td>
-                    <td className={styles.cell} rowSpan={2} align="center">
-                        <TextTransformNoneButton color="primary" variant="text" className={styles.influencerActionLink}>{__tr("message")}</TextTransformNoneButton>
-                    </td>
-                </tr>
-                <tr>
-                    <td className={styles.cell} >
-                        <div className={styles.rating}>
-                            <span className={styles.averageStar}>4.0</span>
-                            <span className={styles.star}>★</span>
-                            <span className={styles.ratingCount}>(23)</span>
-                        </div>
-                    </td>
-                    <td className={styles.cell}>
-                        <span className={styles.contentValue}>218K</span>
-                    </td>
-                    <td className={styles.cell}>
-                        <span className={styles.contentValue}>4.5%</span>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
+    return <Paper elevation={1}>
+        <div className={styles.wrapper}>
+            <table className={styles.table}>
+                <tbody>
+                    <tr>
+                        <td rowSpan={2} align="center" className={styles.cell}>
+                            <div className={styles.img}></div>
+                        </td>
+                        <td className={styles.cell}>
+                            <span className={styles.influencerName}>Earn with Wobb</span>
+                        </td>
+                        <td className={styles.cell}>
+                            <div className={styles.contentHeaderCell}>
+                                <span className={styles.contentKey}>
+                                    {__tr("followers")}
+                                </span>
+                            </div>
+                        </td>
+                        <td className={styles.cell}>
+                            <div className={styles.contentHeaderCell}>
+                                <span className={styles.contentKey}>{__tr("engagementRate")}</span>
+                            </div>
+                        </td>
+                        <td className={styles.cell}></td>
+                        <td className={styles.cell} rowSpan={2} align="center">
+                            <TextTransformNoneButton color="primary" variant="text" className={styles.influencerActionLink}>{__tr("message")}</TextTransformNoneButton>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td className={styles.cell} >
+                            <div className={styles.rating}>
+                                <span className={styles.averageStar}>4.0</span>
+                                <span className={styles.star}>★</span>
+                                <span className={styles.ratingCount}>(23)</span>
+                            </div>
+                        </td>
+                        <td className={styles.cell}>
+                            <span className={styles.contentValue}>218K</span>
+                        </td>
+                        <td className={styles.cell}>
+                            <span className={styles.contentValue}>4.5%</span>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </Paper>
 }

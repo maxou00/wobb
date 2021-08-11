@@ -7,6 +7,8 @@ import { AuthLayout } from './auth/AuthLayout';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import './styles/App.scss';
+import shadows from "@material-ui/core/styles/shadows";
+import { CssVariables } from "./css-variables";
 
 const appTheme = createTheme({
   palette: {
@@ -19,6 +21,8 @@ const appTheme = createTheme({
     fontFamily: 'Poppins',
   }
 })
+
+appTheme.shadows[1] = `1px 1px 4px ${CssVariables.colorGrayV1}`
 
 function App() {
   return (
