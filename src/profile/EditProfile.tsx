@@ -2,7 +2,6 @@ import { Box, Grid, Paper, Tab, Tabs, Typography, withStyles } from "@material-u
 import { useState } from "react";
 import { CssVariables } from "../css-variables";
 import { __tr } from "../i18n";
-import { EditAddress } from "./EditAddress";
 import { EditPassword } from "./EditPassword";
 import { EditPersonal } from "./EditPersonal";
 
@@ -44,7 +43,6 @@ export function EditProfile() {
                         orientation="vertical"
                         onChange={(ev, val) => setActiveTab(val)}>
                         <StyledTab label={__tr("personalInformation")} />
-                        <StyledTab label={__tr("address")} />
                         <StyledTab label={__tr("changePassword")} />
                     </StyledTabs>
                 </Box>
@@ -56,9 +54,6 @@ export function EditProfile() {
                     <EditPersonal />
                 </Box>}
                 {activeTab === 1 && <Box padding={4}>
-                    <EditAddress />
-                </Box>}
-                {activeTab === 2 && <Box padding={4}>
                     <EditPassword />
                 </Box>}
             </Paper>
