@@ -1,4 +1,4 @@
-import { Drawer, Hidden, IconButton, InputBase } from "@material-ui/core";
+import { Drawer, Hidden, IconButton, InputBase, Popover } from "@material-ui/core";
 import { NavLink } from "react-router-dom";
 import { __tr } from "../i18n";
 import { Routes } from "../routes";
@@ -7,9 +7,11 @@ import { IconBrowse, IconChat, IconHeart, IconMegaphone, IconSearch } from "./Ic
 import { Logo } from "./Logo";
 import { MdPeople, MdArrowDropDown, MdMenu } from "react-icons/md";
 import { useState } from "react";
+import { ProfileNavigationCard } from "../profile/ProfileNavigationCard";
 
 export function TopAppBar() {
     const [drawerOpen, setDrawerOpen] = useState(false);
+    const [profileNavigationAnchor, setProfileNavigationAnchor] = useState<HTMLButtonElement>();
 
     return <div className={styles.toolbar}>
         <div className={styles.logoWrapper}>
@@ -51,7 +53,7 @@ export function TopAppBar() {
                         </div>
                         <span className={styles.title}>{__tr("notifications")}</span>
                     </NavLink>
-                    <button className={styles.me}>
+                    <button className={styles.me} onClick={(ev) => setProfileNavigationAnchor(ev.currentTarget)}>
                         <div className={styles.picture}>
                             <MdPeople size={24} />
                         </div>
@@ -60,6 +62,9 @@ export function TopAppBar() {
                             <MdArrowDropDown size={24} />
                         </div>
                     </button>
+                    <Popover elevation={2} anchorOrigin={{vertical:"bottom", horizontal: "left"}} open={Boolean(profileNavigationAnchor)} anchorEl={profileNavigationAnchor} onClose={() => setProfileNavigationAnchor(undefined)}>
+                        <ProfileNavigationCard/>
+                    </Popover>
                 </nav>
             </Hidden>
         </div>

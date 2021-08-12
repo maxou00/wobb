@@ -1,7 +1,7 @@
 import { Box, Drawer, IconButton } from "@material-ui/core";
 import { useCallback } from "react";
 import { useState } from "react";
-import { ProfileDrawer } from "../profile";
+import { ProfileDrawer } from "../profile/ProfileDrawer";
 import { InfluencerRow } from "./InfluencerRow";
 import { css } from "@emotion/css";
 import { MdClose } from "react-icons/md";
@@ -38,9 +38,11 @@ export function InfluencerList() {
 
         <Drawer anchor="right" open={profileDrawerOpen} onClose={onExitProfileDrawer}>
             <Box className={drawerStyles}>
-                <IconButton>
-                    <MdClose size={18} />
-                </IconButton>
+                <Box margin={1}>
+                    <IconButton onClick={onExitProfileDrawer}>
+                        <MdClose size={18} />
+                    </IconButton>
+                </Box>
                 <ProfileDrawer />
             </Box>
         </Drawer>

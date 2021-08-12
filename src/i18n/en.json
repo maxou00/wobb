@@ -1,6 +1,7 @@
 {
     "about": "About",
     "active": "Active",
+    "addAccount": "Add account",
     "addOrUpdateBrief": "Add/Update Brief",
     "age": "Age",
     "all": "All",
@@ -36,6 +37,7 @@
     "deliverables": "Deliverables",
     "discover": "Discover",
     "draft": "Draft",
+    "editProfile": "Edit Profile",
     "engagement": "Engagement",
     "engagementRate": "Engagement Rate",
     "errorInvalidEmailOrPhone": "Enter a valid email or your phone number with country dial code",
@@ -122,6 +124,7 @@
     "underReview": "Under Review",
     "verifyEmailOrPhone": "Verify Phone Number or Email ID",
     "viewDetails": "View Details",
+    "viewProfile": "View Profile",
     "welcomeToWobb": "Welcome to Wobb !",
     "wantToPayOffline": "Want to pay offline ?",
     "wobbCoins": "Wobb Coins"

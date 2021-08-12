@@ -1,0 +1,89 @@
+@import "./variables.scss";
+
+.titledContent {
+    margin: 8px 0px;
+    display: grid;
+    grid-template-columns: 32px auto;
+    grid-template-rows: 32px auto;
+    margin: 16px 8px;
+    row-gap: 2px;
+    column-gap: 4px;
+
+    .iconWrapper {
+        grid-area: 1 / 1 / span 1 / span 1;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: flex-start;
+    }
+
+    .icon {
+        width: auto;
+        height: auto;
+    }
+
+    .title {
+        grid-area: 1 / 2 / span 1 / span 1;
+        font-weight: 200;
+        font-size: $fontSizeBodyText;
+    }
+
+    .content {
+        grid-area: 2 / 1 / span 1 / span 2;
+        font-weight: 500;
+        font-size: $fontSizeBodyText;
+    }
+
+}
+
+.titledRow {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.squareChip {
+    background: $colorPrimarySurface;
+    font-size: $fontSizeAnySmall;
+    border-radius: 4px;
+    padding: 4px 8px;
+    margin: 4px;
+    display: block;
+    font-weight: 200;
+    cursor: pointer;
+
+    &:hover {
+        background: $colorPrimary;
+        color: white;
+    }
+}
+
+.titledSection {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    margin: 8px 0px;
+
+    .header {
+        height: 46px;
+        color: $colorGrayV2;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: flex-start;
+    }
+
+    .title {
+
+    }
+
+    .content {
+        height: auto;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+    }
+}

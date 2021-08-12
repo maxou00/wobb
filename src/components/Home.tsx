@@ -6,6 +6,7 @@ import { Redirect, Route, Switch } from "react-router";
 import { Routes } from "../routes";
 import { ViewCampaign } from "../campaigns/ViewCampaign";
 import { DiscoverScreen } from "../discover";
+import { ProfileScreen } from "../profile/ProfileScreen";
 
 export function Home() {
     return <div className={styles.page}>
@@ -24,6 +25,12 @@ export function Home() {
                     <Container>
                         <MyCampaigns />
                     </Container>
+                </Route>
+                <Route path={Routes.Discover}>
+                    <DiscoverScreen />
+                </Route>
+                <Route path={Routes.MyProfile}>
+                    <ProfileScreen />
                 </Route>
                 <Route path={Routes.Home} exact>
                     <Redirect to={Routes.campaigns("applied")} />

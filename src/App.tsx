@@ -21,7 +21,8 @@ const appTheme = createTheme({
   }
 })
 
-appTheme.shadows[1] = `1px 1px 2px ${CssVariables.colorGrayV1}`
+appTheme.shadows[1] = `1px 1px 2px ${CssVariables.colorGrayV1}`;
+appTheme.shadows[2] = `1px 1px 4px ${CssVariables.colorGrayV1}`
 
 function App() {
   return (
