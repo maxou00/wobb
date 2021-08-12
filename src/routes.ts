@@ -27,6 +27,7 @@ export const Routes = {
     Messages: "/app/threads",
     Notifications: "/app/notifications",
     MyProfile: "/app/profile",
+    EditProfile: "/app/profile/edit",
     MyEarnings:"/app/earnings",
     MyOrders: "/app/orders",
     Affiliate: "/app/affiliate",
