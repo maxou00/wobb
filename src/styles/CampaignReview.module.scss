@@ -1,0 +1,71 @@
+@import "./variables.scss";
+
+.review {
+    padding: 4px 8px;
+    margin: 4px 0px;
+    border-radius: 4px;
+
+    display: grid;
+    grid-template-columns: 64px auto;
+}
+
+.image {
+    width: 56px;
+    height: 56px;
+    border-radius: 32px;
+    background: $colorGrayV1;
+    padding: 0px 8px;
+}
+
+.content {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    padding: 0px 8px;
+    border-radius: 4px;
+
+    .title {
+        font-weight: 500;
+    }
+}
+
+.pictures {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: flex-start;
+
+    .picture {
+        background: $colorGrayV1;
+        width: 64px;
+        height: 64px; /// will be replace with max-height
+        margin: 4px;
+        border-radius: 4px;
+
+        img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 4px;
+        }
+    }
+}
+
+.text {
+    color: $colorGrayV3;
+    font-size: $fontSizeBodyText;
+
+    p {
+        margin: 0;
+    }
+    .username {
+        color: $colorPrimary;
+    }
+}
+
+.meta {
+    color: $colorGrayV2;
+    font-size: $fontSizeAnySmall;
+}

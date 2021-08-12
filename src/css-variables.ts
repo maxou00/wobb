@@ -3,6 +3,7 @@ export const CssVariables = {
     
     colorPrimary: 'var(--color-primary)',
     colorPrimaryDark: 'var(--color-primary-dark)',
+    colorPrimarySurface: 'var(--color-primary-surface)',
     colorSurface: 'var(--color-surface)',
 
     colorGrayV1: 'var(--color-gray-v1)',

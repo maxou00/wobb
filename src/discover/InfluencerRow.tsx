@@ -1,6 +1,7 @@
 import { css } from "@emotion/css"
 import { Paper } from "@material-ui/core"
 import { yellow } from "@material-ui/core/colors"
+import { useCallback } from "react"
 import { TextTransformNoneButton } from "../components/TextTransformNoneButton"
 import { CssVariables } from "../css-variables"
 import { __tr } from "../i18n"
@@ -29,6 +30,7 @@ const styles = {
         font-size: ${CssVariables.fontSizeTextPrimary};
         font-weight: 700;
         color: ${CssVariables.colorGrayV3};
+        cursor: pointer;
     `,
     rating: css`
         font-size: ${CssVariables.fontSizeAnySmall};
@@ -80,7 +82,18 @@ const styles = {
     `
 }
 
-export function InfluencerRow() {
+interface RowProps {
+    onShowProfile?(): any;
+}
+
+export function InfluencerRow(props: RowProps) {
+
+    const handleInfluencerClick = useCallback(() => {
+        if(props.onShowProfile) {
+            props.onShowProfile();
+        }
+    }, [props]);
+
     return <Paper elevation={1}>
         <div className={styles.wrapper}>
             <table className={styles.table}>
@@ -89,8 +102,8 @@ export function InfluencerRow() {
                         <td rowSpan={2} align="center" className={styles.cell}>
                             <div className={styles.img}></div>
                         </td>
-                        <td className={styles.cell}>
-                            <span className={styles.influencerName}>Earn with Wobb</span>
+                        <td className={styles.cell} onClick={handleInfluencerClick}>
+                            <span className={styles.influencerName}>Influencer name</span>
                         </td>
                         <td className={styles.cell}>
                             <div className={styles.contentHeaderCell}>
