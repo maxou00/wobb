@@ -71,6 +71,8 @@
     "language": "Language",
     "languages": "Languages",
     "lastDelivery": "Last Delivery",
+    "linkedAccount": "Linked Account",
+    "linkedSocialMediaAccounts": "Linked Social Media Account",
     "location": "Location",
     "markComplete": "Mark Complete",
     "max": "Max",
@@ -78,6 +80,7 @@
     "message": "Message",
     "messages": "Messages",
     "min": "Min",
+    "mostRelevant": "Most Relevant",
     "myCampaigns": "My Campaigns",
     "msgOtpCodeSent": "Code sent !",
     "msgAccountCodeVerified": "Yay! Your account is now verified.",
@@ -127,5 +130,6 @@
     "viewProfile": "View Profile",
     "welcomeToWobb": "Welcome to Wobb !",
     "wantToPayOffline": "Want to pay offline ?",
-    "wobbCoins": "Wobb Coins"
+    "wobbCoins": "Wobb Coins",
+    "yourProgress": "Your Progress"
 }

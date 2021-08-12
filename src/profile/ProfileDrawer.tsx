@@ -1,6 +1,5 @@
 import { Box, Tab, Tabs, Typography } from "@material-ui/core";
-import { ReactNode, useState } from "react";
-import { Stars } from "../components/Stars";
+import { useState } from "react";
 import { TextTransformNoneButton } from "../components/TextTransformNoneButton";
 import { UnmodifiableProgress } from "../components/UnmodifiableProgress";
 import { __tr } from "../i18n";
@@ -8,21 +7,8 @@ import styles from "../styles/ProfileDrawer.module.scss";
 import { CampaignReview } from "../campaigns/CampaignReview";
 import { UserResumeCard } from "./UserResumeCard";
 import { AboutUser } from "./AboutUser";
-
-function ContentRow(props: { children: ReactNode[] }) {
-    return <Box className={styles.row}>
-        <Box className={styles.keyCell}>
-            {
-                props.children[0]
-            }
-        </Box>
-        <Box className={styles.valueCell}>
-            {
-                props.children[1]
-            }
-        </Box>
-    </Box>
-}
+import { UserRatingStats } from "./UserRatingStats";
+import { ContentRow } from "./ContentRow";
 
 export function ProfileDrawer() {
     const [activeTab, setActiveTab] = useState(0);
@@ -70,57 +56,7 @@ export function ProfileDrawer() {
             <AboutUser/>
         </Box>}
         {activeTab === 1 && <Box className={styles.tabPanel}>
-            <Box marginY={2} className={styles.tableContainer}>
-                <ContentRow>
-                    <Typography variant="body1" className={styles.key} style={{ fontWeight: 600 }}>{__tr("ratingAsInfluencer")}</Typography>
-                    <div className={styles.cellProgress}>
-                        <span className={styles.approx}><Stars count={4.1} /> (100)</span>
-                    </div>
-                </ContentRow>
-                <ContentRow>
-                    <Typography variant="body2" className={styles.key}>{__tr("campaignsApplied")}</Typography>
-                    <Typography variant="body2" className={styles.value}>8</Typography>
-                </ContentRow>
-                <ContentRow>
-                    <Typography variant="body2" className={styles.key}>{__tr("campaignSuccessRate")}</Typography>
-                    <div className={styles.cellProgress}>
-                        <div className={styles.progress}>
-                            <UnmodifiableProgress height={8} progress={90} />
-                        </div>
-                        <span className={styles.percent}>90%</span>
-                    </div>
-                </ContentRow>
-                <ContentRow>
-                    <Typography variant="body2" className={styles.key}>{__tr("onTimeDelivery")}</Typography>
-                    <div className={styles.cellProgress}>
-                        <div className={styles.progress}>
-                            <UnmodifiableProgress height={8} progress={85} />
-                        </div>
-                        <span className={styles.percent}>85%</span>
-                    </div>
-                </ContentRow>
-            </Box>
-            <Box marginY={2} className={styles.tableContainer}>
-                <ContentRow>
-                    <Typography variant="body1" className={styles.key} style={{ fontWeight: 600 }}>{__tr("ratingAsBuyer")}</Typography>
-                    <div className={styles.cellProgress}>
-                        <span className={styles.approx}><Stars count={4.1} /> (125)</span>
-                    </div>
-                </ContentRow>
-                <ContentRow>
-                    <Typography variant="body2" className={styles.key}>{__tr("campaignsPosted")}</Typography>
-                    <Typography variant="body2" className={styles.value}>10</Typography>
-                </ContentRow>
-                <ContentRow>
-                    <Typography variant="body2" className={styles.key}>{__tr("campaignSuccessRate")}</Typography>
-                    <div className={styles.cellProgress}>
-                        <div className={styles.progress}>
-                            <UnmodifiableProgress height={8} progress={90} />
-                        </div>
-                        <span className={styles.percent}>90%</span>
-                    </div>
-                </ContentRow>
-            </Box>
+            <UserRatingStats/>
             <Box marginY={2}>
                 <Box paddingY={2}>
                     <Typography variant="h6">{__tr("campaignReview")}</Typography>
