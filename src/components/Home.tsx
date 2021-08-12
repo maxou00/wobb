@@ -7,6 +7,7 @@ import { Routes } from "../routes";
 import { ViewCampaign } from "../campaigns/ViewCampaign";
 import { DiscoverScreen } from "../discover";
 import { ProfileScreen } from "../profile/ProfileScreen";
+import { NotificationScreen } from "../notifications/NotificationScreen";
 
 export function Home() {
     return <div className={styles.page}>
@@ -31,6 +32,9 @@ export function Home() {
                 </Route>
                 <Route path={Routes.MyProfile}>
                     <ProfileScreen />
+                </Route>
+                <Route path={Routes.Notifications}>
+                    <NotificationScreen />
                 </Route>
                 <Route path={Routes.Home} exact>
                     <Redirect to={Routes.campaigns("applied")} />
