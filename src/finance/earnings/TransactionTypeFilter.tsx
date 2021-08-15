@@ -1,5 +1,5 @@
 import { Box, Divider, FormControlLabel, Radio, RadioGroup, Typography } from "@material-ui/core";
-import { __tr } from "../i18n";
+import { __tr } from "../../i18n";
 
 const Options = [
     "all",

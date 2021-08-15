@@ -3,10 +3,10 @@ import { Avatar, Box, Divider, Grid, Typography } from "@material-ui/core";
 import { green } from "@material-ui/core/colors";
 import { MdArrowDownward } from "react-icons/md";
 import { Link } from "react-router-dom";
-import { IconDoneFilled, IconWallet } from "../components/Icons";
-import { TextTransformNoneButton } from "../components/TextTransformNoneButton";
-import { CssVariables } from "../css-variables";
-import { __tr } from "../i18n";
+import { IconDoneFilled, IconFundTransfer, IconWallet } from "../../components/Icons";
+import { TextTransformNoneButton } from "../../components/TextTransformNoneButton";
+import { CssVariables } from "../../css-variables";
+import { __tr } from "../../i18n";
 
 const styles = {
     card: css`
@@ -17,7 +17,7 @@ const styles = {
         background: ${green[50]};
         min-height: 120px;
         padding: 16px;
-        margin: 8px 0px;
+        margin-bottom: 8px 0px;
     `,
     title: css``,
     content: css`
@@ -28,22 +28,21 @@ const styles = {
         width: 100%;
     `,
     meta: css``,
-    campaignRow: css`
+    sourceRow: css`
         display: flex;
         flex-direction: row;
         align-items: center;
         justify-content: space-between;
         width: 100%;
+        padding: 0px 8px;
     `,
-
-
     dataRow: css`
         display: flex;
         flex-direction: row;
         align-items: center;
         justify-content: space-between;
         width: 100%;
-        padding: 8px 0px;
+        padding: 12px 0px;
     `
 }
 
@@ -64,15 +63,27 @@ function EarningCard() {
     </Box>
 }
 
-
-function CampaignTitleRow() {
-    return <Box className={styles.campaignRow} paddingY={2}>
+function SourceAndDest() {
+    return <Box padding={2}>
+        <Box className={styles.sourceRow} paddingY={2}>
         <Box>
             <Typography variant="body1">BIBA</Typography>
             <Typography variant="body2" style={{ color: CssVariables.colorGrayV3 }}>Ready to stich with Biba</Typography>
         </Box>
+            <Box>
+                <Avatar />
+            </Box>
+        </Box>
         <Box>
-            <Avatar />
+            <IconFundTransfer size={24} />
+        </Box>
+        <Box className={styles.sourceRow} paddingY={2}>
+            <Box>
+                <Typography variant="body1">My Wallet</Typography>
+            </Box>
+            <Box display="flex" flexDirection="row" alignItems="center" justifyContent="center">
+                <IconWallet size={32} />
+            </Box>
         </Box>
     </Box>
 }
@@ -84,20 +95,12 @@ export function TransactionReceipt() {
             <Typography variant="h6" style={{ textTransform: 'uppercase' }}>{__tr("receipt")}</Typography>
         </Box>
         <Divider />
-        <Box paddingY={2}>
+        <Box>
             <EarningCard />
             <Box padding={2}>
                 <Grid container spacing={2}>
                     <Grid item xs={12}>
-                        <CampaignTitleRow />
-                    </Grid>
-                    <Grid item xs={12}>
-                        <Box display="flex" flexDirection="row" alignItems="center" justifyContent="space-between">
-                            <Typography variant="body1">My Wallet</Typography>
-                            <Box display="flex" flexDirection="row" alignItems="center" justifyContent="center">
-                                <IconWallet size={32} />
-                            </Box>
-                        </Box>
+                        <SourceAndDest />
                     </Grid>
                     <Grid item xs={12}>
                         <Box>

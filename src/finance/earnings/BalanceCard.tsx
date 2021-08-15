@@ -1,9 +1,9 @@
 import { css } from "@emotion/css";
 import { Box } from "@material-ui/core";
-import { IconBarter, IconWobbCoins } from "../components/Icons";
-import { TextTransformNoneButton } from "../components/TextTransformNoneButton";
-import { CssVariables } from "../css-variables";
-import { __tr } from "../i18n";
+import { IconBarter, IconWobbCoins } from "../../components/Icons";
+import { TextTransformNoneButton } from "../../components/TextTransformNoneButton";
+import { CssVariables } from "../../css-variables";
+import { __tr } from "../../i18n";
 
 const styles = {
     list: css`

@@ -1,8 +1,8 @@
 import { Avatar, Box, Divider, List, ListItem, ListItemAvatar, ListItemSecondaryAction, ListItemText, Typography } from "@material-ui/core";
-import { CssVariables } from "../css-variables";
-import { __tr } from "../i18n";
+import { CssVariables } from "../../css-variables";
+import { __tr } from "../../i18n";
 
-export function Transactions() {
+export function OrderTransactions() {
     return <Box>
         <Box padding={2}>
             <Typography variant="h6" style={{textTransform: 'uppercase'}}>{__tr("transactionList")}</Typography>

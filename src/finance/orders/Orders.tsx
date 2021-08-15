@@ -1,11 +1,11 @@
 import { Box, Grid, Paper } from "@material-ui/core";
-import { AppMetadata } from "../components/AppMetadata";
-import { BalanceCard } from "./BalanceCard";
-import { TransactionReceipt } from "./TransactionReceipt";
-import { Transactions } from "./Transactions";
-import { TransactionTypeFilter } from "./TransactionTypeFilter";
+import { AppMetadata } from "../../components/AppMetadata";
+import { EscrowAccountBalanceCard } from "./EscrowAccountBalanceCard";
+import { OrderTransactions } from "./OrderTansactions";
+import { OrderTransactionReceipt } from "./OrderTransactionReceipt";
+import { OrderTransactionTypeFilter } from "./OrderTransactionTypeFilter";
 
-export function Earnings() {
+export function Orders() {
     return <Grid container spacing={2} >
         <Grid item xs={8}>
             <Box>
@@ -13,13 +13,13 @@ export function Earnings() {
                     <Grid item xs={12}>
                         <Paper elevation={0}>
                             <Box padding={2}>
-                                <BalanceCard />
+                                <EscrowAccountBalanceCard />
                             </Box>
                         </Paper>
                     </Grid>
                     <Grid item xs={12}>
                         <Paper elevation={0}>
-                            <Transactions />
+                            <OrderTransactions />
                         </Paper>
                     </Grid>
                 </Grid>
@@ -30,12 +30,12 @@ export function Earnings() {
                 <Grid container spacing={2}>
                     <Grid item xs={12}>
                         <Paper elevation={0}>
-                            <TransactionTypeFilter />
+                            <OrderTransactionTypeFilter />
                         </Paper>
                     </Grid>
                     <Grid item xs={12}>
                         <Paper elevation={0}>
-                            <TransactionReceipt />
+                            <OrderTransactionReceipt />
                         </Paper>
                     </Grid>
                     <Grid item xs={12}>
