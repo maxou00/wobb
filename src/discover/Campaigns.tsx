@@ -10,10 +10,10 @@ export function Campaigns() {
                 <Typography variant="h6">219 {__tr("campaigns")}</Typography>
             </Box>
         </Grid>
-        <Grid item xs={8}>
+        <Grid item xs={9}>
             <CampaignList />
         </Grid>
-        <Grid item xs={4}>
+        <Grid item xs={3}>
             <Paper elevation={1}>
                 <CampaignFilter />
             </Paper>

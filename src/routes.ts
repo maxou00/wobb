@@ -12,24 +12,22 @@ export const Routes = {
     campaigns(status: string) {
         return `${this.BaseCampaigns}?filter=${status}`;
     },
-
     BaseViewCampaigns: "/app/campaigns/view",
-
     viewCampaign(id: string) {
         return `${this.BaseViewCampaigns}/${id}`
     },
-
     viewCampaignApplicants(campaign: string, filter: string = '') {
         return `${this.viewCampaign(campaign)}/applicants${filter ? `?filter=${filter}` : ''}`
     },
-
     PostedCampaigns: "/app/campaigns/posted",
     Messages: "/app/threads",
     Notifications: "/app/notifications",
     MyProfile: "/app/profile",
     EditProfile: "/app/profile/edit",
-    MyEarnings:"/app/earnings",
-    MyOrders: "/app/orders",
+    Finance: "/app/profile/finance",
+    MyEarnings:"/app/profile/finance?tab=earnings",
+    Billing:"/app/profile/finance?tab=billing",
+    MyOrders: "/app/profile/finance?tab=orders",
     Affiliate: "/app/affiliate",
     SignOut: "/app/signout",
     HelpAndSupport: "/support",

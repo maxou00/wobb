@@ -5,6 +5,16 @@ import { PropsWithChildren } from "react";
 const styles = css`
     margin-left: 100px;
     margin-right: 100px;
+
+    @media (max-width: 996px) {
+        margin-left: 50px;
+        margin-right: 50px;
+    }
+
+    @media (max-width: 780px) {
+        margin-left: 8px;
+        margin-right: 8px;
+    }
 `
 export function FixedMargin(props: PropsWithChildren<{}>){
     return <Box className={styles}>

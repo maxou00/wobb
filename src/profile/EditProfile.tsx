@@ -1,29 +1,9 @@
-import { Box, Grid, Paper, Tab, Tabs, Typography, withStyles } from "@material-ui/core";
+import { Box, Grid, Paper, Typography } from "@material-ui/core";
 import { useState } from "react";
-import { CssVariables } from "../css-variables";
+import { StyledTab, StyledTabs } from "../components/custom";
 import { __tr } from "../i18n";
 import { EditPassword } from "./EditPassword";
 import { EditPersonal } from "./EditPersonal";
-
-const StyledTabs = withStyles({
-    indicator: {
-        width: '8px',
-        left: 0
-    }
-})(Tabs)
-
-const StyledTab = withStyles({
-    root: {
-        textTransform: 'capitalize',
-        borderBottom: `1px solid ${CssVariables.colorGrayV1}`,
-        '&:last-of-type': {
-            borderBottom: 'none',
-        }
-    },
-    label: {
-        background: 'red'
-    }
-})(Tab);
 
 export function EditProfile() {
     const [activeTab, setActiveTab] = useState(0);

@@ -32,12 +32,12 @@ export function ProfileNavigationCard() {
             <RoundedButton onClick={viewProfile} variant="outlined" color="primary" fullWidth>{__tr("viewProfile")}</RoundedButton>
         </Box>
         <Box padding={1} className={styles.navigation}>
-            <NavLink to={Routes.MyProfile} className={styles.navItem} activeClassName={styles.navItemActive}>My earnings</NavLink>
-            <NavLink to={Routes.MyEarnings} className={styles.navItem} activeClassName={styles.navItemActive}>My Orders</NavLink>
-            <NavLink to={Routes.Affiliate} className={styles.navItem} activeClassName={styles.navItemActive}>Refer & earn</NavLink>
-            <NavLink to={Routes.PrivacyPolicies} className={styles.navItem} activeClassName={styles.navItemActive}>Privay Policy</NavLink>
-            <NavLink to={Routes.HelpAndSupport} className={styles.navItem} activeClassName={styles.navItemActive}>Help & Support</NavLink>
-            <NavLink to={Routes.SignOut} className={styles.navItem} activeClassName={styles.navItemActive}>Sign Out</NavLink>
+            <NavLink to={Routes.MyEarnings} className={styles.navItem} activeClassName={styles.navItemActive}>{__tr("myEarnings")}</NavLink>
+            <NavLink to={Routes.MyOrders} className={styles.navItem} activeClassName={styles.navItemActive}>{__tr("myOrders")}</NavLink>
+            <NavLink to={Routes.Affiliate} className={styles.navItem} activeClassName={styles.navItemActive}>{__tr("referAndEarn")}</NavLink>
+            <NavLink to={Routes.PrivacyPolicies} className={styles.navItem} activeClassName={styles.navItemActive}>{__tr("privacyPolicy")}</NavLink>
+            <NavLink to={Routes.HelpAndSupport} className={styles.navItem} activeClassName={styles.navItemActive}>{__tr("helpAndSupport")}</NavLink>
+            <NavLink to={Routes.SignOut} className={styles.navItem} activeClassName={styles.navItemActive}>{__tr("signOut")}</NavLink>
         </Box>
     </Box>
 }
