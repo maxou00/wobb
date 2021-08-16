@@ -14,6 +14,12 @@ const appTheme = createTheme({
     primary: {
       main: "#012FB7",
       dark: "#080C4E"
+    },
+    text: {
+      primary: '#333333',
+      secondary: '#484848',
+      hint: '#646464',
+      disabled: '#848484'
     }
   },
   typography: {

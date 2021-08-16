@@ -1,0 +1,250 @@
+@import "./variables.scss";
+
+.page {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    --padding-x: 32px;
+}
+
+.section {
+    width: 100%;
+    padding: 16px var(--padding-x);
+}
+
+.header {
+    @extend .section;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom:  1px solid $colorGrayV1;
+    position: relative;
+    --badge-width: 72px;
+    padding-right: calc( 10px + var(--badge-width) );
+}
+
+
+.campaign {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+
+    .img {
+        width: 46px;
+        height: 46px;
+    }
+
+    .text {
+        margin-left: 8px;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: center;
+    }
+
+    .title {
+        font-weight: 500;
+    }
+
+    .link {
+        font-weight: 500;
+        font-size: $fontSizeAnySmall;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+    }
+}
+
+
+.data {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+
+    .head {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: flex-start;
+    }
+
+    .key {
+        color: $colorGrayV2;
+        text-transform: uppercase;
+    }
+
+    .value {
+        font-weight: 500;
+    }
+}
+
+.badge {
+    padding: 4px 16px;
+    width: var(--badge-width);
+    background: $colorSuccess;
+    color: $colorGrayV1;
+    top: 10px;
+    right: 0px;
+    position: absolute;
+    font-size: $fontSizeAnySmall;
+    border-top-left-radius: 32px;
+    border-bottom-left-radius: 32px;
+}
+
+.postedBy {
+    @extend .section;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    border-bottom:  1px solid $colorGrayV1;
+
+    .title {
+        color: $colorGrayV2;
+        margin-bottom: 4px;
+    }
+
+    .body {
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    .author {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: flex-start;
+
+        .avatar {
+            margin-right: 4px;
+        }
+
+        .name {
+            font-weight: 500;
+        }
+
+        .date {
+            font-weight: 200;
+            color: $colorGrayV2;
+        }
+    }
+}
+
+.hiringRate {
+    .title {
+        margin-bottom: 4px;
+        font-size: $fontSizeAnySmall;
+    }
+}
+
+.aboutBrand {
+    @extend .section;
+
+    .title {
+        margin-bottom: 8px;
+    }
+}
+
+.aboutCampaign {
+    @extend .aboutBrand;
+}
+
+.deliverables {
+    @extend .section;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    
+    .title {
+        margin-bottom: 8px;
+    }
+
+    .body {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .deliverable {
+        background: $colorPrimarySurface;
+        padding: 8px;
+        min-width: 96px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        margin: 1.5px;
+
+        .count {
+            background: white;
+            text-align: center;
+            width: 24px;
+            height: 24px;
+            border-radius: 12px;
+            margin: 4px 4px;
+        }
+
+        .tag {
+            
+        }
+    }
+}
+
+
+.whoCanApply, .openings {
+    @extend .section;
+    .title {
+        margin-bottom: 8px;
+    }
+
+    .body {
+        padding: 8px 12px;
+    }
+
+    .criteria {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: flex-start;
+        margin: 4px 0px;
+    
+        .text {
+            margin-left: 8px;
+        }
+    }
+
+    .tags {
+        padding: 8px 0px;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: flex-start;
+
+        .tag {
+            margin: 4px;
+        }
+    }
+    
+}
+
+.iconSuccess{
+    background: $colorSuccess;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    width: 20px;
+    height: 20px;
+    border-radius: 24px;
+}

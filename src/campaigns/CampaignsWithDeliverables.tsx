@@ -4,6 +4,7 @@ import { MdPerson, MdMoreVert } from "react-icons/md";
 import { Link } from "react-router-dom";
 import styles from "../styles/CampaignTable.module.scss";
 import { StyledTableHeading } from "../components/custom";
+import { Routes } from "../routes";
 
 export function CampaignsWithDeliverables() {
     return <div className={styles.section}>
@@ -50,7 +51,7 @@ export function CampaignsWithDeliverables() {
                             Applied
                         </TableCell>
                         <TableCell>
-                            <Link to="/">Submit Task</Link>
+                            <Link to={Routes.viewCampaign("a-task-id")}>Submit Task</Link>
                         </TableCell>
                         <TableCell>
                             <IconButton size="small">
@@ -71,7 +72,7 @@ export function CampaignsWithDeliverables() {
                             Applied
                         </TableCell>
                         <TableCell className={styles.cellLast}>
-                            <Link to="/">View Task</Link>
+                            <Link to={Routes.viewCampaign("a-task-id")}>View Task</Link>
                         </TableCell>
                         <TableCell className={styles.cellLast}>
                             <IconButton size="small">
