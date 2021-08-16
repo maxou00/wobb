@@ -1,14 +1,14 @@
 import { Grid, Paper } from "@material-ui/core";
 import { TaskContent } from "./TaskContent";
-import { TaskMenu } from "./TaskMenu";
+import { TaskDeliverables } from "./TaskDeliverables";
 import { TaskSubmit } from "./TaskSubmit";
 
 
 export function TaskView() {
     return <Grid container spacing={2}>
-        <Grid item xs={2}>
+        <Grid item xs={3}>
             <Paper elevation={0}>
-                <TaskMenu />
+                <TaskDeliverables />
             </Paper>
         </Grid>
         <Grid item xs={6}>
@@ -16,7 +16,7 @@ export function TaskView() {
                 <TaskContent />
             </Paper>
         </Grid>
-        <Grid item xs={4}>
+        <Grid item xs={3}>
             <Paper elevation={0}>
                 <TaskSubmit />
             </Paper>

@@ -1,0 +1,75 @@
+@import "./variables.scss";
+
+.page {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+}
+
+.header {
+    @extend .section;
+    border-bottom: 1px solid $colorGrayV1;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+
+    .title {
+        margin-right: 4px;
+    }
+
+    .meta {
+        margin-left: 4px;
+        font-weight: 200;
+        font-size: $fontSizeBodyText;
+    }
+}
+
+.section {
+    padding: 24px;
+    width: 100%;
+}
+
+.due {
+    @extend .section;
+
+    .text {
+        color: $colorGrayV1;
+    }
+}
+
+.overview {
+    @extend .section;
+
+    .title {
+        margin-bottom: 16px;
+    }
+
+    .content {
+
+    }
+}
+
+.referencePosts {
+    @extend .section;
+    
+    .title {
+        margin-bottom: 16px;
+    }
+
+    .content {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: flex-start;
+        flex-wrap: wrap;
+    }
+
+    .post {
+        width: 120px;
+        height: 120px;
+        background: $colorGrayV1;
+        margin: 4px;
+    }
+}

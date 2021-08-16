@@ -5,6 +5,7 @@ import { Link } from "react-router-dom"
 import { IconCash, IconCoins, IconPlatform } from "../components/Icons"
 import { CssVariables } from "../css-variables"
 import { __tr } from "../i18n"
+import { Routes } from "../routes"
 
 const styles = {
     wrapper: css`
@@ -139,7 +140,7 @@ export function CampaignRow() {
                             <span className={styles.contentValue}>1000</span>
                         </td>
                         <td className={styles.cell} align="center">
-                            <Link to="/" className={styles.campaignActionLink}>{__tr("viewDetails")}</Link>
+                            <Link to={Routes.viewCampaign("a-campaign-id")} className={styles.campaignActionLink}>{__tr("viewDetails")}</Link>
                         </td>
                     </tr>
                 </tbody>

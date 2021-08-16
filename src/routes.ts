@@ -19,6 +19,9 @@ export const Routes = {
     viewCampaignApplicants(campaign: string, filter: string = '') {
         return `${this.viewCampaign(campaign)}/applicants${filter ? `?filter=${filter}` : ''}`
     },
+    viewCampaignTasks(campaign: string) {
+        return `${this.viewCampaign(campaign)}/tasks`
+    },
     PostedCampaigns: "/app/campaigns/posted",
     Messages: "/app/threads",
     Notifications: "/app/notifications",

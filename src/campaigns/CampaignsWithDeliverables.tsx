@@ -51,7 +51,7 @@ export function CampaignsWithDeliverables() {
                             Applied
                         </TableCell>
                         <TableCell>
-                            <Link to={Routes.viewCampaign("a-task-id")}>Submit Task</Link>
+                            <Link to={Routes.viewCampaignTasks("a-simple-id")}>Submit Task</Link>
                         </TableCell>
                         <TableCell>
                             <IconButton size="small">
@@ -72,7 +72,7 @@ export function CampaignsWithDeliverables() {
                             Applied
                         </TableCell>
                         <TableCell className={styles.cellLast}>
-                            <Link to={Routes.viewCampaign("a-task-id")}>View Task</Link>
+                            <Link to={Routes.viewCampaignTasks("a-simple-id")}>View Task</Link>
                         </TableCell>
                         <TableCell className={styles.cellLast}>
                             <IconButton size="small">
