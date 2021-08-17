@@ -1,5 +1,5 @@
 import { Box, Container, Grid } from "@material-ui/core";
-import { useUrlQuery } from "../campaigns/hooks";
+import { useUrlQuery } from "../core/hooks";
 import { MainCarousel } from "../campaigns/MainCarousel";
 import { Campaigns } from "./Campaigns";
 import { DiscoverTab } from "./DiscoverTab";

@@ -3,7 +3,7 @@ import { Box, Button, Checkbox, IconButton, Table, TableBody, TableCell, TableHe
 import { Delete } from "@material-ui/icons";
 import { CSSProperties } from "react";
 import { MdArrowDropDown } from "react-icons/md";
-import { DeliverableLine } from "../components/DeliverableLine";
+import { IconifiedDeliverableState } from "../components/IconifiedDeliverableState";
 import { TextTransformNoneButton } from "../components/TextTransformNoneButton";
 import { CssVariables } from "../css-variables";
 import { __tr } from "../i18n";
@@ -28,11 +28,9 @@ const DeleteButton = withStyles({
     }
 })(IconButton)
 
-
 interface Props {
     filter: string;
 }
-
 
 const actionsStyles = {
     row: css`
@@ -108,12 +106,6 @@ function ApplicantTableHeader(props: { filter: string }) {
                     <span style={{ whiteSpace: 'nowrap' }}>{__tr("postDate")}</span>
                 </TableSortLabel>
             </TableCell>
-            <TableCell style={tableStyles.th}>
-                <TableSortLabel
-                    IconComponent={MdArrowDropDown}>
-                    <span style={{ whiteSpace: 'nowrap' }}>{__tr("status")}</span>
-                </TableSortLabel>
-            </TableCell>
         </TableRow>
     }
 
@@ -165,18 +157,9 @@ function ApplicantRow(props: { filter: string }) {
                     </Box>
                 </Box>
             </TableCell>
-            <TableCell>
-                <Box display="flex" flexDirection="column" alignItems="center" justifyContent="center">
-                    <Box height={50} display="flex" flexDirection="column" alignItems="center" justifyContent="center">
-                        <span>View Post</span>
-                    </Box>
-                    <Box height={50} display="flex" flexDirection="column" alignItems="center" justifyContent="center">
-                        <span>Completed</span>
-                    </Box>
-                </Box>
-            </TableCell>
         </TableRow>
     }
+    
     return <TableRow>
         <TableCell>
             <Checkbox />
@@ -198,13 +181,13 @@ function ApplicantDeliverables() {
         <div className={customStyles.deliverableWrapper}>
             <span className={customStyles.title}>1.Reel</span>
             <div className={customStyles.deliverable}>
-                <DeliverableLine size="100%" />
+                <IconifiedDeliverableState/>
             </div>
         </div>
         <div className={customStyles.deliverableWrapper}>
             <span className={customStyles.title}>2. Static Story</span>
             <div className={customStyles.deliverable}>
-                <DeliverableLine size="100%" />
+                <IconifiedDeliverableState reviewed={false} submitted={true}/>
             </div>
         </div>
     </div>

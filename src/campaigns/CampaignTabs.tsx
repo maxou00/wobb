@@ -4,7 +4,7 @@ import { __tr } from "../i18n";
 import { Routes } from "../routes";
 import styles from "../styles/CampaignTabs.module.scss";
 import classNames from "classnames";
-import { useUrlFilter } from "./hooks";
+import { useUrlFilter } from "../core/hooks";
 
 export function CampaignTabs() {
     const history = useHistory();

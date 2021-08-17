@@ -1,5 +1,5 @@
 import { Box, Divider, TextField, Typography } from "@material-ui/core";
-import { useUrlQuery } from "../campaigns/hooks";
+import { useUrlQuery } from "../core/hooks";
 import { IconCloudUpload } from "../components/Icons";
 import { TextTransformNoneButton } from "../components/TextTransformNoneButton";
 import styles from "../styles/TaskSubmit.module.scss";

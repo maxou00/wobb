@@ -4,7 +4,7 @@ import { __tr } from "../i18n";
 import { Routes } from "../routes";
 import { css } from "@emotion/css";
 import { CssVariables } from "../css-variables";
-import { useUrlQuery } from "../campaigns/hooks";
+import { useUrlQuery } from "../core/hooks";
 
 const styles = {
     tabs: css`

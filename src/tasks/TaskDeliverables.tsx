@@ -3,7 +3,7 @@ import { Accordion, AccordionDetails, AccordionSummary, Box, Button, Divider, Ty
 import { ReactNode, useCallback } from "react";
 import { MdKeyboardArrowDown } from "react-icons/md";
 import { useHistory } from "react-router";
-import { useUrlQuery } from "../campaigns/hooks";
+import { useUrlQuery } from "../core/hooks";
 import { CssVariables } from "../css-variables";
 import { Routes } from "../routes";
 

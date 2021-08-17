@@ -1,6 +1,6 @@
-import { Box, IconButton, InputBase, Menu, MenuItem } from "@material-ui/core";
+import { InputBase, Menu, MenuItem } from "@material-ui/core";
 import { ArrowDropDown } from "@material-ui/icons";
-import { DetailsHTMLAttributes, InputHTMLAttributes, useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { Role, Roles } from "../core/roles";
 import { CssVariables } from "../css-variables";
 import styles from "../styles/form.module.scss";

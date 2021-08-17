@@ -1,5 +1,5 @@
 import { Box, Typography } from "@material-ui/core";
-import { useUrlParam, useUrlQuery } from "../campaigns/hooks";
+import { useUrlParam, useUrlQuery } from "../core/hooks";
 import styles from "../styles/TaskContent.module.scss";
 
 function TaskOverview() {

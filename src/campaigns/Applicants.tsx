@@ -1,14 +1,19 @@
-import { Box, Button, Checkbox, Grid, Paper, TableContainer, withStyles } from "@material-ui/core";
+import { Box, Checkbox, Grid, TableContainer, withStyles } from "@material-ui/core";
 import { ApplicantsFilter } from "./ApplicantsFilter";
 import styles from "../styles/MyCampaigns.module.scss";
 import { AppMetadata } from "../components/AppMetadata";
 import { ApplicantsTable } from "./ApplicantsTable";
-import { useUrlQuery } from "./hooks";
+import { useUrlQuery } from "../core/hooks";
 import { __tr } from "../i18n";
 import { TextTransformNoneButton } from "../components/TextTransformNoneButton";
 import { CssVariables } from "../css-variables";
 import { OrderInfluencerSummary } from "./OrderInfluencerSummary";
 import { DeliverableDashboard } from "./DeliverableDashboards";
+import { useCallback } from "react";
+import { SendMessageToApplicants } from "../messaging/MessageToApplicantsDialog";
+import { useState } from "react";
+import { ShareBriefDialog } from "../messaging/ShareBriefDialog";
+import { MarkCampaignAsCompleteDialog } from "./MarkCampaignAsCompleteDialog";
 
 const WhiteButton = withStyles({
     root: {
@@ -22,7 +27,23 @@ const WhiteButton = withStyles({
 })(TextTransformNoneButton);
 
 export function Applicants() {
+    const [sendingMessage, setSendingMessage] = useState(false);
+    const [sharingBrief, setSharingBrief] = useState(false);
+    const [markAsComplete, setMarkAsComplete] = useState(false);
+
     const filter = useUrlQuery("filter", "applied");
+    
+    const onSendMessage = useCallback(() => {
+        setSendingMessage(true);
+    }, []);
+
+    const onShareBrief = useCallback(() => {
+        setSharingBrief(true);
+    }, []);
+
+    const onMarkAsComplete = useCallback(() => {
+        setMarkAsComplete(true);
+    }, []);
 
     return <Grid container spacing={2}>
         <Grid item xs={12}>
@@ -45,16 +66,16 @@ export function Applicants() {
                 {
                     filter === "hired" && <>
                         <Box paddingX={.5}>
-                            <WhiteButton disableElevation variant="contained">{__tr("message")}</WhiteButton>
+                            <WhiteButton disableElevation variant="contained" onClick={onSendMessage}>{__tr("message")}</WhiteButton>
                         </Box>
                         <Box paddingX={.5}>
-                            <WhiteButton disableElevation variant="contained">{__tr("addOrUpdateBrief")}</WhiteButton>
+                            <WhiteButton disableElevation variant="contained" onClick={onShareBrief}>{__tr("addOrUpdateBrief")}</WhiteButton>
                         </Box>
                         <Box paddingX={.5}>
                             <WhiteButton disableElevation variant="contained">{__tr("raiseDispute")}</WhiteButton>
                         </Box>
                         <Box paddingX={.5}>
-                            <WhiteButton disableElevation variant="contained">{__tr("markComplete")}</WhiteButton>
+                            <WhiteButton disableElevation variant="contained" onClick={onMarkAsComplete}>{__tr("markComplete")}</WhiteButton>
                         </Box>
                     </>
                 }
@@ -81,6 +102,21 @@ export function Applicants() {
                 <AppMetadata />
             </Box>
         </Grid>
+        <SendMessageToApplicants
+            open={sendingMessage}
+            onClose={() => setSendingMessage(false)}
+            maxWidth="md"
+            fullWidth/>
+        <ShareBriefDialog
+            open={sharingBrief}
+            onClose={() => setSharingBrief(false)}
+            maxWidth="md"
+            fullWidth/>
+        <MarkCampaignAsCompleteDialog
+            open={markAsComplete}
+            onClose={() => setMarkAsComplete(false)}
+            maxWidth="md"
+            fullWidth/>
     </Grid>
 
 }

@@ -1,7 +1,7 @@
 import { Box, Grid, Paper } from "@material-ui/core";
 import { useCallback } from "react";
 import { useHistory } from "react-router";
-import { useUrlQuery } from "../campaigns/hooks";
+import { useUrlQuery } from "../core/hooks";
 import { StyledTab, StyledTabs } from "../components/custom";
 import { __tr } from "../i18n";
 import { Routes } from "../routes";

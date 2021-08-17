@@ -1,10 +1,10 @@
 import { useCallback } from "react";
-import { useHistory, useLocation } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import { __tr } from "../i18n";
 import { Routes } from "../routes";
 import { css } from "@emotion/css";
 import { CssVariables } from "../css-variables";
-import { useUrlFilter } from "./hooks";
+import { useUrlFilter } from "../core/hooks";
 
 const styles = {
     tabs: css`
@@ -56,7 +56,6 @@ const styles = {
 }
 
 export function ApplicantsFilterTab() {
-    const location = useLocation();
     const history = useHistory();
     const status = useUrlFilter("received");
 

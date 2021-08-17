@@ -1,6 +1,4 @@
 import { Box, Checkbox, List, ListItem, ListItemAvatar, ListItemText } from "@material-ui/core";
-import { MdAdd } from "react-icons/md";
-import { TextTransformNoneButton } from "../TextTransformNoneButton";
 import { __tr } from "../../i18n";
 
 interface Props {
