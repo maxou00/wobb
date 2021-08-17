@@ -10,6 +10,7 @@ import { ProfileScreen } from "../profile/ProfileScreen";
 import { NotificationScreen } from "../notifications/NotificationScreen";
 import { FixedMargin } from "./FixedMargin";
 import { FinanceScreen } from "../finance/FinanceScreen";
+import { UserManagementView } from "../user-management/UserManagementView";
 
 export function Home() {
     return <div className={styles.page}>
@@ -36,6 +37,9 @@ export function Home() {
                     </Route>
                     <Route path={Routes.Notifications}>
                         <NotificationScreen />
+                    </Route>
+                    <Route path={Routes.UserManagement}>
+                        <UserManagementView />
                     </Route>
                     <Route path={Routes.Home} exact>
                         <Redirect to={Routes.campaigns("applied")} />

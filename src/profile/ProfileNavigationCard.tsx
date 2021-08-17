@@ -35,6 +35,7 @@ export function ProfileNavigationCard() {
             <NavLink to={Routes.MyEarnings} className={styles.navItem} activeClassName={styles.navItemActive}>{__tr("myEarnings")}</NavLink>
             <NavLink to={Routes.MyOrders} className={styles.navItem} activeClassName={styles.navItemActive}>{__tr("myOrders")}</NavLink>
             <NavLink to={Routes.Affiliate} className={styles.navItem} activeClassName={styles.navItemActive}>{__tr("referAndEarn")}</NavLink>
+            <NavLink to={Routes.UserManagement} className={styles.navItem} activeClassName={styles.navItemActive}>{__tr("userManagement")}</NavLink>
             <NavLink to={Routes.PrivacyPolicies} className={styles.navItem} activeClassName={styles.navItemActive}>{__tr("privacyPolicy")}</NavLink>
             <NavLink to={Routes.HelpAndSupport} className={styles.navItem} activeClassName={styles.navItemActive}>{__tr("helpAndSupport")}</NavLink>
             <NavLink to={Routes.SignOut} className={styles.navItem} activeClassName={styles.navItemActive}>{__tr("signOut")}</NavLink>

@@ -31,6 +31,7 @@ export const Routes = {
     MyEarnings:"/app/finance/earnings",
     MyOrders: "/app/finance/orders",
     Affiliate: "/app/affiliate",
+    UserManagement: "/app/user-management",
     SignOut: "/app/signout",
     HelpAndSupport: "/support",
     Auth: '/auth',
