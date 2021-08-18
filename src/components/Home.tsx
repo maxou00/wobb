@@ -12,45 +12,63 @@ import { FixedMargin } from "./FixedMargin";
 import { FinanceScreen } from "../finance/FinanceScreen";
 import { UserManagementView } from "../user-management/UserManagementView";
 import { ReferAndEarnView } from "../refer-earn/ReferAndEarnView";
+import { ThreadsView } from "../messaging/ThreadsView";
 
 export function Home() {
     return <div className={styles.page}>
         <div className={styles.header}>
             <TopAppBar />
         </div>
-        <Box padding={1} className={styles.main}>
-            <FixedMargin>
-                <Switch>
-                    <Route path={Routes.viewCampaign(":id")}>
+        <Box className={styles.main}>
+            <Switch>
+                <Route path={Routes.viewCampaign(":id")}>
+                    <FixedMargin>
                         <ViewCampaign />
-                    </Route>
-                    <Route path={Routes.BaseCampaigns} exact>
+                    </FixedMargin>
+                </Route>
+                <Route path={Routes.BaseCampaigns} exact>
+                    <FixedMargin>
                         <MyCampaigns />
-                    </Route>
-                    <Route path={Routes.Discover}>
+                    </FixedMargin>
+                </Route>
+                <Route path={Routes.Discover}>
+                    <FixedMargin>
                         <DiscoverScreen />
-                    </Route>
-                    <Route path={Routes.Finance}>
+                    </FixedMargin>
+                </Route>
+                <Route path={Routes.Finance}>
+                    <FixedMargin>
                         <FinanceScreen />
-                    </Route>
-                    <Route path={Routes.MyProfile}>
+                    </FixedMargin>
+                </Route>
+                <Route path={Routes.MyProfile}>
+                    <FixedMargin>
                         <ProfileScreen />
-                    </Route>
-                    <Route path={Routes.Notifications}>
+                    </FixedMargin>
+                </Route>
+                <Route path={Routes.Notifications}>
+                    <FixedMargin>
                         <NotificationScreen />
-                    </Route>
-                    <Route path={Routes.UserManagement}>
+                    </FixedMargin>
+                </Route>
+                <Route path={Routes.UserManagement}>
+                    <FixedMargin>
                         <UserManagementView />
-                    </Route>
-                    <Route path={Routes.Affiliate}>
+                    </FixedMargin>
+                </Route>
+                <Route path={Routes.Affiliate}>
+                    <FixedMargin>
                         <ReferAndEarnView />
-                    </Route>
-                    <Route path={Routes.Home} exact>
-                        <Redirect to={Routes.campaigns("applied")} />
-                    </Route>
-                </Switch>
-            </FixedMargin>
+                    </FixedMargin>
+                </Route>
+                <Route path={Routes.Messages}>
+                    <ThreadsView />
+                </Route>
+                <Route path={Routes.Home} exact>
+                    <Redirect to={Routes.campaigns("applied")} />
+                </Route>
+            </Switch>
         </Box>
-    </div>
+    </div >
 }
 

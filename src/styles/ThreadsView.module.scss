@@ -1,0 +1,47 @@
+@import "./variables.scss";
+
+
+.page {
+    margin: 24px 100px;
+    margin-bottom: 0;
+    height: calc(100vh - 24px - var(--header-height));
+
+    display: grid;
+    grid-template-columns: 25% auto;
+    grid-template-rows: auto;
+    border-radius: 4px;
+}
+
+.header {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding: 8px 16px;
+    border-bottom: 1px solid $colorGrayV1;
+}
+
+.searchbar {
+    background: $colorPrimarySurface;
+    padding: 8px 4px;
+    width: 100%;
+}
+
+.threadlist {
+    background: white;
+    min-height: 100%;
+    width: 100%;
+    border-right: 1px solid $colorGrayV1;
+    display: grid;
+    grid-template-rows: 56px 46px auto;
+
+    .body {
+        overflow-y: auto;
+        scrollbar-width: thin;
+    }
+}
+
+.threadcontent {
+    height: 100%;
+    width: 100%;
+}

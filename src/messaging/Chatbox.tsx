@@ -36,8 +36,8 @@ export function Chatbox() {
                     <InputBase
                         className={styles.input}
                         placeholder="Write a message"
-                        minRows={inputExpanded ? 3 : 1}
-                        multiline={inputExpanded} />
+                        minRows={1}
+                        multiline={true} />
                     <IconButton size="small" onClick={() => setInputExpanded(!inputExpanded)}>
                         {inputExpanded ? <ExpandLessRounded fontSize="small" /> : <ExpandMoreRounded fontSize="small" />}
                     </IconButton>

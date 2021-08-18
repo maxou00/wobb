@@ -88,13 +88,13 @@
         .title {
             font-size: 14px;
             font-weight: bolder;
-            color: $colorGrayV4;
+            color: $colorGrayV3;
         }
 
         .time {
             font-size: 14px;
             font-weight: bolder;
-            color: $colorGrayV4;
+            color: $colorGrayV3;
         }
     }
 
@@ -108,7 +108,7 @@
         .message {
             font-size: 10px;
             text-align: left;
-            color: $colorGrayV3;
+            color: $colorGrayV2;
         }
 
         .badgeWrapper {
@@ -121,7 +121,8 @@
         .badge {
             color: $colorWhite;
             background: $colorPrimary;
-            font-size: 14px;
+            font-size: $fontSizeAnySmall;
+            font-weight: 500;
             width: 18px;
             height: 18px;
             border-radius: 12px;
@@ -133,6 +134,6 @@
     }
 
     &:hover {
-        background-color: $colorGrayV1;
+        background-color: $colorPrimarySurface;
     }
 }
