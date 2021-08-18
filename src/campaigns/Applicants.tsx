@@ -1,6 +1,5 @@
-import { Box, Checkbox, Grid, TableContainer, withStyles } from "@material-ui/core";
+import { Box, Checkbox, Grid, Paper, TableContainer, withStyles } from "@material-ui/core";
 import { ApplicantsFilter } from "./ApplicantsFilter";
-import styles from "../styles/MyCampaigns.module.scss";
 import { AppMetadata } from "../components/AppMetadata";
 import { ApplicantsTable } from "./ApplicantsTable";
 import { useUrlQuery } from "../core/hooks";
@@ -14,6 +13,8 @@ import { SendMessageToApplicants } from "../messaging/MessageToApplicantsDialog"
 import { useState } from "react";
 import { ShareBriefDialog } from "../messaging/ShareBriefDialog";
 import { MarkCampaignAsCompleteDialog } from "./MarkCampaignAsCompleteDialog";
+import { CampaignStatusNavigation } from "./CampaignStatusNavigation";
+import { DeliverableList } from "./Deliverables";
 
 const WhiteButton = withStyles({
     root: {
@@ -32,7 +33,8 @@ export function Applicants() {
     const [markAsComplete, setMarkAsComplete] = useState(false);
 
     const filter = useUrlQuery("filter", "applied");
-    
+    const status = useUrlQuery("status", "all");
+
     const onSendMessage = useCallback(() => {
         setSendingMessage(true);
     }, []);
@@ -82,41 +84,55 @@ export function Applicants() {
             </Box>
         </Grid>
         <Grid item xs={8}>
-            <Box className={styles.contentSurface}>
-                <TableContainer>
-                    <ApplicantsTable filter={filter} />
-                </TableContainer>
-            </Box>
+            <Paper elevation={0}>
+                {
+                    filter === "hired" && status !== "all" &&
+                    <DeliverableList />
+                }
+                {
+                    (filter !== "hired" || status === "all") &&
+                    <TableContainer>
+                        <ApplicantsTable filter={filter} />
+                    </TableContainer>
+                }
+            </Paper>
         </Grid>
         <Grid item xs={4}>
-            <Box marginBottom={2} className={styles.contentSurface}>
-                <ApplicantsFilter />
-            </Box>
-            <Box marginBottom={2} className={styles.contentSurface}>
-                <DeliverableDashboard />
-            </Box>
-            <Box marginBottom={2} className={styles.contentSurface}>
-                <OrderInfluencerSummary />
-            </Box>
-            <Box marginY={4}>
-                <AppMetadata />
-            </Box>
+            <Grid container spacing={2}>
+                <Grid item xs={12}>
+                    <Paper elevation={0}>
+                        <ApplicantsFilter />
+                    </Paper>
+                    <Paper elevation={0}>
+                        <DeliverableDashboard />
+                    </Paper>
+                    <Paper elevation={0}>
+                        <OrderInfluencerSummary />
+                    </Paper>
+                    <Paper elevation={0}>
+                        <CampaignStatusNavigation />
+                    </Paper>
+                </Grid>
+                <Grid item xs={12}>
+                    <AppMetadata />
+                </Grid>
+            </Grid>
         </Grid>
         <SendMessageToApplicants
             open={sendingMessage}
             onClose={() => setSendingMessage(false)}
             maxWidth="md"
-            fullWidth/>
+            fullWidth />
         <ShareBriefDialog
             open={sharingBrief}
             onClose={() => setSharingBrief(false)}
             maxWidth="md"
-            fullWidth/>
+            fullWidth />
         <MarkCampaignAsCompleteDialog
             open={markAsComplete}
             onClose={() => setMarkAsComplete(false)}
             maxWidth="md"
-            fullWidth/>
+            fullWidth />
     </Grid>
 
 }

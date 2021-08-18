@@ -9,8 +9,8 @@ export const Routes = {
     },
     BaseCampaigns: "/app/campaigns",
     MyCampaigns:  "/app/campaigns/:status",
-    campaigns(status: string) {
-        return `${this.BaseCampaigns}?filter=${status}`;
+    campaigns(filter: string) {
+        return `${this.BaseCampaigns}?filter=${filter}`;
     },
     BaseViewCampaigns: "/app/campaigns/view",
     viewCampaign(id: string) {

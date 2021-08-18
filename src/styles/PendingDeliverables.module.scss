@@ -1,0 +1,82 @@
+@import "./variables.scss";
+
+.deliverable {
+    display: grid;
+    grid-template-columns: 260px auto;
+    column-gap: 8px;
+
+    .assets {
+        width: 260px;
+        min-height: 320px;
+        background: $colorGrayV1;
+        border-radius: 8px;
+    }
+
+    .content {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: flex-start;
+
+        .header {
+            width: 100%;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: space-between;
+            padding: 8px 0px;
+
+            .identity {
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                justify-content: space-between;
+            }
+
+            .avatarWrapper {
+            }
+
+            .body {
+                margin-left: 8px;
+
+                .title {
+                    font-weight: 600;
+                }
+
+                .subtitle {
+                }
+            }
+        }
+
+        .content {
+            padding: 16px 0px;
+            .text {
+                width: 100%;
+                display: block;
+                font-size: $fontSizeAnySmall;
+                word-break: break-word;
+            }
+        }
+    }
+}
+
+.stats {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    column-gap: 8px;
+    row-gap: 8px;
+
+    .stat {
+        
+        .title {
+            font-weight: 600;
+        }
+
+        .subtitle {
+            color: $colorGrayV2;
+        }
+
+    }
+}
