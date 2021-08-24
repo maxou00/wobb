@@ -3,7 +3,7 @@ import { __tr } from "../i18n";
 import { MdPerson, MdMoreVert } from "react-icons/md";
 import { Link } from "react-router-dom";
 import styles from "../styles/CampaignTable.module.scss";
-import { StyledTableHeading } from "../components/custom";
+import { UppercaseSbText } from "../components/custom";
 import { Routes } from "../routes";
 
 export function CampaignsWithDeliverables() {
@@ -12,10 +12,16 @@ export function CampaignsWithDeliverables() {
             <Table>
                 <TableHead>
                     <TableRow>
-                        <StyledTableHeading className={styles.colTitle}>{__tr("campaigns")}</StyledTableHeading>
-                        <StyledTableHeading className={styles.colTitle}>{__tr("status")}</StyledTableHeading>
-                        <StyledTableHeading className={styles.colTitle}>{__tr("deliverables")}</StyledTableHeading>
-                        <StyledTableHeading className={styles.colTitle}></StyledTableHeading>
+                        <TableCell>
+                            <UppercaseSbText variant="h6">{__tr("campaigns")}</UppercaseSbText>
+                        </TableCell>
+                        <TableCell>
+                            <UppercaseSbText variant="h6">{__tr("status")}</UppercaseSbText>
+                        </TableCell>
+                        <TableCell>
+                            <UppercaseSbText variant="h6">{__tr("deliverables")}</UppercaseSbText>
+                        </TableCell>
+                        <TableCell></TableCell>
                     </TableRow>
                 </TableHead>
                 <TableBody>

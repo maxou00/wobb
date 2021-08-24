@@ -1,8 +1,9 @@
-import { Box, Divider, TextField, Typography } from "@material-ui/core";
+import { Box, TextField, Typography } from "@material-ui/core";
 import { useUrlQuery } from "../core/hooks";
-import { IconCloudUpload } from "../components/Icons";
+import { IconCloudUpload, IconEdit } from "../components/Icons";
 import { TextTransformNoneButton } from "../components/TextTransformNoneButton";
 import styles from "../styles/TaskSubmit.module.scss";
+import { ViewCountInput } from "../components/ViewCountInput";
 
 export function TaskSubmit() {
 
@@ -11,9 +12,10 @@ export function TaskSubmit() {
 
     return <Box className={styles.page}>
         <Box padding={2} className={styles.header}>
-            <Typography variant="h6" className={styles.title}>Submit task</Typography>
+            <IconEdit size={24}/>
+            <Typography variant="h6" style={{marginLeft: 8}} className={styles.title}>Submit task</Typography>
         </Box>
-        <Box padding={2} className={styles.content}>
+        <Box padding={2} className={styles.content} style={{width: '100%'}}>
             {(deliverable !== "static-story") && <Box>
                 <Typography variant="body1" style={{ fontWeight: 500 }} className={styles.textCopyPaste}>
                     Enter / Paste the link below
@@ -25,21 +27,8 @@ export function TaskSubmit() {
                     maxRows={6}
                     />
             </Box>}
-            { deliverable === "static-story" && action==="submit" && <Box paddingY={2}>
-                <TextField 
-                    variant="outlined" 
-                    InputProps={{
-                        startAdornment: <span 
-                            style={{whiteSpace: "nowrap", fontSize: '10px'}}>
-                                Total View Count
-                            </span>,
-
-                        inputProps: {
-                            style : {
-                                paddingLeft: '8px'
-                            }
-                        }
-                    }}/>
+            { deliverable === "static-story" && action==="submit" && <Box paddingY={2} style={{width: '100%'}}>
+                <ViewCountInput/>
             </Box> }
             {(deliverable !== "reel" || action !== "submit") && <Box paddingY={2} className={styles.sectionUpload}>
                 <IconCloudUpload size={128} />

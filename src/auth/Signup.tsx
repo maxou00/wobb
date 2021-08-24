@@ -12,7 +12,7 @@ import { Validators } from "../core/validators";
 import { __tr } from "../i18n";
 import { Routes } from "../routes";
 import styles from "../styles/Signup.module.scss";
-import { nameToUsername, persistUname } from "../core/utils";
+import { persistUname } from "../core/utils";
 import { toast } from "react-toastify";
 import { Loader } from "../components/Loader";
 
@@ -50,7 +50,6 @@ export function Signup() {
                 phone_number: Validators.isPhone(emailOrPhone) ? emailOrPhone : "",
                 password: form.password.value,
                 name: form.fullName.value,
-                username: nameToUsername(form.fullName.value),
                 role: selectedRole
             }
 
@@ -68,7 +67,7 @@ export function Signup() {
 
             if (Object.keys(newErrors).length === 0) {
                 setLoading(true);
-                UserPool.signUp(data.username, data.password, [
+                UserPool.signUp(data.email, data.password, [
                     new CognitoUserAttribute({ Name: 'phone_number', Value: data.phone_number }),
                     new CognitoUserAttribute({ Name: 'email', Value: data.email }),
                     new CognitoUserAttribute({ Name: 'name', Value: data.name }),
@@ -79,7 +78,7 @@ export function Signup() {
                         toast.error(err.message);
                     }
                     else if (result) {
-                        persistUname(data.username)
+                        persistUname(data.email)
                         history.push(Routes.VerifyOTP);
                     }
                 })

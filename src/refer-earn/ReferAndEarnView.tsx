@@ -122,7 +122,7 @@ export function ReferAndEarnView() {
             <Grid container spacing={2}>
                 <Grid item xs={12}>
                     <Paper elevation={0}>
-                        <BoxRecommendedCampaigns />
+                        <BoxRecommendedCampaigns viewMore/>
                     </Paper>
                 </Grid>
                 <Grid item xs={12}>

@@ -48,6 +48,10 @@
 
 .collabs {
     @extend .bodyText;
+    width: 100%;
+    text-align: center;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 }
 
 .username {

@@ -18,6 +18,10 @@
     border-bottom: 4px solid $colorGrayV1;
     transition: all .3s linear;
     cursor: pointer;
+
+    &:hover {
+        background: white;
+    }
 }
 
 .activeCampaignTab {

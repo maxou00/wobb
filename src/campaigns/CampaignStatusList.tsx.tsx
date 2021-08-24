@@ -1,9 +1,10 @@
-import { List, ListItem, ListItemSecondaryAction, ListItemText } from "@material-ui/core";
+import { Box, List, ListItem, ListItemSecondaryAction, ListItemText } from "@material-ui/core";
 import { useCallback } from "react";
 import { CampaignFilters } from "../core";
 import { __tr } from "../i18n";
 import styles from "../styles/CampaignStatusList.module.scss";
 import cn from "classnames";
+import { UppercaseSbText } from "../components/custom";
 
 interface Props {
     filter: string;
@@ -18,10 +19,10 @@ export function CampaignStatusList(props: Props) {
         }
     }, [props]);
 
-    return <div className={styles.region}>
-        <div className={styles.header}>
-            <h4 className={styles.title}>{__tr("campaignStatus")}</h4>
-        </div>
+    return <Box className={styles.region}>
+        <Box padding={2} className={styles.header}>
+            <UppercaseSbText variant="h6">{__tr("applicantStatus")}</UppercaseSbText>
+        </Box>
         <List style={{ width: '100%' }}>
             {
                 CampaignFilters.map((filter, i) => {
@@ -40,5 +41,5 @@ export function CampaignStatusList(props: Props) {
                 })
             }
         </List>
-    </div>
+    </Box>
 }

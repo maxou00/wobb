@@ -3,7 +3,7 @@ import { UserPool } from "./constants";
 import { randomID } from "./roles";
 
 export function nameToUsername(name: string) {
-    return name.toLowerCase().replace(" ", "").substr(0,6) + randomID(4);
+    return randomID(12);
 }
 
 export function persistUname(str: string) {

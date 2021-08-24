@@ -120,7 +120,6 @@ export function DeliverableView(props: DeliverableActionsProps) {
 }
 
 export function DeliverableList() {
-    const status = useUrlQuery("status", "content_pending");
     const [requestingRevision, setRequestingRevision] = useState(false);
     const [approving, setApproving] = useState(false);
 

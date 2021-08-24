@@ -1,4 +1,4 @@
-import { Tab, TableCell, Tabs, withStyles } from "@material-ui/core";
+import { Tab, TableCell, Tabs, Typography, withStyles } from "@material-ui/core";
 import { CssVariables } from "../css-variables";
 
 export const StyledTableHeading = withStyles({
@@ -28,3 +28,15 @@ export const StyledTab = withStyles({
         background: 'red'
     }
 })(Tab);
+
+export const SemiBoldText = withStyles({
+    root: {
+        fontWeight: 600
+    }
+})(Typography);
+
+export const UppercaseSbText = withStyles({
+    root: {
+        textTransform: 'uppercase'
+    }
+})(SemiBoldText);

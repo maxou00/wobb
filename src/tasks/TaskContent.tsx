@@ -1,4 +1,5 @@
 import { Box, Typography } from "@material-ui/core";
+import { IconCloseRed, IconDoneFilled } from "../components/Icons";
 import { useUrlParam, useUrlQuery } from "../core/hooks";
 import styles from "../styles/TaskContent.module.scss";
 
@@ -29,6 +30,26 @@ function TaskReferencePosts() {
     </Box>
 }
 
+function TaskForReference() {
+    return <Box className={styles.referencePosts}>
+        <Typography variant="h6" className={styles.title}>For Reference:</Typography>
+        <Box display="flex" flexDirection="column" alignItems="flex-start" justifyContent="flex-start">
+            <Box display="flex" flexDirection="row" alignItems="center" justifyContent="flex-start">
+                <IconDoneFilled size={18} />
+                <Typography variant="body1" style={{ marginLeft: 4 }}>10000</Typography>
+            </Box>
+            <Box display="flex" flexDirection="row" alignItems="center" justifyContent="flex-start">
+                <IconCloseRed size={18} />
+                <Typography variant="body1" style={{ marginLeft: 4 }}>10,000</Typography>
+            </Box>
+            <Box display="flex" flexDirection="row" alignItems="center" justifyContent="flex-start">
+                <IconCloseRed size={18} />
+                <Typography variant="body1" style={{ marginLeft: 4 }}>10K</Typography>
+            </Box>
+        </Box>
+    </Box>
+}
+
 export function TaskContent() {
     const taskId = useUrlParam("id", 'a-simple-id');
     const deliverable = useUrlQuery("deliverable", "reel");
@@ -48,7 +69,12 @@ export function TaskContent() {
         <Box className={styles.due}>
             <Typography variant="body1" className={styles.text}>Due Date For Submissions 04 July 2022</Typography>
         </Box>
-        <TaskOverview/>
-        <TaskReferencePosts/>
+        <TaskOverview />
+        {
+            deliverable === 'reel' && <TaskReferencePosts />
+        }
+        {
+            deliverable === 'static-story' && <TaskForReference />
+        }
     </Box>
 }

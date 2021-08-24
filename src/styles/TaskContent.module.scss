@@ -22,7 +22,7 @@
     .meta {
         margin-left: 4px;
         font-weight: 200;
-        font-size: $fontSizeBodyText;
+        //font-size: $fontSizeBodyText;
     }
 }
 
@@ -35,7 +35,7 @@
     @extend .section;
 
     .text {
-        color: $colorGrayV1;
+        color: $colorGrayV2;
     }
 }
 

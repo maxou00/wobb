@@ -31,6 +31,7 @@ const styles = {
         background: transparent;
         text-transform: uppercase;
         cursor: pointer;
+        padding-left: 32px;
 
         &[data-active = true] {
             font-weight: 500;

@@ -8,6 +8,7 @@ import { IconGoogle } from "../components/Icons";
 import { Loader } from "../components/Loader";
 import { SingleLineInput } from "../components/SingleLineInput";
 import { UserPool } from "../core/constants";
+import { useUrlQuery } from "../core/hooks";
 import { Validators } from "../core/validators";
 import { __tr } from "../i18n";
 import { Routes } from "../routes";
@@ -19,6 +20,7 @@ export function Login() {
     const [errors, setErrors] = useState<any>({});
 
     const history = useHistory();
+    const nextSegment = useUrlQuery("next", "");
 
     const onSubmit = useCallback((ev: React.ChangeEvent<HTMLFormElement>) => {
         ev.preventDefault();
@@ -54,12 +56,14 @@ export function Login() {
         user.authenticateUser(authDetails, {
             onSuccess: (res) => {
                 setLoading(false);
-                let accessToken = res.getAccessToken().getJwtToken();
                 toast.success(
                     'authenticated'
                 )
-                localStorage.setItem("token", accessToken);
-                history.replace(Routes.Home);
+                if(nextSegment) {
+                    let next = decodeURIComponent(nextSegment);
+                    return window.location.replace(next);
+                }
+                return window.location.replace(Routes.Home);
             },
 
             onFailure: (res) => {

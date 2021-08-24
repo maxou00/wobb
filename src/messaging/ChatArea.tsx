@@ -1,4 +1,4 @@
-import { Avatar, Box, Drawer, IconButton, InputBase, Menu, MenuItem, Typography, withStyles } from "@material-ui/core";
+import { Avatar, Box, Drawer, IconButton, InputBase, Menu, MenuItem, Popover, Typography, withStyles } from "@material-ui/core";
 import { AttachFile, EmojiEmotions, Gif, ImageSharp } from "@material-ui/icons";
 import { useState } from "react";
 import { MdClose, MdMoreVert } from "react-icons/md";
@@ -26,7 +26,7 @@ export function ChatArea() {
                     <Avatar className={styles.participantAvatar} />
                     <Box className={styles.text}>
                         <Typography variant="h6" className={styles.fullName}>Lakshman N L</Typography>
-                        <span className={styles.lastActivity}>6h ago</span>
+                        <span className={styles.lastActivity}>influencer</span>
                     </Box>
                 </Box>
                 <Box className={styles.actions}>
@@ -69,10 +69,12 @@ export function ChatArea() {
                     </Box>
                 </Box>
             </Box>
-            <Menu open={Boolean(menuAnchor)} onClose={() => setMenuAnchor(undefined)} anchorEl={menuAnchor} elevation={1}>
-                <MenuItem>Delete</MenuItem>
-                <MenuItem>Mute</MenuItem>
-            </Menu>
+            <Popover open={Boolean(menuAnchor)} onClose={() => setMenuAnchor(undefined)} anchorEl={menuAnchor} anchorOrigin={{vertical: "bottom", horizontal: "left"}} elevation={1}>
+                <Box minWidth="160px">
+                    <MenuItem>Delete</MenuItem>
+                    <MenuItem>Mute</MenuItem>
+                </Box>
+            </Popover>
         </Box>
         <Box>
             {aboutParticipantOpen && <Box className={styles.about}>

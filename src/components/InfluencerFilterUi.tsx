@@ -2,6 +2,7 @@ import { Box, InputAdornment, MenuItem, TextField, Typography } from "@material-
 import { useCallback, useState } from "react";
 import { __tr } from "../i18n";
 import { InvertedSlider } from "./InvertedSlider";
+import { StyledSlider } from "./StyledSlider";
 
 interface InfluencerFilter {
     sortBy?: string;
@@ -125,13 +126,13 @@ export function InfluencerFilterUi(props: FilterUIProps) {
                 <Typography variant="body2">{__tr("followersRange")}</Typography>
             </Box>
             <Box>
-                <InvertedSlider
-                    min={5000}
+                <StyledSlider
+                    min={1000}
                     max={100000}
+                    track="inverted"
+                    marks={[{value: 1000, label: "1K"}, {value: 1000000,label: "1M+"}]}
                     value={filter.followerRange.min}
-                    maxTitle="1M+"
-                    minTitle="1K"
-                    onChange={onMinFollowerChange} />
+                    onChange={(ev, val) => onMinFollowerChange(val as number)} />
             </Box>
         </Box>
         <Box marginY={4} display="flex" flexDirection="row" alignItems="center" justifyContent="center">
@@ -166,13 +167,14 @@ export function InfluencerFilterUi(props: FilterUIProps) {
             <Box marginBottom={1}>
                 <Typography variant="body2">{__tr("engagementRate")}</Typography>
             </Box>
-            <InvertedSlider
+            <StyledSlider
                 min={1}
                 max={5}
-                maxTitle="5+%"
-                minTitle="1%"
+                track="inverted"
+                valueLabelDisplay="auto"
+                marks={[{value: 1, label: "1%"},{value: 5, label: "5%+"}]}
                 value={filter.engagementRate}
-                onChange={onEngagementRateChange} />
+                onChange={(ev,val) => onEngagementRateChange(val as number)} />
         </Box>
         <Box marginY={4}>
             <Box marginBottom={1}>
@@ -207,13 +209,14 @@ export function InfluencerFilterUi(props: FilterUIProps) {
             <Box marginBottom={1}>
                 <Typography variant="body2">{__tr("age")}</Typography>
             </Box>
-            <InvertedSlider
+            <StyledSlider
                 min={19}
                 max={45}
                 value={filter.age}
-                maxTitle="45+"
-                minTitle="19"
-                onChange={onAgeChange} />
+                track="inverted"
+                valueLabelDisplay="auto"
+                marks={[{value: 19, label: "19"}, {value: 45, label: "45+"}]}
+                onChange={(ev,val) => onAgeChange(val as number)} />
         </Box>
         <Box marginY={4}>
             <Box marginBottom={1}>
