@@ -1,6 +1,8 @@
 import { Box } from "@material-ui/core";
 import { AuthenticationDetails, CognitoUser } from "amazon-cognito-identity-js";
 import React, { useCallback, useState } from "react";
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
 import { Link, useHistory } from "react-router-dom";
 import { toast } from "react-toastify";
 import { EmailOrPhone } from "../components/EmailOrPhone";
@@ -12,15 +14,26 @@ import { useUrlQuery } from "../core/hooks";
 import { Validators } from "../core/validators";
 import { __tr } from "../i18n";
 import { Routes } from "../routes";
+import { setCurrentUser } from "../state/action-creators";
+import { useAppUser } from "../state/selectors";
+import { cognitoUserDataToObject } from "../state/utils";
 import styles from "../styles/Login.module.scss";
 
 export function Login() {
     const [loading, setLoading] = useState(false);
+    const { user } = useAppUser();
     const [emailOrPhone, setEmailOrPhone] = useState("");
     const [errors, setErrors] = useState<any>({});
 
+    const dispatch = useDispatch();
     const history = useHistory();
     const nextSegment = useUrlQuery("next", "");
+
+    useEffect(() => {
+        if (user) {
+            history.replace(Routes.Home);
+        }
+    }, [user, history]);
 
     const onSubmit = useCallback((ev: React.ChangeEvent<HTMLFormElement>) => {
         ev.preventDefault();
@@ -42,6 +55,10 @@ export function Login() {
 
         setErrors(errs);
 
+        if (Object.keys(errs).length > 0) {
+            return;
+        }
+
         let user = new CognitoUser({
             Username: emailOrPhone,
             Pool: UserPool
@@ -56,14 +73,20 @@ export function Login() {
         user.authenticateUser(authDetails, {
             onSuccess: (res) => {
                 setLoading(false);
-                toast.success(
-                    'authenticated'
-                )
-                if(nextSegment) {
-                    let next = decodeURIComponent(nextSegment);
-                    return window.location.replace(next);
-                }
-                return window.location.replace(Routes.Home);
+                user.getUserData((err, data) => {
+                    if (data) {
+                        dispatch(setCurrentUser(cognitoUserDataToObject(data)))
+                        toast.success(
+                            'authenticated'
+                        )
+                        if (nextSegment) {
+                            let next = decodeURIComponent(nextSegment);
+                            let url = new URL(next);
+                            return history.replace(`${url.pathname}?${url.search}`);
+                        }
+                        return history.replace(Routes.Home);
+                    }
+                })
             },
 
             onFailure: (res) => {
@@ -80,7 +103,7 @@ export function Login() {
         <div className={styles.formWrapper}>
             <h3>Signin</h3>
             <form action="" className={styles.form} onSubmit={onSubmit}>
-                {loading && <Loader/>}
+                {loading && <Loader />}
                 <Box marginY={2}>
                     <EmailOrPhone
                         label="Email or phone number"

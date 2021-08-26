@@ -5,7 +5,7 @@ import { Routes } from "../routes";
 import styles from "../styles/TopAppBar.module.scss";
 import { IconBrowse, IconChat, IconHeart, IconMegaphone, IconSearch } from "./Icons";
 import { Logo } from "./Logo";
-import { MdPeople, MdArrowDropDown, MdMenu } from "react-icons/md";
+import { MdPeople, MdArrowDropDown, MdMenu, MdPerson } from "react-icons/md";
 import { useState } from "react";
 import { ProfileNavigationCard } from "../profile/ProfileNavigationCard";
 
@@ -55,7 +55,7 @@ export function TopAppBar() {
                     </NavLink>
                     <button className={styles.me} onClick={(ev) => setProfileNavigationAnchor(ev.currentTarget)}>
                         <div className={styles.picture}>
-                            <MdPeople size={24} />
+                            <MdPerson size={24} />
                         </div>
                         <div className={styles.titleWrapper}>
                             <span className={styles.title}>{__tr("me")}</span>

@@ -1,5 +1,5 @@
 import { createTheme, CssBaseline, ThemeProvider } from "@material-ui/core";
-import { BrowserRouter, Redirect, Route, Switch } from 'react-router-dom';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import { Home } from './components/Home';
 import { Routes } from './routes';
 import { AuthLayout } from './auth/AuthLayout';
@@ -10,6 +10,7 @@ import { RouteProtector } from "./auth/RouteProtector";
 import { Provider } from "react-redux";
 import { store } from "./state/store";
 import { Initializer } from "./components/Initializer";
+import BaseLanding from "./landing/pages/BaseLanding";
 
 const appTheme = createTheme({
   palette: {
@@ -35,22 +36,21 @@ appTheme.shadows[2] = `1px 1px 4px ${CssVariables.colorGrayV1}`
 function App() {
   return (
     <Provider store={store}>
+      <Initializer>
       <ThemeProvider theme={appTheme}>
         <CssBaseline />
         <BrowserRouter>
           <Switch>
             <Route path={Routes.Home}>
-              <Initializer>
                 <RouteProtector>
                   <Home />
                 </RouteProtector>
-              </Initializer>
             </Route>
             <Route path={Routes.Auth}>
               <AuthLayout />
             </Route>
-            <Route path={Routes.Base} exact>
-              <Redirect to={Routes.Login} />
+            <Route path={Routes.Base}>
+              <BaseLanding/>
             </Route>
           </Switch>
         </BrowserRouter>
@@ -63,6 +63,7 @@ function App() {
           pauseOnFocusLoss
           pauseOnHover />
       </ThemeProvider>
+      </Initializer>
     </Provider>
   );
 }

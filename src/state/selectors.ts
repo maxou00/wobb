@@ -1,6 +1,6 @@
 import { useSelector } from "react-redux";
-import { IAppState, IAppUser } from "../state";
+import { IAppState } from ".";
 
-export function useAppUser(): IAppUser {
+export function useAppUser() {
     return useSelector((state: IAppState) => state.userState);
 }

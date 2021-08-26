@@ -5,6 +5,7 @@ import { NavLink, useHistory } from "react-router-dom";
 import { Stars } from "../components/Stars";
 import { __tr } from "../i18n";
 import { Routes } from "../routes";
+import { useAppUser } from "../state/selectors";
 import styles from "../styles/ProfileCard.module.scss";
 
 const RoundedButton = withStyles({
@@ -14,6 +15,7 @@ const RoundedButton = withStyles({
 })(Button);
 
 export function ProfileNavigationCard() {
+    const { user } = useAppUser();
     const history = useHistory();
 
     const viewProfile = useCallback(() => {
@@ -24,7 +26,7 @@ export function ProfileNavigationCard() {
         <Box padding={2} className={styles.profile}>
             <div className={styles.image}></div>
             <div className={styles.content}>
-                <Typography variant="h6" className={styles.name}>Lara Dennis</Typography>
+                <Typography variant="h6" className={styles.name}>{user.name}</Typography>
                 <Typography variant="body2" className={styles.sub}>Influencer <Stars count={4.1}/> (125)</Typography>
             </div>
         </Box>

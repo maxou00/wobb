@@ -1,7 +1,5 @@
-import { CognitoUser } from "amazon-cognito-identity-js";
-
 export interface IAppUser {
-    user: CognitoUser | null ;
+    user: any | null ;
 }
 
 export interface IAppState {

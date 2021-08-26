@@ -1,7 +1,6 @@
 import { Box, InputAdornment, MenuItem, TextField, Typography } from "@material-ui/core";
 import { useCallback, useState } from "react";
 import { __tr } from "../i18n";
-import { InvertedSlider } from "./InvertedSlider";
 import { StyledSlider } from "./StyledSlider";
 
 interface InfluencerFilter {

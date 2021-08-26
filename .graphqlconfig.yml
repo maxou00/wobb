@@ -8,7 +8,7 @@ projects:
     extensions:
       amplify:
         codeGenTarget: typescript
-        generatedFileName: api.tsx
+        generatedFileName: src/api.tsx
         docsFilePath: src/gql
         region: us-east-1
         apiId: 2jcr3qmuujdrhi6gtr2bj6xd7y
