@@ -17,7 +17,7 @@ export default function Landing() {
     if(user) {
       history.replace(Routes.Discover);
     }
-  }, [user, history]);
+  }, [user,history]);
 
   return (
     <div>

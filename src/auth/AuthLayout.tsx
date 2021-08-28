@@ -5,7 +5,7 @@ import { Routes } from "../routes";
 import styles from "../styles/AuthLayout.module.scss";
 import { ConfirmOTP } from "./ConfirmOTP";
 import { ForgotPassword } from "./ForgotPassword";
-import { Login } from "./Login";
+import Login from "./Login";
 import { Signup } from "./Signup";
 
 export function AuthLayout() {

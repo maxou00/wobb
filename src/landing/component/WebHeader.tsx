@@ -1,7 +1,16 @@
+import { useCallback } from "react"
+import { Link, useHistory } from "react-router-dom"
+import { Routes } from "../../routes"
 import InfluencerList from "./InfluencerList"
 import MarketerList from "./MarketerList"
 
 export default function WebHeader() {
+
+    const history = useHistory();
+
+    const onSignup = useCallback(() => {
+        history.push(Routes.Signup);
+    }, [history]);
 
     return (
         <>
@@ -23,8 +32,8 @@ export default function WebHeader() {
                             </div>
                             <div className="col-lg-3 col-6">
                                 <div className="side-btn">
-                                    <div><a href="/" className="web-log-in">Log In</a></div>
-                                    <div><button className="web-signup">Sign Up</button></div>
+                                    <div><Link to={Routes.Login} className="web-log-in">Log In</Link></div>
+                                    <div><button onClick={onSignup} className="web-signup">Sign Up</button></div>
                                 </div>
                             </div>
                         </div>

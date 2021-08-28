@@ -1,5 +1,5 @@
 export interface IAppUser {
-    user: any | null ;
+    user: any ;
 }
 
 export interface IAppState {

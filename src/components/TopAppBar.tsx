@@ -62,7 +62,7 @@ export function TopAppBar() {
                             <MdArrowDropDown size={24} />
                         </div>
                     </button>
-                    <Popover elevation={2} anchorOrigin={{vertical:"bottom", horizontal: "left"}} open={Boolean(profileNavigationAnchor)} anchorEl={profileNavigationAnchor} onClose={() => setProfileNavigationAnchor(undefined)}>
+                    <Popover elevation={2} anchorOrigin={{vertical:"bottom", horizontal: "center"}} open={Boolean(profileNavigationAnchor)} anchorEl={profileNavigationAnchor} onClose={() => setProfileNavigationAnchor(undefined)}>
                         <ProfileNavigationCard/>
                     </Popover>
                 </nav>

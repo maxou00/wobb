@@ -1,9 +1,12 @@
 import { useState } from "react"
+import { Link } from "react-router-dom";
+import { Routes } from "../../routes";
 
 export default function MenuileHeader() {
     const [open, setOpen] = useState(false)
     const [marketer, setMarketer] = useState(false)
     const [influ, setInflu] = useState(false)
+
     return (
         <>
             <div className="center">
@@ -23,8 +26,8 @@ export default function MenuileHeader() {
                                 </div>
                                 <div >
                                     <div className="mob-side-btn">
-                                        <div><a href="/">Log In</a></div>
-                                        <div><a href="/" className="mob-signup">Sign Up</a></div>
+                                        <div><Link to={Routes.Login}>Log In</Link></div>
+                                        <div><Link to={Routes.Signup} className="mob-signup">Sign Up</Link></div>
                                     </div>
                                 </div>
                             </div>

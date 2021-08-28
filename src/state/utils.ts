@@ -1,8 +1,8 @@
-import { UserData } from "amazon-cognito-identity-js";
+import { CognitoUserAttribute } from "amazon-cognito-identity-js";
 
-export function cognitoUserDataToObject(data: UserData) {
+export function cognitoUserAttributesToObject(data: CognitoUserAttribute[]) {
     let obj: any = {};
-    data.UserAttributes.forEach((at) => {
+    data.forEach((at) => {
         obj[at.Name] = at.Value;
     })
     return obj;

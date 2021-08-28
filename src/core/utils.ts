@@ -1,4 +1,4 @@
-import { CognitoUser } from "amazon-cognito-identity-js";
+import { CognitoAccessToken, CognitoIdToken, CognitoRefreshToken, CognitoUser, CognitoUserSession } from "amazon-cognito-identity-js";
 import { UserPool } from "./constants";
 import { randomID } from "./roles";
 

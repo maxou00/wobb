@@ -1,41 +1,49 @@
 import { Box } from "@material-ui/core";
-import { AuthenticationDetails, CognitoUser } from "amazon-cognito-identity-js";
+import { CognitoUser } from "amazon-cognito-identity-js";
 import React, { useCallback, useState } from "react";
-import { useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { connect } from "react-redux";
 import { Link, useHistory } from "react-router-dom";
 import { toast } from "react-toastify";
+import { AnyAction } from "redux";
+import { ThunkDispatch } from "redux-thunk";
 import { EmailOrPhone } from "../components/EmailOrPhone";
 import { IconGoogle } from "../components/Icons";
 import { Loader } from "../components/Loader";
 import { SingleLineInput } from "../components/SingleLineInput";
-import { UserPool } from "../core/constants";
 import { useUrlQuery } from "../core/hooks";
 import { Validators } from "../core/validators";
 import { __tr } from "../i18n";
 import { Routes } from "../routes";
-import { setCurrentUser } from "../state/action-creators";
-import { useAppUser } from "../state/selectors";
-import { cognitoUserDataToObject } from "../state/utils";
-import styles from "../styles/Login.module.scss";
+import { IAppState } from "../state";
+import { initializeState } from "../state/middlewares";
+import { Auth } from "aws-amplify";
 
-export function Login() {
+import styles from "../styles/Login.module.scss";
+import { useEffect } from "react";
+
+const mapState = (state: IAppState) => {
+    return {
+        user: state.userState.user
+    };
+}
+
+const mapDispatch = (dispatch: ThunkDispatch<IAppState, {}, AnyAction>) => {
+    return {
+        initialize: () => dispatch(initializeState()),
+    }
+}
+
+type Props = ReturnType<typeof mapState> & ReturnType<typeof mapDispatch>
+
+function Login(props: Props) {
     const [loading, setLoading] = useState(false);
-    const { user } = useAppUser();
     const [emailOrPhone, setEmailOrPhone] = useState("");
     const [errors, setErrors] = useState<any>({});
 
-    const dispatch = useDispatch();
     const history = useHistory();
     const nextSegment = useUrlQuery("next", "");
 
-    useEffect(() => {
-        if (user) {
-            history.replace(Routes.Home);
-        }
-    }, [user, history]);
-
-    const onSubmit = useCallback((ev: React.ChangeEvent<HTMLFormElement>) => {
+    const onSubmit = useCallback(async (ev: React.ChangeEvent<HTMLFormElement>) => {
         ev.preventDefault();
 
         let form = ev.currentTarget;
@@ -59,44 +67,42 @@ export function Login() {
             return;
         }
 
-        let user = new CognitoUser({
-            Username: emailOrPhone,
-            Pool: UserPool
-        })
-
-        let authDetails = new AuthenticationDetails({
-            Username: emailOrPhone,
-            Password: data.password
-        })
-
         setLoading(true);
-        user.authenticateUser(authDetails, {
-            onSuccess: (res) => {
+
+        Auth.signIn(emailOrPhone, data.password)
+            .then((user: CognitoUser) => {
+                user.setDeviceStatusRemembered({
+                    onSuccess: () => {
+                        setLoading(false);
+                        props.initialize()
+                            .then((done) => {
+                                if (done) {
+                                    if (nextSegment) {
+                                        let next = decodeURIComponent(nextSegment);
+                                        return history.replace(next);
+                                    }
+                                    return history.replace(Routes.Home);
+                                }
+                            })
+                    },
+                    onFailure: (err) => {
+                        setLoading(false);
+                        toast.error(err.message);
+                     }
+                });
+            })
+            .catch((err) => {
                 setLoading(false);
-                user.getUserData((err, data) => {
-                    if (data) {
-                        dispatch(setCurrentUser(cognitoUserDataToObject(data)))
-                        toast.success(
-                            'authenticated'
-                        )
-                        if (nextSegment) {
-                            let next = decodeURIComponent(nextSegment);
-                            let url = new URL(next);
-                            return history.replace(`${url.pathname}?${url.search}`);
-                        }
-                        return history.replace(Routes.Home);
-                    }
-                })
-            },
+                toast.error(err.message)
+            })
 
-            onFailure: (res) => {
-                setLoading(false);
-                toast.error(res.message);
-            }
-        })
+    }, [emailOrPhone, history, nextSegment, props]);
 
-
-    }, [emailOrPhone, history]);
+    useEffect(() => {
+        if(props.user) {
+            history.replace(Routes.Discover);
+        }
+    }, [history,props]);
 
     return <div className={styles.loginWrapper}>
         <h3>Welcome back !</h3>
@@ -148,3 +154,5 @@ export function Login() {
         </div>
     </div>
 }
+
+export default connect(mapState, mapDispatch)(Login);

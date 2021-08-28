@@ -1,19 +1,24 @@
+import { Auth } from "aws-amplify";
 import { AnyAction } from "redux";
 import { ThunkAction } from "redux-thunk";
 import { IAppState } from ".";
-import { UserPool } from "../core/constants";
 import { setCurrentUser } from "./action-creators";
-import { cognitoUserDataToObject } from "./utils";
+import { cognitoUserAttributesToObject } from "./utils";
 
-export function initializeState(): ThunkAction<any, IAppState, {}, AnyAction> {
-    return (dispatch, getState) => {
-        const user = UserPool.getCurrentUser();
-        if (user) {
-            user.getUserData((err, data) => {
-                if (data) {
-                    dispatch(setCurrentUser(cognitoUserDataToObject(data)));
-                }
-            })
-        }
+export function initializeState(): ThunkAction<Promise<any>, IAppState, {}, AnyAction> {
+    return async (dispatch, getState) => {
+        return new Promise( async (res, rej) => {
+            const user = await Auth.currentAuthenticatedUser()
+            if (user) {
+                let attributes = await Auth.userAttributes(user);
+                let obj = cognitoUserAttributesToObject(attributes);
+                dispatch(setCurrentUser(obj));
+                res(true);
+            }
+            else {
+                res(false);
+            }
+            res(false);
+        })
     }
 }

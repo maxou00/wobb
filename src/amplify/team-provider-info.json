@@ -1,0 +1,20 @@
+{
+  "staging": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-amplify611b4f7dca054-staging-14424-authRole",
+      "UnauthRoleArn": "arn:aws:iam::431104670392:role/amplify-amplify611b4f7dca054-staging-14424-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::431104670392:role/amplify-amplify611b4f7dca054-staging-14424-authRole",
+      "Region": "ap-south-1",
+      "DeploymentBucketName": "amplify-amplify611b4f7dca054-staging-14424-deployment",
+      "UnauthRoleName": "amplify-amplify611b4f7dca054-staging-14424-unauthRole",
+      "StackName": "amplify-amplify611b4f7dca054-staging-14424",
+      "StackId": "arn:aws:cloudformation:ap-south-1:431104670392:stack/amplify-amplify611b4f7dca054-staging-14424/7ada4350-02ea-11ec-85fc-0ac134090de2",
+      "AmplifyAppId": "d25y7uiqx1nwev"
+    },
+    "categories": {
+      "auth": {
+        "wobbwebapp": {}
+      }
+    }
+  }
+}

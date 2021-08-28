@@ -10,8 +10,9 @@ export function RouteProtector(props: PropsWithChildren<{}>) {
 
     useEffect(() => {
         if(!user) {
-            let href = encodeURIComponent(window.location.href);
-            history.replace(`/auth/login?next=${href}`);
+            let href = new URL(window.location.href);
+            let nextPath = encodeURIComponent(`${href.pathname}${href.search}`)
+            history.replace(`/auth/login?next=${nextPath}`);
         }
     }, [user, history]);
 
