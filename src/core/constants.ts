@@ -10,3 +10,6 @@ export const UserPool = new CognitoUserPool({
     ClientId: APP_CLIENT_ID,
     Storage: localStorage
 })
+
+export const INSTAGRAM_REDIRECT = "https://api.instagram.com/oauth/authorize?client_id=572433830162013&redirect_uri=https://devapi.wobb.ai/api/dashboardv2/authcode&connect&scope=user_profile,user_media&response_type=code"
+export const YOUTUBE_REDIRECT = "https://api.wobb.ai/api/youtube/youtubeAppAuthenticate"

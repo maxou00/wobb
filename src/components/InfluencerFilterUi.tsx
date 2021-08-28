@@ -1,7 +1,17 @@
+import { css } from "@emotion/css";
 import { Box, InputAdornment, MenuItem, TextField, Typography } from "@material-ui/core";
 import { useCallback, useState } from "react";
 import { __tr } from "../i18n";
 import { StyledSlider } from "./StyledSlider";
+
+const styles = {
+    root: css`
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: flex-start;
+    `
+}
 
 interface InfluencerFilter {
     sortBy?: string;
@@ -105,8 +115,8 @@ export function InfluencerFilterUi(props: FilterUIProps) {
     }, [filter]);
 
 
-    return <Box paddingX={2}>
-        {props.enableSorting && <Box marginY={4}>
+    return <Box paddingX={2} className={styles.root}>
+        {props.enableSorting && <Box marginY={2} width="100%">
             <Box marginBottom={1}>
                 <Typography variant="body2">{__tr("sortBy")}</Typography>
             </Box>
@@ -116,25 +126,24 @@ export function InfluencerFilterUi(props: FilterUIProps) {
                 value={filter.sortBy}
                 onChange={(ev) => onSortParameterChange(ev.currentTarget.value)}
                 variant="outlined"
+                placeholder="e.g Engagement Rate"
                 fullWidth>
                 <MenuItem value="engagementRate">{__tr("engagementRate")}</MenuItem>
             </TextField>
-        </Box> }
-        <Box marginY={4}>
+        </Box>}
+        <Box marginY={2} width="100%">
             <Box marginBottom={2}>
                 <Typography variant="body2">{__tr("followersRange")}</Typography>
             </Box>
-            <Box>
-                <StyledSlider
-                    min={1000}
-                    max={100000}
-                    track="inverted"
-                    marks={[{value: 1000, label: "1K"}, {value: 1000000,label: "1M+"}]}
-                    value={filter.followerRange.min}
-                    onChange={(ev, val) => onMinFollowerChange(val as number)} />
-            </Box>
+            <StyledSlider
+                min={1000}
+                max={1000000}
+                track="inverted"
+                marks={[{ value: 1000, label: "1K" }, { value: 1000000, label: "1M+" }]}
+                value={filter.followerRange.min}
+                onChange={(ev, val) => onMinFollowerChange(val as number)} />
         </Box>
-        <Box marginY={4} display="flex" flexDirection="row" alignItems="center" justifyContent="center">
+        <Box width="100%" marginY={2} display="flex" flexDirection="row" alignItems="center" justifyContent="center">
             <Box marginRight={.5}>
                 <TextField
                     fullWidth
@@ -142,8 +151,6 @@ export function InfluencerFilterUi(props: FilterUIProps) {
                     size="small"
                     placeholder="e.g. 5000"
                     type="number"
-                    value={filter.followerRange.min}
-                    onChange={(ev) => onMinFollowerChange(ev.currentTarget.value)}
                     InputProps={{
                         startAdornment: <InputAdornment position="start">{__tr("min")}</InputAdornment>
                     }} />
@@ -162,7 +169,7 @@ export function InfluencerFilterUi(props: FilterUIProps) {
                     }} />
             </Box>
         </Box>
-        <Box marginY={4}>
+        <Box width="100%" marginY={2}>
             <Box marginBottom={1}>
                 <Typography variant="body2">{__tr("engagementRate")}</Typography>
             </Box>
@@ -171,11 +178,11 @@ export function InfluencerFilterUi(props: FilterUIProps) {
                 max={5}
                 track="inverted"
                 valueLabelDisplay="auto"
-                marks={[{value: 1, label: "1%"},{value: 5, label: "5%+"}]}
+                marks={[{ value: 1, label: "1%" }, { value: 5, label: "5%+" }]}
                 value={filter.engagementRate}
-                onChange={(ev,val) => onEngagementRateChange(val as number)} />
+                onChange={(ev, val) => onEngagementRateChange(val as number)} />
         </Box>
-        <Box marginY={4}>
+        <Box width="100%" marginY={2}>
             <Box marginBottom={1}>
                 <Typography variant="body2">{__tr("category")}</Typography>
             </Box>
@@ -185,11 +192,12 @@ export function InfluencerFilterUi(props: FilterUIProps) {
                 value={filter.category}
                 onChange={(ev) => onCategoryChange(ev.currentTarget.value)}
                 variant="outlined"
+                placeholder="e.g Engagement Rate"
                 fullWidth>
                 <MenuItem value="food">Food</MenuItem>
             </TextField>
         </Box>
-        <Box marginY={4}>
+        <Box width="100%" marginY={4}>
             <Box marginBottom={1}>
                 <Typography variant="body2">{__tr("gender")}</Typography>
             </Box>
@@ -204,7 +212,7 @@ export function InfluencerFilterUi(props: FilterUIProps) {
                 <MenuItem value="female">Female</MenuItem>
             </TextField>
         </Box>
-        <Box marginY={4}>
+        <Box width="100%" marginY={2}>
             <Box marginBottom={1}>
                 <Typography variant="body2">{__tr("age")}</Typography>
             </Box>
@@ -214,10 +222,10 @@ export function InfluencerFilterUi(props: FilterUIProps) {
                 value={filter.age}
                 track="inverted"
                 valueLabelDisplay="auto"
-                marks={[{value: 19, label: "19"}, {value: 45, label: "45+"}]}
-                onChange={(ev,val) => onAgeChange(val as number)} />
+                marks={[{ value: 19, label: "19" }, { value: 45, label: "45+" }]}
+                onChange={(ev, val) => onAgeChange(val as number)} />
         </Box>
-        <Box marginY={4}>
+        <Box width="100%" marginY={2}>
             <Box marginBottom={1}>
                 <Typography variant="body2">{__tr("location")}</Typography>
             </Box>
@@ -232,7 +240,7 @@ export function InfluencerFilterUi(props: FilterUIProps) {
                 <MenuItem value="New Delhi">New Delhi</MenuItem>
             </TextField>
         </Box>
-        <Box marginY={4}>
+        <Box width="100%" marginY={2}>
             <Box marginBottom={1}>
                 <Typography variant="body2">{__tr("language")}</Typography>
             </Box>

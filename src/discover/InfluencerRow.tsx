@@ -94,7 +94,7 @@ export function InfluencerRow(props: RowProps) {
         }
     }, [props]);
 
-    return <Paper elevation={1}>
+    return <Paper elevation={0}>
         <div className={styles.wrapper}>
             <table className={styles.table}>
                 <tbody>

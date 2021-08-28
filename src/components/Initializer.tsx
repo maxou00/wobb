@@ -34,6 +34,7 @@ function Initializer(props: PropsWithChildren<Props>) {
     }, []);
 
     return <>
+        {busy && 'busy...'}
         {
             !busy && props.children
         }

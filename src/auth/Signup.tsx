@@ -71,7 +71,7 @@ export function Signup() {
                     new CognitoUserAttribute({ Name: 'phone_number', Value: data.phone_number }),
                     new CognitoUserAttribute({ Name: 'email', Value: data.email }),
                     new CognitoUserAttribute({ Name: 'name', Value: data.name }),
-                    //new CognitoUserAttribute({ Name: 'role', Value: data.role })
+                    new CognitoUserAttribute({ Name: 'custom:role', Value: data.role })
                 ], [], (err, result) => {
                     setLoading(false);
                     if (err) {

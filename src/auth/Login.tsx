@@ -71,25 +71,17 @@ function Login(props: Props) {
 
         Auth.signIn(emailOrPhone, data.password)
             .then((user: CognitoUser) => {
-                user.setDeviceStatusRemembered({
-                    onSuccess: () => {
-                        setLoading(false);
-                        props.initialize()
-                            .then((done) => {
-                                if (done) {
-                                    if (nextSegment) {
-                                        let next = decodeURIComponent(nextSegment);
-                                        return history.replace(next);
-                                    }
-                                    return history.replace(Routes.Home);
-                                }
-                            })
-                    },
-                    onFailure: (err) => {
-                        setLoading(false);
-                        toast.error(err.message);
-                     }
-                });
+                setLoading(false);
+                props.initialize()
+                    .then((done) => {
+                        if (done) {
+                            if (nextSegment) {
+                                let next = decodeURIComponent(nextSegment);
+                                return history.replace(next);
+                            }
+                            return history.replace(Routes.Home);
+                        }
+                    })
             })
             .catch((err) => {
                 setLoading(false);
@@ -99,10 +91,10 @@ function Login(props: Props) {
     }, [emailOrPhone, history, nextSegment, props]);
 
     useEffect(() => {
-        if(props.user) {
+        if (props.user) {
             history.replace(Routes.Discover);
         }
-    }, [history,props]);
+    }, [history, props]);
 
     return <div className={styles.loginWrapper}>
         <h3>Welcome back !</h3>

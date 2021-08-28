@@ -11,7 +11,7 @@ import { ProfileNavigationCard } from "../profile/ProfileNavigationCard";
 
 export function TopAppBar() {
     const [drawerOpen, setDrawerOpen] = useState(false);
-    const [profileNavigationAnchor, setProfileNavigationAnchor] = useState<HTMLButtonElement>();
+    const [profileNavigationAnchor, setProfileNavigationAnchor] = useState<HTMLElement>();
 
     return <div className={styles.toolbar}>
         <div className={styles.logoWrapper}>
@@ -53,7 +53,7 @@ export function TopAppBar() {
                         </div>
                         <span className={styles.title}>{__tr("notifications")}</span>
                     </NavLink>
-                    <button className={styles.me} onClick={(ev) => setProfileNavigationAnchor(ev.currentTarget)}>
+                    <span role="button" className={styles.me} onClick={(ev) => setProfileNavigationAnchor(ev.currentTarget)}>
                         <div className={styles.picture}>
                             <MdPerson size={24} />
                         </div>
@@ -61,7 +61,7 @@ export function TopAppBar() {
                             <span className={styles.title}>{__tr("me")}</span>
                             <MdArrowDropDown size={24} />
                         </div>
-                    </button>
+                    </span>
                     <Popover elevation={2} anchorOrigin={{vertical:"bottom", horizontal: "center"}} open={Boolean(profileNavigationAnchor)} anchorEl={profileNavigationAnchor} onClose={() => setProfileNavigationAnchor(undefined)}>
                         <ProfileNavigationCard/>
                     </Popover>
