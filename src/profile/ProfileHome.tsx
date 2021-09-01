@@ -1,19 +1,21 @@
 import { Box, Dialog, DialogActions, DialogContent, DialogTitle, Divider, Grid, List, ListItem, ListItemIcon, ListItemText, Paper, Typography } from "@material-ui/core";
 import { ArrowDropDown } from "@material-ui/icons";
+import { Auth } from "aws-amplify";
 import { useState } from "react";
 import { useCallback } from "react";
 import { useHistory } from "react-router";
 import { SocialIcon } from "react-social-icons";
 import { CampaignReview } from "../campaigns/CampaignReview";
-import { IconInstagram } from "../components/Icons";
 import { TextTransformNoneButton } from "../components/TextTransformNoneButton";
-import { INSTAGRAM_REDIRECT, YOUTUBE_REDIRECT } from "../core/constants";
+import { instagramUrlWithId, youtubeUrlWithId } from "../core/constants";
 import { __tr } from "../i18n";
 import { Routes } from "../routes";
+import { useAppUser } from "../state/selectors";
 import { AboutUser } from "./AboutUser";
 import { UserResumeCard } from "./UserResumeCard";
 
 export function ProfileHome() {
+    const { user } = useAppUser();
     const [linkAccountOpen, setLinkAccountOpen] = useState(false);
     const history = useHistory();
 
@@ -21,17 +23,16 @@ export function ProfileHome() {
         history.push(Routes.EditProfile);
     }, [history]);
 
-    const onLinkAccount = useCallback((network: string) => {
+    const onLinkAccount = useCallback(async(network: string) => {
         setLinkAccountOpen(false);
-
-        let windowFeatures = "menubar=no,location=no,resizable=no,scrollbars=yes,status=no";
+        let windowFeatures = "menubar=no,location=no,resizable=no";
         if(network === "instagram") {
             ///process instagram
-            window.open(INSTAGRAM_REDIRECT, "INSTA_WindowName",windowFeatures);
+            window.open(instagramUrlWithId(user.sub), "INSTA_WindowName",windowFeatures);
         }
         else if(network === "youtube") {
             ///process youtube
-            fetch(YOUTUBE_REDIRECT)
+            fetch(youtubeUrlWithId(user.sub))
             .then((rs) => rs.json())
             .then((data) => {
                 if(data.url) {
@@ -39,7 +40,7 @@ export function ProfileHome() {
                 }
             })
         }
-    }, []);
+    }, [user]);
 
     return <Grid container spacing={2}>
         <Grid item xs={4}>
@@ -86,13 +87,13 @@ export function ProfileHome() {
                 <List dense disablePadding>
                     <ListItem button onClick={ () => onLinkAccount("instagram") }>
                         <ListItemIcon>
-                            <SocialIcon network="instagram"/>
+                            <SocialIcon network="instagram" style={{width: '28px', height: '28px'}}/>
                         </ListItemIcon>
-                        <ListItemText primary="Instagram" />
+                        <ListItemText primary="Instagram"/>
                     </ListItem>
                     <ListItem button onClick={ () => onLinkAccount("youtube") }>
                         <ListItemIcon>
-                            <SocialIcon network="youtube"/>
+                            <SocialIcon network="youtube" style={{width: '28px', height: '28px'}}/>
                         </ListItemIcon>
                         <ListItemText primary="Youtube" />
                     </ListItem>

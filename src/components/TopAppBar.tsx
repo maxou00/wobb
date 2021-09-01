@@ -1,4 +1,4 @@
-import { Drawer, Hidden, IconButton, InputBase, Popover } from "@material-ui/core";
+import { Drawer, Hidden, IconButton, InputBase, Popover, useTheme } from "@material-ui/core";
 import { NavLink } from "react-router-dom";
 import { __tr } from "../i18n";
 import { Routes } from "../routes";
@@ -53,7 +53,7 @@ export function TopAppBar() {
                         </div>
                         <span className={styles.title}>{__tr("notifications")}</span>
                     </NavLink>
-                    <span role="button" className={styles.me} onClick={(ev) => setProfileNavigationAnchor(ev.currentTarget)}>
+                    <span style={{cursor: 'pointer'}} role="button" className={styles.me} onClick={(ev) => setProfileNavigationAnchor(ev.currentTarget)}>
                         <div className={styles.picture}>
                             <MdPerson size={24} />
                         </div>
@@ -62,7 +62,7 @@ export function TopAppBar() {
                             <MdArrowDropDown size={24} />
                         </div>
                     </span>
-                    <Popover elevation={2} anchorOrigin={{vertical:"bottom", horizontal: "center"}} open={Boolean(profileNavigationAnchor)} anchorEl={profileNavigationAnchor} onClose={() => setProfileNavigationAnchor(undefined)}>
+                    <Popover elevation={2} anchorOrigin={{vertical:"bottom", horizontal: "center"}} transformOrigin={{vertical:"top", horizontal: "center"}} open={Boolean(profileNavigationAnchor)} anchorEl={profileNavigationAnchor} onClose={() => setProfileNavigationAnchor(undefined)}>
                         <ProfileNavigationCard/>
                     </Popover>
                 </nav>

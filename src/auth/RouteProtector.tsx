@@ -18,7 +18,7 @@ export function RouteProtector(props: PropsWithChildren<{}>) {
 
     return <>
         {
-            props.children
+            user && props.children
         }
     </>
 }

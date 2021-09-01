@@ -1,3 +1,4 @@
+import { Box } from "@material-ui/core";
 import { useEffect } from "react";
 import { useState } from "react";
 import { PropsWithChildren } from "react";
@@ -6,6 +7,7 @@ import { AnyAction } from "redux";
 import { ThunkDispatch } from "redux-thunk";
 import { IAppState } from "../state";
 import { initializeState } from "../state/middlewares";
+import { Loader } from "./Loader";
 
 const mapState = (state: IAppState) => {
     return {};
@@ -34,7 +36,9 @@ function Initializer(props: PropsWithChildren<Props>) {
     }, []);
 
     return <>
-        {busy && 'busy...'}
+        {busy && <Box width='100vw' height="100vh" display="flex" flexDirection="row" alignItems="center" justifyContent="center">
+            <Loader />
+        </Box>}
         {
             !busy && props.children
         }

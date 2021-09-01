@@ -1,5 +1,5 @@
-import { CognitoAccessToken, CognitoIdToken, CognitoRefreshToken, CognitoUser, CognitoUserSession } from "amazon-cognito-identity-js";
-import { UserPool } from "./constants";
+import { CognitoUser } from "amazon-cognito-identity-js";
+import { RAZORPAY_KEY_ID, UserPool } from "./constants";
 import { randomID } from "./roles";
 
 export function nameToUsername(name: string) {
@@ -23,4 +23,36 @@ export function userFromUname() {
         })
     }
     return null;
+}
+
+declare var Razorpay: any;
+
+/// ONGOING
+export function callRazorPay(cost: number) {
+    const options = {
+        key: RAZORPAY_KEY_ID, // Enter the Key ID generated from the Dashboard
+        amount: cost+'',
+        // "amount": "100",
+        currency: 'INR',
+        name: 'Wobb',
+        description: 'Campaign Payment',
+        image: 'https://kapils-first-aws-bucket.s3.ap-south-1.amazonaws.com/myFirstFolderOn-aws/wobb1/favicon.ico',
+        handler: (response: any) => {
+         
+        },
+        prefill: {
+        },
+        notes: {
+          address: 'Razorpay Corporate Office',
+        },
+        theme: {
+          color: '#3399cc',
+        },
+      };
+      const rzp1 = new Razorpay(options);
+      rzp1.on('payment.failed', (response: any) => {
+        alert('Payment Failed. Please Try Again !');
+        console.log(response);
+      });
+      rzp1.open();
 }
