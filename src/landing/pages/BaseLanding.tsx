@@ -28,7 +28,7 @@ function BaseLanding() {
     return snippet.min(opts);
   }, []);
 
-  return (<div>
+  return (<div className="land">
     <Helmet>
       <meta name="title" content="Wobb: Largest marketplace for brands & Influencers" />
       <meta name="description" content="Wobb is the largest Influencer marketing platform which connects brands with social media influencers to run paid & barter campaigns." />

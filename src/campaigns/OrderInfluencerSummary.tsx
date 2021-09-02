@@ -2,6 +2,7 @@ import { css } from "@emotion/css";
 import { Box, Button, Divider, Typography, withStyles } from "@material-ui/core";
 import { IconCart } from "../components/Icons";
 import { TextTransformNoneButton } from "../components/TextTransformNoneButton";
+import { callRazorPay } from "../core/utils";
 import { CssVariables } from "../css-variables";
 import { __tr } from "../i18n";
 
@@ -68,7 +69,7 @@ export function OrderInfluencerSummary() {
                 </tbody>
             </table>
             <Box paddingY={2}>
-                <PayButton fullWidth color="primary" variant="contained" disableElevation>{__tr("payAndHire")} (Rs1800)</PayButton>
+                <PayButton fullWidth color="primary" variant="contained" disableElevation onClick={() => callRazorPay(1800)}>{__tr("payAndHire")} (Rs1800)</PayButton>
             </Box>
             <Box padding={1} paddingTop={2}>
                 <p className={styles.payOffline}>

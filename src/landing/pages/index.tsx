@@ -20,7 +20,7 @@ export default function Landing() {
   }, [user,history]);
 
   return (
-    <div>
+    <div className="land">
       <Hero />
       <Features />
       <FeatureCampaign />

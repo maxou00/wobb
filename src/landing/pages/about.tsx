@@ -8,7 +8,7 @@ import Campaign from "../component/Campaign";
 
 export default function About() {
     return (
-        <div className="">
+        <div>
             <Helmet>
                 <title>Wobb | About</title>
             </Helmet>
