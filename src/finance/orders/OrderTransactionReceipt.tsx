@@ -1,11 +1,14 @@
 import { css } from "@emotion/css";
 import { Avatar, Box, Divider, Grid, Typography } from "@material-ui/core";
 import { green } from "@material-ui/core/colors";
+import { useCallback, useRef } from "react";
 import { MdArrowDownward } from "react-icons/md";
 import { IconDoneFilled, IconFundTransfer, IconWallet } from "../../components/Icons";
 import { TextTransformNoneButton } from "../../components/TextTransformNoneButton";
 import { CssVariables } from "../../css-variables";
 import { __tr } from "../../i18n";
+import { fetchInvoiceUrl } from "../../core/endpoints";
+import { toast } from "react-toastify";
 
 const styles = {
     card: css`
@@ -121,6 +124,24 @@ function PaymentDetails() {
 }
 
 export function OrderTransactionReceipt() {
+    let linkRef = useRef<HTMLAnchorElement|null>();
+     
+    const onDownloadInvoice = useCallback(() => {
+        toast.info(__tr("downloading"))
+        fetchInvoiceUrl()
+        .then( async (url) => {
+            let blob = fetch(url).then((d) => d.blob());
+            let downloadUrl = URL.createObjectURL(blob);
+            if(linkRef.current) {
+                linkRef.current.href = downloadUrl;
+                linkRef.current.click();
+                toast.info(__tr("downloaded"))
+            }
+        })
+        .catch((err) => {
+            toast.warn(__tr("failed"));
+        })
+    }, []);
 
     return <Box>
         <Box padding={2}>
@@ -146,9 +167,11 @@ export function OrderTransactionReceipt() {
                                 <TextTransformNoneButton
                                     variant="text"
                                     color="primary"
-                                    startIcon={<MdArrowDownward size={16} />}>
+                                    startIcon={<MdArrowDownward size={16} />}
+                                    onClick={onDownloadInvoice}>
                                     Download Invoice
                                 </TextTransformNoneButton>
+                                <a href="/" ref={(el) => linkRef.current = el} hidden>Download</a>
                             </Box>
                         </Box>
                     </Grid>

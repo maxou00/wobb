@@ -1,10 +1,17 @@
 import { Box, Checkbox, FormControlLabel, Grid, InputLabel, Radio, RadioGroup, TextField, Typography } from "@material-ui/core";
+import { ChangeEvent, useCallback, useState } from "react";
 import { CountryField } from "../../components/CountryField";
 import { TextTransformNoneButton } from "../../components/TextTransformNoneButton";
 import { __tr } from "../../i18n";
 
 export function EditOrderBillingAddress() {
-    return <Grid container spacing={2} alignItems="center" justifyContent="center">
+    const [errors, setErrors] = useState<any>({});
+
+    const onSubmit = useCallback((ev: ChangeEvent<HTMLFormElement>) => {
+        
+    }, []);
+
+    return <Grid component="form" container spacing={2} alignItems="center" justifyContent="center">
         <Grid item xs={4}>
             <InputLabel>{__tr("type")}</InputLabel>
         </Grid>
