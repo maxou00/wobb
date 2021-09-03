@@ -1,5 +1,5 @@
 import { css } from "@emotion/css";
-import { InputBase } from "@material-ui/core";
+import { InputBase, InputBaseProps } from "@material-ui/core";
 import { CssVariables } from "../css-variables";
 
 const styles = {
@@ -12,7 +12,7 @@ const styles = {
         background: ${CssVariables.colorGrayV1};
         height: 46px;
         border-radius: 8px;
-        border: 1px solid ${CssVariables.colorGrayV1};
+        border: 1px solid ${CssVariables.colorGrayV2};
         position: relative;
     `,
     text: css`
@@ -32,9 +32,9 @@ const styles = {
     `
 }
 
-export function ViewCountInput() {
+export function ViewCountInput(props: InputBaseProps) {
     return <div className={styles.wrapper}>
         <span className={styles.text}>Total View Count</span>
-        <InputBase className={styles.in} placeholder="e.g: 218K"/>
+        <InputBase className={styles.in} placeholder="e.g: 218K" {...props}/>
     </div>
 }

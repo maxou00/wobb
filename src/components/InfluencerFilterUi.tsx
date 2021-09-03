@@ -192,7 +192,7 @@ export function InfluencerFilterUi(props: FilterUIProps) {
                 value={filter.category}
                 onChange={(ev) => onCategoryChange(ev.currentTarget.value)}
                 variant="outlined"
-                placeholder="e.g Engagement Rate"
+                placeholder="e.g Food"
                 fullWidth>
                 <MenuItem value="food">Food</MenuItem>
             </TextField>
@@ -207,6 +207,7 @@ export function InfluencerFilterUi(props: FilterUIProps) {
                 onChange={(ev) => onGenderChange(ev.currentTarget.value)}
                 size="small"
                 variant="outlined"
+                placeholder="e.g Male"
                 fullWidth>
                 <MenuItem value="male">Male</MenuItem>
                 <MenuItem value="female">Female</MenuItem>

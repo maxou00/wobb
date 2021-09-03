@@ -7,6 +7,7 @@ import { EmailOrPhone } from "../components/EmailOrPhone";
 import { Loader } from "../components/Loader";
 import { UserPool } from "../core/constants";
 import { persistUname } from "../core/utils";
+import { Validators } from "../core/validators";
 import { __tr } from "../i18n";
 import { Routes } from "../routes";
 import styles from "../styles/Login.module.scss";
@@ -23,6 +24,11 @@ export function ForgotPassword() {
             Username: emailOrPhone,
             Pool: UserPool
         })
+
+        if(!Validators.isEmailOrPhone(emailOrPhone)) {
+            toast.warn(__tr("errorINvalidEmailOrPhone"));
+            return;
+        }
 
         setLoading(true);
         user.forgotPassword({

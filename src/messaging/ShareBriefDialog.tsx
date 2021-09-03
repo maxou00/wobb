@@ -52,7 +52,12 @@ export function ShareBriefDialog(props: Props) {
                         <Typography variant="body1">Due date</Typography>
                     </Grid>
                     <Grid item xs={8}>
-                        <TextField variant="outlined" type="date" fullWidth size="small" />
+                        <TextField 
+                            variant="outlined" 
+                            type="date" 
+                            fullWidth 
+                            size="small"
+                            />
                     </Grid>
                     <Grid item xs={12}>
                         <FormattedMessageBox />

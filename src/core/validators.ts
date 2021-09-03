@@ -2,10 +2,10 @@
 
 export const Validators = {
     isEmail(str: string) {
-        return str.match(/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i)
+        return str && str.match(/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i)
     },
     isPhone(str: string) {
-        return str.match(/^\+([0-9]{1,5})\s+([0-9]{4,11})$/);
+        return str && str.match(/^\+([0-9]{1,5})\s+([0-9]{4,11})$/);
     },
     isEmailOrPhone(str: string) {
         return Boolean(this.isEmail(str)) || Boolean(this.isPhone(str));
@@ -42,22 +42,22 @@ export const Validators = {
         return this.isValidName(str);
     },
     isBio(str: string) {
-        return str.trim().length <= 150;
+        return str.length > 0 && str.trim().length <= 150;
     },
     isLink(str: string) {
-        return str.match(/((http|https):\/\/)?.*(\.[a-z]{2,5}).*/)
+        return str.length > 0 && str.match(/((http|https):\/\/)?.*(\.[a-z]{2,5}).*/)
     },
     isDate(str: string) {
-        return str.match(/([0-9]{1,2})\/([0-9]{1,2})\/((1|2)[0-9]{3})/)
+        return str && str.match(/^([0-9]{1,2})\/([0-9]{1,2})\/((1|2)[0-9]{3})$/)
     },
     isComment(str: string) {
-        return str.length <= 2000;
+        return str.length > 0 && str.length <= 2000;
     },
     maxSocialMedias() {
         return 5;
     },
     isPromotionGoals(str: string) {
-        return str.length <= 50;
+        return str.length > 0 && str.length <= 50;
     },
     isProductMRP(str: string) {
         let parsed = parseInt(str);
@@ -68,10 +68,10 @@ export const Validators = {
         return parsed > 0 && parsed < 1000000;
     },
     isTaskOverview(str: string) {
-        return str.length <= 4000
+        return str.length > 0 && str.length <= 4000
     },
     isContentApproval(str: string) {
-        return str.length <= 2000;
+        return str && str.length > 0 && str.length <= 2000;
     },
     isViewCount(str: string) {
         return str.length > 0 && str.length < 4;

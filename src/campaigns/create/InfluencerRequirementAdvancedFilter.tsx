@@ -21,6 +21,7 @@ export function InfluencerRequirementAdvancedFilter() {
             <StyledSlider
                 min={18}
                 value={[18, 35]}
+                marks={[{value: 18, label: '18'}, {value: 35, label: '35'}, {value: 100, label: '100'}]}
                 max={100} />
         </Box>
         <Box marginY={.5}>

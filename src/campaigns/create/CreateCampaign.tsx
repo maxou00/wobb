@@ -1,5 +1,5 @@
 import { Box, FormControlLabel, Grid, InputLabel, Popover, Radio, RadioGroup, TextField, Typography } from "@material-ui/core";
-import { useRef } from "react";
+import { ChangeEvent, useRef } from "react";
 import { useCallback, useState } from "react";
 import { MdArrowDropDown } from "react-icons/md";
 import { StyledSlider } from "../../components/StyledSlider";
@@ -12,11 +12,13 @@ import { FollowerRangePicker } from "../../components/pickers/FollowerRangePicke
 import { PromotionGoalsPicker } from "../../components/pickers/PromotionGoalsPicker";
 import { PayoutBuilder } from "./PayoutBuilder";
 import { InfluencerRequirementAdvancedFilter } from "./InfluencerRequirementAdvancedFilter";
+import { Validators } from "../../core/validators";
 
 
 export function CreateCampaign() {
     const [platform, setPlatform] = useState("instagram");
     const [payoutType, setPayoutType] = useState("barterPay");
+    const [errors, setErrors] = useState<any>({});
 
     const promotionGoalPickerAnchor = useRef<HTMLInputElement | null>();
     const followerRangePickerAnchor = useRef<HTMLInputElement | null>();
@@ -88,12 +90,33 @@ export function CreateCampaign() {
         setBrandPickerOpen(false);
     }, [brandPickerAnchor]);
 
-    return <Grid container spacing={2} alignItems="center" justifyContent="center">
+    const onSubmit = useCallback((ev: ChangeEvent<HTMLFormElement>) => {
+        ev.preventDefault();
+        let form = ev.currentTarget;
+        let nextErrs: any = {};
+
+        let data = {
+            campaignTitle: form.campaignTitle,
+        }
+        if(!Validators.isCampaignName(data.campaignTitle)) {
+            nextErrs.campaignTitle = __tr("errorInvalidCampaignTitle");
+        }
+
+        setErrors(nextErrs);
+    }, []);
+
+    return <Grid component="form" onSubmit={onSubmit} container spacing={2} alignItems="center" justifyContent="center">
         <Grid item xs={4}>
             <InputLabel>{__tr("campaignTitle")}*</InputLabel>
         </Grid>
         <Grid item xs={8}>
-            <TextField size="small" variant="outlined" fullWidth name="campaignTitle" />
+            <TextField
+                size="small"
+                variant="outlined"
+                fullWidth
+                name="campaignTitle"
+                helperText={errors.campaignTitle}
+                error={errors.campaignTitle} />
         </Grid>
         <Grid item xs={4}>
             <InputLabel>{__tr("promotionGoal")}*</InputLabel>
@@ -112,7 +135,8 @@ export function CreateCampaign() {
                 open={goalOpen}
                 onClose={onClosePromotionGoal}
                 anchorEl={promotionGoalPickerAnchor.current}
-                anchorOrigin={{ vertical: "bottom", horizontal: "left" }}>
+                anchorOrigin={{ vertical: "bottom", horizontal: "left" }}
+                transformOrigin={{ vertical: "top", horizontal: "left" }}>
                 <PromotionGoalsPicker />
             </Popover>
         </Grid>
@@ -131,8 +155,11 @@ export function CreateCampaign() {
                     open={Boolean(advancedFilterAnchor)}
                     onClose={() => setAdvancedFilterAnchor(undefined)}
                     anchorEl={advancedFilterAnchor}
-                    anchorOrigin={{ vertical: "bottom", horizontal: "left" }}>
-                    <InfluencerRequirementAdvancedFilter />
+                    anchorOrigin={{ vertical: "bottom", horizontal: "left" }}
+                    transformOrigin={{ vertical: "top", horizontal: "center" }}>
+                    <Box maxHeight="420px">
+                        <InfluencerRequirementAdvancedFilter />
+                    </Box>
                 </Popover>
             </Box>
         </Grid>
@@ -164,8 +191,11 @@ export function CreateCampaign() {
                 open={categoryOpen}
                 onClose={onCloseCategory}
                 anchorEl={categoryPickerAnchor.current}
-                anchorOrigin={{ vertical: "bottom", horizontal: "left" }}>
-                <CategoryPicker />
+                anchorOrigin={{ vertical: "bottom", horizontal: "left" }}
+                transformOrigin={{ vertical: "top", horizontal: "left" }}>
+                <Box maxHeight="320px">
+                    <CategoryPicker />
+                </Box>
             </Popover>
         </Grid>
         <Grid item xs={4}>
@@ -185,8 +215,11 @@ export function CreateCampaign() {
                 open={followerRangeOpen}
                 onClose={onCloseFollowerRange}
                 anchorEl={followerRangePickerAnchor.current}
-                anchorOrigin={{ vertical: "bottom", horizontal: "left" }}>
-                <FollowerRangePicker onUseCustom={requireCustomFollowerRange} />
+                anchorOrigin={{ vertical: "bottom", horizontal: "left" }}
+                transformOrigin={{ vertical: "top", horizontal: "left" }}>
+                <Box maxHeight="320px">
+                    <FollowerRangePicker onUseCustom={requireCustomFollowerRange} />
+                </Box>
             </Popover>
         </Grid>
         {useCustomFollowerRange && <>
@@ -197,6 +230,8 @@ export function CreateCampaign() {
                         min={0}
                         max={100}
                         value={[10, 60]}
+                        marks={true}
+                        valueLabelDisplay="on"
                         color="primary" />
                 </Box>
             </Grid>
@@ -224,8 +259,11 @@ export function CreateCampaign() {
                 open={deliverablePickerOpen}
                 onClose={onCloseDeliverables}
                 anchorEl={deliverablePickerAnchor.current}
-                anchorOrigin={{ vertical: "bottom", horizontal: "left" }}>
-                <DeliverablePicker platform={platform} />
+                anchorOrigin={{ vertical: "bottom", horizontal: "left" }}
+                transformOrigin={{ vertical: "top", horizontal: "left" }}>
+                <Box maxHeight="320px">
+                    <DeliverablePicker platform={platform} />
+                </Box>
             </Popover>
         </Grid>
         <Grid item xs={4}>
@@ -261,7 +299,9 @@ export function CreateCampaign() {
                 onClose={onCloseBrands}
                 anchorEl={brandPickerAnchor.current}
                 anchorOrigin={{ vertical: "bottom", horizontal: "left" }}>
-                <BrandPicker />
+                <Box maxHeight="320px">
+                    <BrandPicker />
+                </Box>
             </Popover>
         </Grid>
     </Grid>

@@ -1,5 +1,12 @@
+/**
+ * DEPRECATED COMPONENT
+ */
+
 import { Box, Grid, InputLabel, TextField, withStyles } from "@material-ui/core";
+import { useState } from "react";
+import { ChangeEvent, useCallback } from "react";
 import { TextTransformNoneButton } from "../components/TextTransformNoneButton";
+import { Validators } from "../core/validators";
 import { __tr } from "../i18n";
 
 
@@ -11,6 +18,25 @@ const CustomizedBtn = withStyles({
 })(TextTransformNoneButton);
 
 export function EditAddress() {
+    const[errors, setErrors] = useState<any>({});
+
+    const onSubmit = useCallback((ev: ChangeEvent<HTMLFormElement>) => {
+        let form = ev.currentTarget;
+        let data = {
+            address: form.address.value,
+            city: form.city.value,
+            state: form.state.value,
+            pinCode: form.pinCode.value
+        }
+        let newErrors: any = {};
+        if(Validators.isAddress(data.address)) {
+            newErrors.address = __tr("errorAddress");
+        }
+        if(Validators.isPinCode(data.pinCode)) {
+            newErrors.address = __tr("errorAddress");
+        }
+        setErrors(newErrors);
+    }, []);
 
     return <Box>
         <Box component="form">
@@ -21,7 +47,14 @@ export function EditAddress() {
                     </Box>
                 </Grid>
                 <Grid item xs={9}>
-                    <TextField size="small" type="text" fullWidth variant="outlined" name="address" />
+                    <TextField 
+                        size="small" 
+                        type="text" 
+                        fullWidth 
+                        variant="outlined" 
+                        name="address"
+                        error={errors.address}
+                        helperText={errors.address}/>
                 </Grid>
                 <Grid item xs={3}>
                     <Box>
@@ -29,7 +62,14 @@ export function EditAddress() {
                     </Box>
                 </Grid>
                 <Grid item xs={9}>
-                    <TextField size="small" type="text" fullWidth variant="outlined" name="city" />
+                    <TextField 
+                        size="small" 
+                        type="text" 
+                        fullWidth 
+                        variant="outlined" 
+                        name="city"
+                        error={errors.city}
+                        helperText={errors.city}/>
                 </Grid>
                 <Grid item xs={3}>
                     <Box>
@@ -37,7 +77,14 @@ export function EditAddress() {
                     </Box>
                 </Grid>
                 <Grid item xs={9}>
-                    <TextField size="small" type="text" fullWidth variant="outlined" name="state" />
+                    <TextField 
+                        size="small" 
+                        type="text" 
+                        fullWidth 
+                        variant="outlined" 
+                        name="state"
+                        error={errors.state}
+                        helperText={errors.state}/>
                 </Grid>
                 <Grid item xs={3}>
                     <Box>
@@ -45,7 +92,14 @@ export function EditAddress() {
                     </Box>
                 </Grid>
                 <Grid item xs={9}>
-                    <TextField size="small" type="text" fullWidth variant="outlined" name="pinCode" />
+                    <TextField 
+                        size="small" 
+                        type="text" 
+                        fullWidth 
+                        variant="outlined" 
+                        name="pinCode"
+                        error={errors.pinCode}
+                        helperText={errors.pinCode}/>
                 </Grid>
             </Grid>
             <Box margin={2} display="flex" flexDirection="row" alignItems="center" justifyContent="center">

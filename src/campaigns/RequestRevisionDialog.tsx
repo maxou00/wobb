@@ -1,17 +1,31 @@
 import { Box, Checkbox, Dialog, DialogContent, DialogProps, DialogTitle, IconButton, List, ListItem, ListItemText, TextField, Typography } from "@material-ui/core";
-import { useCallback } from "react";
+import { ChangeEvent, useCallback, useState } from "react";
 import { MdClose } from "react-icons/md";
 import { TextTransformNoneButton } from "../components/TextTransformNoneButton";
+import { Validators } from "../core/validators";
+import { __tr } from "../i18n";
 
 interface Props extends DialogProps { }
 
 export function RequestRevisionDialog(props: Props) {
+    const [comment, setComment] = useState("");
+    const [errors, setErrors] = useState<any>({});
 
     const onClose = useCallback(() => {
         if (props.onClose) {
             props.onClose({}, "backdropClick");
         }
     }, [props]);
+
+    const onCommentChange = useCallback((ev: ChangeEvent<HTMLInputElement>) => {
+        let nextErrs: any = {...errors};
+        let value = ev.currentTarget.value;
+        setComment(value);
+        if(value && !Validators.isContentApproval(comment)) {
+            nextErrs.comment = __tr("errorInvalidComment");
+        }
+        setErrors(nextErrs);
+    }, [comment, errors]);
 
     return <Dialog {...props}>
         <DialogTitle>
@@ -30,7 +44,7 @@ export function RequestRevisionDialog(props: Props) {
             <Box>
                 <Typography variant="body1">Select reasons for requesting revision</Typography>
                 <Box>
-                    <List>
+                    <List dense>
                         <ListItem>
                             <Checkbox color="primary" />
                             <ListItemText primary="Content delivered is poor quality" />
@@ -49,14 +63,19 @@ export function RequestRevisionDialog(props: Props) {
                     <TextField
                         fullWidth
                         variant="outlined"
+                        name="comment"
                         multiline
                         maxRows={8}
                         minRows={4}
-                        placeholder="Detailed Reasons" />
+                        placeholder="Detailed Reasons"
+                        value={comment}
+                        onChange={onCommentChange}
+                        error={errors.comment}
+                        helperText={errors.comment}/>
                 </Box>
             </Box>
             <Box padding={2} display="flex" flexDirection="row" alignItems="center" justifyContent="center">
-                <TextTransformNoneButton variant='contained' color="primary" size="large">Request Revision</TextTransformNoneButton>
+                <TextTransformNoneButton type="submit" variant='contained' color="primary" size="large">Request Revision</TextTransformNoneButton>
             </Box>
         </DialogContent>
     </Dialog>

@@ -3,6 +3,7 @@ import { Rating } from "@material-ui/lab";
 import { useCallback } from "react";
 import { MdClose } from "react-icons/md";
 import { TextTransformNoneButton } from "../components/TextTransformNoneButton";
+import { FormattedMessageBox } from "../messaging/FormattedMessageBox";
 
 interface Props extends DialogProps { }
 
@@ -36,7 +37,7 @@ export function MarkCampaignAsCompleteDialog(props: Props) {
                                 <Box padding={1}>
                                     <Avatar />
                                 </Box>
-                                <Typography variant="body1" style={{fontWeight: 500}}>Influname</Typography>
+                                <Typography variant="body1" style={{ fontWeight: 500 }}>Influname</Typography>
                             </Box>
                             <Box>
                                 <Rating
@@ -46,12 +47,7 @@ export function MarkCampaignAsCompleteDialog(props: Props) {
                         </Box>
                     </Grid>
                     <Grid item xs={8}>
-                        <TextField
-                            multiline
-                            variant="outlined"
-                            minRows={3}
-                            maxRows={6}
-                            fullWidth
+                        <FormattedMessageBox
                             placeholder="Write a review about this influencer" />
                     </Grid>
                 </Grid>
@@ -64,7 +60,7 @@ export function MarkCampaignAsCompleteDialog(props: Props) {
                                 <Box padding={1}>
                                     <Avatar />
                                 </Box>
-                                <Typography variant="body1" style={{fontWeight: 500}}>Influname</Typography>
+                                <Typography variant="body1" style={{ fontWeight: 500 }}>Influname</Typography>
                             </Box>
                             <Box>
                                 <Rating
@@ -74,12 +70,7 @@ export function MarkCampaignAsCompleteDialog(props: Props) {
                         </Box>
                     </Grid>
                     <Grid item xs={8}>
-                        <TextField
-                            multiline
-                            variant="outlined"
-                            minRows={3}
-                            maxRows={6}
-                            fullWidth
+                        <FormattedMessageBox
                             placeholder="Write a review about this influencer" />
                     </Grid>
                 </Grid>
@@ -92,7 +83,7 @@ export function MarkCampaignAsCompleteDialog(props: Props) {
                                 <Box padding={1}>
                                     <Avatar />
                                 </Box>
-                                <Typography variant="body1" style={{fontWeight: 500}}>Influname</Typography>
+                                <Typography variant="body1" style={{ fontWeight: 500 }}>Influname</Typography>
                             </Box>
                             <Box>
                                 <Rating
@@ -102,12 +93,7 @@ export function MarkCampaignAsCompleteDialog(props: Props) {
                         </Box>
                     </Grid>
                     <Grid item xs={8}>
-                        <TextField
-                            multiline
-                            variant="outlined"
-                            minRows={3}
-                            maxRows={6}
-                            fullWidth
+                        <FormattedMessageBox
                             placeholder="Write a review about this influencer" />
                     </Grid>
                 </Grid>
@@ -120,7 +106,7 @@ export function MarkCampaignAsCompleteDialog(props: Props) {
                                 <Box padding={1}>
                                     <Avatar />
                                 </Box>
-                                <Typography variant="body1" style={{fontWeight: 500}}>Influname</Typography>
+                                <Typography variant="body1" style={{ fontWeight: 500 }}>Influname</Typography>
                             </Box>
                             <Box>
                                 <Rating
@@ -130,12 +116,7 @@ export function MarkCampaignAsCompleteDialog(props: Props) {
                         </Box>
                     </Grid>
                     <Grid item xs={8}>
-                        <TextField
-                            multiline
-                            variant="outlined"
-                            minRows={3}
-                            maxRows={6}
-                            fullWidth
+                        <FormattedMessageBox
                             placeholder="Write a review about this influencer" />
                     </Grid>
                 </Grid>
