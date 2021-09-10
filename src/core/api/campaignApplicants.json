@@ -1,0 +1,38 @@
+[
+    {
+        "id": "eisae5shohXoocei0lai7",
+        "influencerName": "Patricia Lebsack",
+        "stars": 4.8,
+        "voteCounts": 61,
+        "followers": "12K",
+        "engagementRate": 21,
+        "bidPrice": {
+            "amount": 2000,
+            "currency": "INR"
+        }
+    },
+    {
+        "id": "Eis6zohtee4eeyaephala",
+        "influencerName": "Jagame Thandiram",
+        "stars": 3.6,
+        "voteCounts": 19,
+        "followers": "600K",
+        "engagementRate": 45,
+        "bidPrice": {
+            "amount": 20000,
+            "currency": "INR"
+        }
+    },
+    {
+        "id": "aeve3tuiCh9aig8AiC5yu",
+        "influencerName": "Suruli Shivadoss",
+        "stars": 4.8,
+        "voteCounts": 1200,
+        "followers": "1M",
+        "engagementRate": 63,
+        "bidPrice": {
+            "amount": 1500,
+            "currency": "INR"
+        }
+    }
+]

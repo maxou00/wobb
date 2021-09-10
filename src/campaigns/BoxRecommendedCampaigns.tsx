@@ -6,6 +6,7 @@ import { TextTransformNoneButton } from "../components/TextTransformNoneButton";
 import { UppercaseSbText } from "../components/custom";
 import { css } from "@emotion/css";
 import { CssVariables } from "../css-variables";
+import recommended from "../core/api/recommendedCampaigns.json";
 
 const campaignCardStyles = css`
     background: ${CssVariables.colorPrimarySurface} !important;
@@ -19,36 +20,20 @@ export function BoxRecommendedCampaigns(props: { viewMore?: boolean }) {
         </Box>
         <Box className={styles.content}>
             <List dense disablePadding style={{ width: '100%' }}>
-                <Paper elevation={1} className={campaignCardStyles}>
-                    <ListItem button className={styles.campaign}>
-                        <ListItemAvatar>
-                            <Avatar />
-                        </ListItemAvatar>
-                        <ListItemText
-                            primary="Just Do It"
-                            secondary="Nike" />
-                    </ListItem>
-                </Paper>
-                <Paper elevation={1} className={campaignCardStyles}>
-                    <ListItem button className={styles.campaign}>
-                        <ListItemAvatar>
-                            <Avatar />
-                        </ListItemAvatar>
-                        <ListItemText
-                            primary="Share a Coke"
-                            secondary="Coca-Cola" />
-                    </ListItem>
-                </Paper>
-                <Paper elevation={1} className={campaignCardStyles}>
-                    <ListItem button className={styles.campaign}>
-                        <ListItemAvatar>
-                            <Avatar />
-                        </ListItemAvatar>
-                        <ListItemText
-                            primary="Share a Coke"
-                            secondary="Coca-Cola" />
-                    </ListItem>
-                </Paper>
+                {
+                    recommended.map((campaign) => {
+                        return <Paper elevation={1} className={campaignCardStyles} key={campaign.id}>
+                            <ListItem button className={styles.campaign}>
+                                <ListItemAvatar>
+                                    <Avatar />
+                                </ListItemAvatar>
+                                <ListItemText
+                                    primary={campaign.campaignName}
+                                    secondary={campaign.brand.name} />
+                            </ListItem>
+                        </Paper>
+                    })
+                }
             </List>
         </Box>
         {props.viewMore && <Box paddingY={1} width="100%" display="flex" flexDirection="row" alignItems="center" justifyContent="center">
