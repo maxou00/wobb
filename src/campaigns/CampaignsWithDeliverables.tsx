@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import styles from "../styles/CampaignTable.module.scss";
 import { UppercaseSbText } from "../components/custom";
 import { Routes } from "../routes";
+import appliedCampaigns from "../core/api/appliedCampaigns.json";
 
 export function CampaignsWithDeliverables() {
     return <div className={styles.section}>
@@ -25,67 +26,32 @@ export function CampaignsWithDeliverables() {
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                    <TableRow>
-                        <TableCell>
-                            <div className={styles.campaignTitleRow}>
-                                <Avatar>
-                                    <MdPerson size={24} />
-                                </Avatar>
-                                <Typography variant="body1" className={styles.title}>Stich With Biba</Typography>
-                            </div>
-                        </TableCell>
-                        <TableCell>
-                            Applied
-                        </TableCell>
-                        <TableCell></TableCell>
-                        <TableCell>
-                            <IconButton size="small">
-                                <MdMoreVert size={24} />
-                            </IconButton>
-                        </TableCell>
-                    </TableRow>
-                    <TableRow>
-                        <TableCell>
-                            <div className={styles.campaignTitleRow}>
-                                <Avatar>
-                                    <MdPerson size={24} />
-                                </Avatar>
-                                <Typography variant="body1" className={styles.title}>Stich With Biba</Typography>
-                            </div>
-                        </TableCell>
-                        <TableCell>
-                            Applied
-                        </TableCell>
-                        <TableCell>
-                            <Link to={Routes.viewCampaignTasks("a-simple-id")}>Submit Task</Link>
-                        </TableCell>
-                        <TableCell>
-                            <IconButton size="small">
-                                <MdMoreVert size={24} />
-                            </IconButton>
-                        </TableCell>
-                    </TableRow>
-                    <TableRow>
-                        <TableCell className={styles.cellLast}>
-                            <div className={styles.campaignTitleRow}>
-                                <Avatar>
-                                    <MdPerson size={24} />
-                                </Avatar>
-                                <Typography variant="body1" className={styles.title}>Stich With Biba</Typography>
-                            </div>
-                        </TableCell>
-                        <TableCell className={styles.cellLast}>
-                            Applied
-                        </TableCell>
-                        <TableCell className={styles.cellLast}>
-                            <Link to={Routes.viewCampaignTasks("a-simple-id")}>View Task</Link>
-                        </TableCell>
-                        <TableCell className={styles.cellLast}>
-                            <IconButton size="small">
-                                <MdMoreVert size={24} />
-                            </IconButton>
-                        </TableCell>
-                    </TableRow>
+                    {
+                        appliedCampaigns.map((c) => {
+                            return <TableRow key={c.campaignId}>
+                                <TableCell>
+                                    <div className={styles.campaignTitleRow}>
+                                        <Avatar>
+                                            <MdPerson size={24} />
+                                        </Avatar>
+                                        <Typography variant="body1" className={styles.title}>{c.campaignName}</Typography>
+                                    </div>
+                                </TableCell>
+                                <TableCell>
+                                    Applied
+                                </TableCell>
+                                <TableCell>
+                                    { c.status === "hired" && <Link to={Routes.viewCampaignTasks("a-simple-id")}>Submit Task</Link> }
+                                    { c.status !== "hired" && <Link to={Routes.viewCampaignTasks("a-simple-id")}>View Task</Link> }
+                                </TableCell>
+                                <TableCell>
+                                    <IconButton size="small">
+                                        <MdMoreVert size={24} />
+                                    </IconButton>
+                                </TableCell>
+                            </TableRow>
+                        })
+                    }
                 </TableBody>
             </Table>
         </TableContainer>

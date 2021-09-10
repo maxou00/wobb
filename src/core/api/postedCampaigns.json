@@ -1,0 +1,26 @@
+[
+    {
+        "campaignId": "Iekoo2waiN7vua2oech6zaghimeimei6",
+        "campaignName": "Wrath of a man",
+        "applicants": 15,
+        "status": "active"
+    },
+    {
+        "campaignId": "eimoh8kuLaephoxodoosijaiZas9reC7",
+        "campaignName": "Cruella Devil",
+        "applicants": 60,
+        "status": "closed"
+    },
+    {
+        "campaignId": "aiy7jeefoh1ooyae6cooj5oiShooyeey",
+        "campaignName": "Coming to America",
+        "applicants": 8,
+        "status": "active"
+    },
+    {
+        "campaignId": "Fiev1xei0gahteizuveichai6aili5ae",
+        "campaignName": "Bliss",
+        "applicants": 43,
+        "status": "active"
+    }
+]
