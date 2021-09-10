@@ -1,21 +1,15 @@
 import { css } from "@emotion/css";
 import { CampaignRow } from "./CampaignRow";
+import campaigns from "../core/api/campaigns.json";
 
 const listStyles = css``;
 
 export function CampaignList() {
     return <div className={listStyles}>
-        <CampaignRow/>
-        <CampaignRow/>
-        <CampaignRow/>
-        <CampaignRow/>
-        <CampaignRow/>
-        <CampaignRow/>
-        <CampaignRow/>
-        <CampaignRow/>
-        <CampaignRow/>
-        <CampaignRow/>
-        <CampaignRow/>
-        <CampaignRow/>
+        {
+            campaigns.map((c) => {
+                return <CampaignRow campaign={c} key={c.id}/>
+            })
+        }
     </div>
 }

@@ -1,0 +1,46 @@
+[
+    {
+        "influencerId": "wiep5pha5zeixoh0eeD1w",
+        "influencerName": "Bjarne Tomhson",
+        "match": 88,
+        "followers": 218000,
+        "engagementRate": 4.5,
+        "bidPrice": {
+            "amount": 1000,
+            "currency": "INR"
+        }
+    },
+    {
+        "influencerId": "eiCooxaphah1Rei4oopoo",
+        "influencerName": "Random User",
+        "match": 88,
+        "followers": 6500,
+        "engagementRate": 3.9,
+        "bidPrice": {
+            "amount": 4000,
+            "currency": "INR"
+        }
+    },
+    {
+        "influencerId": "shek4ahQueeshah4Eefei",
+        "influencerName": "Patricia Larsson",
+        "match": 88,
+        "followers": 6500,
+        "engagementRate": 3.9,
+        "bidPrice": {
+            "amount": 4000,
+            "currency": "INR"
+        }
+    },
+    {
+        "influencerId": "ohtohj6ae9aeThioTaish",
+        "influencerName": "Owen MacGuyen",
+        "match": 88,
+        "followers": 12500,
+        "engagementRate": 2.9,
+        "bidPrice": {
+            "amount": 10000,
+            "currency": "INR"
+        }
+    }
+]

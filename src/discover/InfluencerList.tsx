@@ -5,7 +5,7 @@ import { ProfileDrawer } from "../profile/ProfileDrawer";
 import { InfluencerRow } from "./InfluencerRow";
 import { css } from "@emotion/css";
 import { MdClose } from "react-icons/md";
-
+import influencers from "../core/api/influencers.json";
 
 const drawerStyles = css`
     width: 420px;
@@ -22,20 +22,11 @@ export function InfluencerList() {
     }, []);
 
     return <div>
-        <InfluencerRow onShowProfile={() => setProfileDrawerOpen(true)} />
-        <InfluencerRow onShowProfile={() => setProfileDrawerOpen(true)} />
-        <InfluencerRow onShowProfile={() => setProfileDrawerOpen(true)} />
-        <InfluencerRow />
-        <InfluencerRow />
-        <InfluencerRow />
-        <InfluencerRow />
-        <InfluencerRow />
-        <InfluencerRow />
-        <InfluencerRow />
-        <InfluencerRow />
-        <InfluencerRow />
-        <InfluencerRow />
-
+        {
+            influencers.map((inf) => {
+                return <InfluencerRow influencer={inf} key={inf.id} onShowProfile={() => setProfileDrawerOpen(true)} />
+            })
+        }
         <Drawer anchor="right" open={profileDrawerOpen} onClose={onExitProfileDrawer}>
             <Box className={drawerStyles}>
                 <Box margin={1}>

@@ -5,4 +5,3 @@ export const CampaignFilters = [
     'invited',
     'notSelected'
 ];
-

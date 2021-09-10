@@ -81,7 +81,7 @@ const styles = {
     `
 }
 
-export function CampaignRow() {
+export function CampaignRow(props: {campaign: any}) {
     return <Paper elevation={1}>
         <div className={styles.wrapper}>
             <table className={styles.table}>
@@ -91,7 +91,7 @@ export function CampaignRow() {
                             <div className={styles.img}></div>
                         </td>
                         <td className={styles.cell}>
-                            <span className={styles.campaignTitle}>Earn with Wobb</span>
+                            <span className={styles.campaignTitle}>{props.campaign.campaignName}</span>
                         </td>
                         <td className={styles.cell}>
                             <div className={styles.contentHeaderCell}>
@@ -123,21 +123,21 @@ export function CampaignRow() {
                     </tr>
                     <tr>
                         <td className={styles.cell} >
-                            <Link to="/" className={styles.campaignLink}>
-                                <span className="url">Wobb.ai</span>
+                            <Link to={props.campaign.brand.website} className={styles.campaignLink}>
+                                <span className="url">{props.campaign.brand.name}</span>
                                 <span className="icon">
                                     <MdLink size={16} />
                                 </span>
                             </Link>
                         </td>
                         <td className={styles.cell}>
-                            <span className={styles.contentValue}>Youtube</span>
+                            <span className={styles.contentValue}>{props.campaign.platform}</span>
                         </td>
                         <td className={styles.cell}>
-                            <span className={styles.contentValue}>Rs5000</span>
+                            <span className={styles.contentValue}>{props.campaign.cash.currency} {props.campaign.cash.amount}</span>
                         </td>
                         <td className={styles.cell}>
-                            <span className={styles.contentValue}>1000</span>
+                            <span className={styles.contentValue}>{props.campaign.coins}</span>
                         </td>
                         <td className={styles.cell} align="center">
                             <Link to={Routes.viewCampaign("a-campaign-id")} className={styles.campaignActionLink}>{__tr("viewDetails")}</Link>

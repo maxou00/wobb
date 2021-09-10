@@ -1,0 +1,72 @@
+[
+    {
+        "id": "7fef09f0-44e1-414e-9130-05235057892b",
+        "campaignName": "Earn with Wobb",
+        "brand": {
+            "name": "wobb.ai",
+            "website": "https://wobb.ai"
+        },
+        "platform": "youtube",
+        "cash": {
+            "amount": 5000,
+            "currency": "INR"
+        },
+        "coins": 1000
+    },
+    {
+        "id": "883ed5c8-5534-42ae-8bae-c9386190ec8f",
+        "campaignName": "Molly's Game",
+        "brand": {
+            "name": "molly.bloom",
+            "website": "https://bloom.ai"
+        },
+        "platform": "instagram",
+        "cash": {
+            "amount": 6000,
+            "currency": "INR"
+        },
+        "coins": 1000
+    },
+    {
+        "id": "f8b510d4-5ac6-4573-b152-3d876e3a46d9",
+        "campaignName": "Molly's Game",
+        "brand": {
+            "name": "molly.bloom",
+            "website": "https://bloom.ai"
+        },
+        "platform": "instagram",
+        "cash": {
+            "amount": 6000,
+            "currency": "INR"
+        },
+        "coins": 1000
+    },
+    {
+        "id": "a49c0d30-808c-4a05-be27-fdd3b1cafed5",
+        "campaignName": "Molly's Game",
+        "brand": {
+            "name": "molly.bloom",
+            "website": "https://bloom.ai"
+        },
+        "platform": "instagram",
+        "cash": {
+            "amount": 6000,
+            "currency": "INR"
+        },
+        "coins": 1000
+    },
+    {
+        "id": "a49c0d30-808c-4a05-be27-fdd3b1cafed5",
+        "campaignName": "Molly's Game",
+        "brand": {
+            "name": "molly.bloom",
+            "website": "https://bloom.ai"
+        },
+        "platform": "instagram",
+        "cash": {
+            "amount": 6000,
+            "currency": "INR"
+        },
+        "coins": 1000
+    }
+]

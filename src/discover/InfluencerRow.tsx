@@ -83,6 +83,7 @@ const styles = {
 }
 
 interface RowProps {
+    influencer: any;
     onShowProfile?(): any;
 }
 
@@ -103,7 +104,7 @@ export function InfluencerRow(props: RowProps) {
                             <div className={styles.img}></div>
                         </td>
                         <td className={styles.cell} onClick={handleInfluencerClick}>
-                            <span className={styles.influencerName}>Influencer name</span>
+                            <span className={styles.influencerName}>{props.influencer.influencerName}</span>
                         </td>
                         <td className={styles.cell}>
                             <div className={styles.contentHeaderCell}>
@@ -125,16 +126,16 @@ export function InfluencerRow(props: RowProps) {
                     <tr>
                         <td className={styles.cell} >
                             <div className={styles.rating}>
-                                <span className={styles.averageStar}>4.0</span>
+                                <span className={styles.averageStar}>{props.influencer.stars}</span>
                                 <span className={styles.star}>★</span>
-                                <span className={styles.ratingCount}>(23)</span>
+                                <span className={styles.ratingCount}>({props.influencer.voteCounts})</span>
                             </div>
                         </td>
                         <td className={styles.cell}>
-                            <span className={styles.contentValue}>218K</span>
+                            <span className={styles.contentValue}>{props.influencer.followers}</span>
                         </td>
                         <td className={styles.cell}>
-                            <span className={styles.contentValue}>4.5%</span>
+                            <span className={styles.contentValue}>{props.influencer.engagementRate}%</span>
                         </td>
                     </tr>
                 </tbody>
