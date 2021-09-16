@@ -9,13 +9,14 @@ import { CampaignReview } from "../campaigns/CampaignReview";
 import { TextTransformNoneButton } from "../components/TextTransformNoneButton";
 import { instagramUrlWithId, youtubeUrlWithId } from "../core/constants";
 import { __tr } from "../i18n";
+import { Platform } from "../models";
 import { Routes } from "../routes";
 import { useAppUser } from "../state/selectors";
 import { AboutUser } from "./AboutUser";
 import { UserResumeCard } from "./UserResumeCard";
 
 export function ProfileHome() {
-    const { user } = useAppUser();
+    const { user, profile } = useAppUser();
     const [linkAccountOpen, setLinkAccountOpen] = useState(false);
     const history = useHistory();
 
@@ -23,14 +24,14 @@ export function ProfileHome() {
         history.push(Routes.EditProfile);
     }, [history]);
 
-    const onLinkAccount = useCallback(async(network: string) => {
+    const onLinkAccount = useCallback(async(network: Platform) => {
         setLinkAccountOpen(false);
         let windowFeatures = "menubar=no,location=no,resizable=no";
-        if(network === "instagram") {
+        if(network === Platform.INSTAGRAM) {
             ///process instagram
             window.open(instagramUrlWithId(user.sub), "INSTA_WindowName",windowFeatures);
         }
-        else if(network === "youtube") {
+        else if(network === Platform.YOUTUBE) {
             ///process youtube
             fetch(youtubeUrlWithId(user.sub))
             .then((rs) => rs.json())
@@ -46,7 +47,7 @@ export function ProfileHome() {
         <Grid item xs={4}>
             <Paper elevation={0}>
                 <Box paddingY={2} width="100%">
-                    <UserResumeCard />
+                    {profile && <UserResumeCard profile={profile} />}
                 </Box>
                 <Box paddingX={2} paddingY={1} width="100%" display="flex" flexDirection="row" alignItems="center" justifyContent="center">
                     <Box marginRight={1}>
@@ -85,13 +86,13 @@ export function ProfileHome() {
             <DialogTitle>Choose platform</DialogTitle>
             <DialogContent>
                 <List dense disablePadding>
-                    <ListItem button onClick={ () => onLinkAccount("instagram") }>
+                    <ListItem button onClick={ () => onLinkAccount(Platform.INSTAGRAM) }>
                         <ListItemIcon>
                             <SocialIcon network="instagram" style={{width: '28px', height: '28px'}}/>
                         </ListItemIcon>
                         <ListItemText primary="Instagram"/>
                     </ListItem>
-                    <ListItem button onClick={ () => onLinkAccount("youtube") }>
+                    <ListItem button onClick={ () => onLinkAccount(Platform.YOUTUBE) }>
                         <ListItemIcon>
                             <SocialIcon network="youtube" style={{width: '28px', height: '28px'}}/>
                         </ListItemIcon>

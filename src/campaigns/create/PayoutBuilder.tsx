@@ -1,12 +1,16 @@
 import { Grid, InputLabel, TextField, Typography } from "@material-ui/core";
 import { ChangeEvent, useState } from "react";
 import { useCallback } from "react";
+import { Payout } from "../../core";
 import { Validators } from "../../core/validators";
 import { CssVariables } from "../../css-variables";
 import { __tr } from "../../i18n";
+import { PayoutType } from "../../models";
 
 interface PayoutBuilderProps {
-    type: string;
+    type: PayoutType;
+    payout?: Payout;
+    onChange(value: Payout): any;
 }
 
 export function PayoutBuilder(props: PayoutBuilderProps) {
@@ -15,47 +19,84 @@ export function PayoutBuilder(props: PayoutBuilderProps) {
     const [barterProductUrl, setBarterProductUrl] = useState("");
     const [errors, setErrors] = useState<any>({});
 
+    const submitChanges = useCallback(() => {
+        if(Object.keys(errors).length > 0) {
+            return ;
+        }
+
+        let parsedAmount = parseFloat(amount);
+        if(props.type === PayoutType.BARTER) {
+            if(parsedAmount > 0 && currency && barterProductUrl) {
+                props.onChange({
+                    type: PayoutType.BARTER,
+                    productMRP: {
+                        amount: parsedAmount || 1,
+                        currency
+                    },
+                    productUrl: barterProductUrl
+                })
+            }
+        }
+        else if(props.type === PayoutType.FIXED) {
+            if(parsedAmount > 0 && currency) {
+                props.onChange({
+                    type: PayoutType.FIXED,
+                    cash: {
+                        amount: parsedAmount || 1,
+                        currency
+                    }
+                })
+            }
+        }
+        else if(props.type === PayoutType.VARIABLE) {
+            if(parsedAmount > 0 && currency) {
+                props.onChange({
+                    type: PayoutType.VARIABLE,
+                    maxCash: {
+                        amount: parsedAmount || 1,
+                        currency
+                    }
+                })
+            }
+        }
+    }, [currency, amount, barterProductUrl, errors, props]);
+
     const onCurrencyChange = useCallback((ev: ChangeEvent<HTMLInputElement>) => {
         let value = ev.currentTarget.value;
         setCurrency(value);
-    }, []);
+        submitChanges();
+    }, [submitChanges]);
 
     const onVariablePayChange = useCallback((ev: ChangeEvent<HTMLInputElement>) => {
         let value = ev.currentTarget.value;
         setAmount(value);
-        let parsed = parseInt(value);
 
-        let nextErrs = {...errors};
-
-        if(parsed && parsed >= 0 && currency) {
-            //// notify back to ancestor the amount and the currency
-        }
-        else if(props.type !== "barterPay" && !Validators.isCashAmount(value)) {
+        let nextErrs: any = {};
+        if(props.type !== PayoutType.BARTER && !Validators.isCashAmount(value)) {
             nextErrs.amount = __tr("errorInvalidAmount");
         }
-        else if(props.type === "barterPay" && !Validators.isBarterAmount(value)) {
+        else if(props.type === PayoutType.BARTER && !Validators.isBarterAmount(value)) {
             nextErrs.amount = __tr("errorInvalidMRP");
         }
         setErrors(nextErrs);
-    }, [currency, errors, props.type]);
+        submitChanges();
+    }, [submitChanges, props]);
 
     const onBarterProductUrlChange = useCallback((ev: ChangeEvent<HTMLInputElement>) => {
         let value = ev.currentTarget.value;
         setBarterProductUrl(value);
 
-        if(Validators.isLink(value)) {
-            //// notify back to ancestor the amount and the currency
-        }
-        else {
-            let nextErrs = {...errors};
+        if(!Validators.isLink(value)) {
+            let nextErrs: any = {};
             nextErrs.url = __tr("errorInvalidProductUrl");
             setErrors(nextErrs);
         }
-    }, [errors]);
+        submitChanges();
+    }, [submitChanges]);
 
     return <Grid container spacing={2} alignItems="center" justifyContent="center">
         {
-            props.type === "variablePay" && <>
+            props.type === PayoutType.VARIABLE && <>
                 <Grid item xs={4}>
                     <InputLabel>{__tr("maxCashPayout")}</InputLabel>
                 </Grid>
@@ -88,7 +129,7 @@ export function PayoutBuilder(props: PayoutBuilderProps) {
             </>
         }
         {
-            props.type === "fixedPay" && <>
+            props.type === PayoutType.FIXED && <>
                 <Grid item xs={4}>
                     <InputLabel>{__tr("cashPayout")}</InputLabel>
                 </Grid>
@@ -121,7 +162,7 @@ export function PayoutBuilder(props: PayoutBuilderProps) {
             </>
         }
         {
-            props.type === "barterPay" && <>
+            props.type === PayoutType.BARTER && <>
 
                 <Grid item xs={4}>
                     <InputLabel>{__tr("productMRP")}</InputLabel>

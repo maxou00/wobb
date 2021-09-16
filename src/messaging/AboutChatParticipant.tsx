@@ -34,7 +34,7 @@ const styles = {
 export function AboutChatParticipant() {
     return <Box className={styles.page}>
         <Box padding={1} className={styles.resume}>
-            <UserResumeCard excludeStats />
+            {/*<UserResumeCard excludeStats /> */}
         </Box>
         <Box className={styles.content}>
             <List dense >

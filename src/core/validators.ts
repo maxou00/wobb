@@ -11,7 +11,7 @@ export const Validators = {
         return Boolean(this.isEmail(str)) || Boolean(this.isPhone(str));
     },
     isValidPassword(str: string) {
-        return str.trim().length >= 6 && str.match(/[A-Z]/) && str.match(/[a-z]/) && str.match(/[0-9]/) && str.match(/[[@:;./$*#!]]/) /// can be updated later to include stage based validation.
+        return str.trim().length >= 6 && str.match(/[A-Z]+/) && str.match(/[a-z]+/) && str.match(/[0-9]+/) && str.match(/[@:;./$*#!]+/) /// can be updated later to include stage based validation.
     },
     isValidName(str: string) {
         return str.length >= 3 && str.length <= 30 /// can be updated later to include stage based validation.

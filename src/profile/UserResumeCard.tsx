@@ -1,9 +1,10 @@
 import { Box, Typography } from "@material-ui/core";
 import { __tr } from "../i18n";
+import { Profile } from "../models";
 import { useAppUser } from "../state/selectors";
 import styles from "../styles/UserResumeCard.module.scss";
 
-export function UserResumeCard(props: { excludeStats?: boolean }) {
+export function UserResumeCard(props: { profile: Profile, excludeStats?: boolean }) {
     const { user } = useAppUser();
     return <Box className={styles.page}>
         <Box className={styles.header}>
@@ -11,7 +12,7 @@ export function UserResumeCard(props: { excludeStats?: boolean }) {
             <Typography variant="h6">{user.name}</Typography>
             <span className={styles.influencer}>Influencer <span className={styles.stars}>4.0 ★</span> (125)</span>
             <span className={styles.collabs}>collabs: jasmine.croucher@yahoo.com</span>
-            <span className={styles.username}>@Lara Dennis</span>
+            <span className={styles.username}>@{props.profile.username}</span>
         </Box>
         {!props.excludeStats && <Box className={styles.resumes}>
             <Box className={styles.resume}>

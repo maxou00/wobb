@@ -2,21 +2,24 @@ import { Box, Checkbox, IconButton, List, ListItem, ListItemAvatar, ListItemSeco
 import { useCallback, useState } from "react";
 import { useMemo } from "react"
 import { MdAdd, MdRemove } from "react-icons/md";
+import { DeliverableWithCount } from "../../core";
 import { __tr } from "../../i18n";
+import { Deliverable } from "../../models";
+import { Platform } from "../../models";
 
 const items = {
     youtube: [
-        "dedicatedVideo",
-        "integratedVideo",
-        "shorts"
+        Deliverable.DEDICATED_VIDEO,
+        Deliverable.INTEGRATED_VIDEO,
+        Deliverable.SHORT
     ],
     instagram: [
-        "reels",
-        "swipeUpStory",
-        "igtv",
-        "staticPost",
-        "videoPost",
-        "contentOnly"
+        Deliverable.REEL,
+        Deliverable.CONTENT_ONLY,
+        Deliverable.STATIC_POST,
+        Deliverable.SWIPE_UP_STORY,
+        Deliverable.VIDEO_POST,
+        Deliverable.IGTV
     ]
 }
 
@@ -28,68 +31,64 @@ const StyledButton = withStyles((t) => {
     }
 })(IconButton);
 
-interface DeliverableWithCount {
-    deliverable: string;
-    count: number;
-}
 
 interface PickerProps {
-    platform: string;
+    platform: Platform;
+    deliverables: DeliverableWithCount[];
+    onChange(values: DeliverableWithCount[]): any;
 }
 
 export function DeliverablePicker(props: PickerProps) {
-    const [deliverables, setDeliverables] = useState<DeliverableWithCount[]>([]);
-
     const validDeliverables = useMemo(() => {
-        if (props.platform === "instagram") {
+        if (props.platform === Platform.INSTAGRAM) {
             return items.instagram;
         }
-        else if (props.platform === "youtube") {
+        else if (props.platform === Platform.YOUTUBE) {
             return items.youtube;
         }
         return [];
     }, [props.platform]);
 
-    const onDeliverableClicked = useCallback((deliverable: string) => {
-        let exists = deliverables.find((d) => d.deliverable === deliverable);
+    const onDeliverableClicked = useCallback((deliverable: Deliverable) => {
+        let exists = props.deliverables.find((d) => d.deliverable === deliverable);
         if(exists) {
-            let cpy = deliverables.filter((d) => d.deliverable !== deliverable);
-            setDeliverables(cpy);
+            let cpy = props.deliverables.filter((d) => d.deliverable !== deliverable);
+            props.onChange(cpy);
         }
         else {
-            let cpy = [...deliverables];
+            let cpy = [...props.deliverables];
             cpy.push({
                 deliverable,
                 count: 1
             })
-            setDeliverables(cpy);
+            props.onChange(cpy);
         }
-    },[deliverables]);
+    },[props]);
 
     const incOrDecDeliverable = useCallback((deliverable: string, count: number) => {
-        let index = deliverables.findIndex((d) => d.deliverable === deliverable);
+        let index = props.deliverables.findIndex((d) => d.deliverable === deliverable);
         if(index >= 0) {
-            let cpy = [...deliverables];
+            let cpy = [...props.deliverables];
             let newCount = cpy[index].count + count;
             if(newCount < 0) {
                 newCount = 0;
             }
             cpy[index].count = newCount;
-            setDeliverables(cpy);
+            props.onChange(cpy);
         }
-    }, [deliverables]);
+    }, [props]);
 
     return <Box minWidth="320px">
         <List dense disablePadding>
             {
                 validDeliverables.map((d) => {
-                    let existent = deliverables.find((e) => e.deliverable === d);
+                    let existent = props.deliverables.find((e) => e.deliverable === d);
                     return <ListItem button dense key={d} onClick={() => onDeliverableClicked(d)}>
                         <ListItemAvatar>
                             <Checkbox color="primary" size="small" checked={Boolean(existent)}  onChange={() => onDeliverableClicked(d)}/>
                         </ListItemAvatar>
                         <ListItemText
-                            primary={__tr(d)} />
+                            primary={__tr(d.toLowerCase())} />
                         { existent && <ListItemSecondaryAction>
                             <Box display="flex" flexDirection="row" alignItems="center" justifyContent="center">
                                 <StyledButton size="small" onClick={() => incOrDecDeliverable(d, -1)}>

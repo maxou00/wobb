@@ -28,22 +28,10 @@ export function BoxNewCampaign() {
                 {__tr("postCampaign")}
             </Button>
         </Box>
-        <Dialog open={isCreating} scroll="body" maxWidth="md" fullWidth onClose={() => setIsCreating(false)}>
-            <DialogTitle>
-                <Box display="flex" flexDirection="row" alignItems="center" justifyContent="space-between">
-                    <Typography variant="h6">{__tr("newCampaign")}</Typography>
-                    <IconButton onClick={() => setIsCreating(false)}>
-                        <MdClose />
-                    </IconButton>
-                </Box>
-            </DialogTitle>
-            <DialogContent dividers>
-                <CreateCampaign />
-            </DialogContent>
-            <DialogActions style={{ justifyContent: "center", margin: '4px 0px' }}>
-                <TextTransformNoneButton variant="outlined" color="default" size="small">{__tr("saveDraft")}</TextTransformNoneButton>
-                <TextTransformNoneButton variant="contained" color="primary" size="small">{__tr("postCampaign")}</TextTransformNoneButton>
-            </DialogActions>
-        </Dialog>
+        <CreateCampaign 
+            open={isCreating}
+            scroll="paper"
+            maxWidth="md"
+            fullWidth onClose={() => setIsCreating(false)}/>
     </Box>
 }

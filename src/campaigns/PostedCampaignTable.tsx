@@ -7,7 +7,8 @@ import { UppercaseSbText } from "../components/custom";
 import { Routes } from "../routes";
 import posted from "../core/api/postedCampaigns.json";
 
-export function CampaignsWithApplicants() {
+export function PostedCampaignTable() {
+
     return <div className={styles.section}>
         <TableContainer>
             <Table>

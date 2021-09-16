@@ -1,0 +1,153 @@
+enum PayoutType {
+  BARTER
+  VARIABLE
+  FIXED
+}
+
+enum Deliverable {
+  DEDICATED_VIDEO
+  INTEGRATED_VIDEO
+  SHORT
+  REEL
+  SWIPE_UP_STORY
+  IGTV
+  STATIC_POST
+  VIDEO_POST
+  CONTENT_ONLY
+}
+
+type Brand @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  name: String
+  website: String
+  uid: String
+}
+
+enum TaskStatus {
+  TOBECOMPLETED
+  COMPLETED
+  ONGOING
+}
+
+type Task @model @auth(rules: [{allow: public}]) @key(name: "byJobs", fields: ["jobsID"]) {
+  id: ID!
+  Title: String
+  Brief: String
+  Status: TaskStatus
+  jobsID: ID
+}
+
+type Jobs @model @auth(rules: [{allow: public}]) @key(name: "byCampaign", fields: ["campaignID"]) {
+  id: ID!
+  campaignID: ID
+  Infleuncers: [User] @connection(keyName: "byJobs", fields: ["id"])
+  Tasks: [Task] @connection(keyName: "byJobs", fields: ["id"])
+}
+
+enum CampaignStatus {
+  DRAFT
+  SUBMITTED
+  PUBLISHED
+  ONGOING
+  COMPLETED
+}
+
+enum Platform {
+  YOUTUBE
+  INSTAGRAM
+}
+
+type Campaign @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  Name: String
+  Goals: String
+  minAge: Int
+  maxAge: Int
+  Language: String
+  Location: String
+  Platform: Platform
+  CampaignUsers: [CampaignUser] @connection(keyName: "byCampaign", fields: ["id"])
+  CampaignStatus: CampaignStatus
+  NoofInfleuncer: Int
+  Jobs: [Jobs] @connection(keyName: "byCampaign", fields: ["id"])
+  Categories: [String]
+  FollowerRanges: [AWSJSON]
+  Payout: AWSJSON
+  Deliverables: [AWSJSON]
+  Brand: Brand @connection
+}
+
+enum Gender {
+  MALE
+  FEMALE
+  OTHERS
+}
+
+type Profile @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  name: String
+  username: String
+  website: String
+  Email: AWSEmail
+  PhoneNo: AWSPhone
+  Gender: Gender
+  DoB: AWSDate
+  Language: String
+  Interest: String
+  Instagrams: [Instagram] @connection(keyName: "byProfile", fields: ["id"])
+  uid: String
+  bio: String
+}
+
+type Instagram @model @auth(rules: [{allow: public}]) @key(name: "byProfile", fields: ["profileID"]) {
+  id: ID!
+  Username: String
+  Token: ID
+  Reach: String
+  Engagement: String
+  profileID: ID
+}
+
+type ChatRoom @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  newMessages: Int
+  lastMessage: Message @connection
+  Messages: [Message] @connection(keyName: "byChatRoom", fields: ["id"])
+  ChatRoomUsers: [ChatRoomUser] @connection(keyName: "byChatRoom", fields: ["id"])
+}
+
+type Message @model @auth(rules: [{allow: public}]) @key(name: "byUser", fields: ["userID"]) @key(name: "byChatRoom", fields: ["chatroomID"]) {
+  id: ID!
+  content: String
+  untitledfield: String
+  userID: ID
+  chatroomID: ID
+}
+
+type User @model @auth(rules: [{allow: public}]) @key(name: "byJobs", fields: ["jobsID"]) {
+  id: ID!
+  name: String!
+  imageUrl: String
+  status: String
+  Messages: [Message] @connection(keyName: "byUser", fields: ["id"])
+  chatrooms: [ChatRoomUser] @connection(keyName: "byUser", fields: ["id"])
+  campaigns: [CampaignUser] @connection(keyName: "byUser", fields: ["id"])
+  jobsID: ID
+}
+
+type ChatRoomUser @model(queries: null) @key(name: "byChatRoom", fields: ["chatroomID", "userID"]) @key(name: "byUser", fields: ["userID", "chatroomID"]) @auth(rules: [{allow: public}, {allow: public}]) {
+  id: ID!
+  chatroomID: ID!
+  userID: ID!
+  chatroom: ChatRoom! @connection(fields: ["chatroomID"])
+  user: User! @connection(fields: ["userID"])
+}
+
+type CampaignUser @model(queries: null) @key(name: "byCampaign", fields: ["campaignID", "userID"]) @key(name: "byUser", fields: ["userID", "campaignID"]) @auth(rules: [{allow: public}, {allow: public}]) {
+  id: ID!
+  campaignID: ID!
+  userID: ID!
+  campaign: Campaign! @connection(fields: ["campaignID"])
+  user: User! @connection(fields: ["userID"])
+}
+ 

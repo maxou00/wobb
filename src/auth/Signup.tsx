@@ -1,20 +1,19 @@
 import { Box } from "@material-ui/core";
-import { CognitoUserAttribute } from "amazon-cognito-identity-js";
 import { ChangeEvent, useCallback, useState } from "react";
 import { Link, useHistory } from "react-router-dom";
 import { EmailOrPhone } from "../components/EmailOrPhone";
 import { IconGoogle } from "../components/Icons";
 import { RoleInputField } from "../components/RoleInputField";
 import { SingleLineInput } from "../components/SingleLineInput";
-import { UserPool } from "../core/constants";
 import { Roles } from "../core/roles";
 import { Validators } from "../core/validators";
 import { __tr } from "../i18n";
 import { Routes } from "../routes";
 import styles from "../styles/Signup.module.scss";
-import { persistUname } from "../core/utils";
 import { toast } from "react-toastify";
 import { Loader } from "../components/Loader";
+import Auth from "@aws-amplify/auth";
+import { persistUname } from "../core/utils";
 
 export function Signup() {
     const [socialModeEnabled, setSocialModeEnabled] = useState(false);
@@ -23,7 +22,6 @@ export function Signup() {
     const [password, setPassword] = useState("");
     const [errors, setErrors] = useState<any>({});
     const [loading, setLoading] = useState(false);
-
 
     const history = useHistory();
 
@@ -67,21 +65,26 @@ export function Signup() {
 
             if (Object.keys(newErrors).length === 0) {
                 setLoading(true);
-                UserPool.signUp(data.email, data.password, [
-                    new CognitoUserAttribute({ Name: 'phone_number', Value: data.phone_number }),
-                    new CognitoUserAttribute({ Name: 'email', Value: data.email }),
-                    new CognitoUserAttribute({ Name: 'name', Value: data.name }),
-                    new CognitoUserAttribute({ Name: 'custom:role', Value: data.role })
-                ], [], (err, result) => {
-                    setLoading(false);
-                    if (err) {
-                        toast.error(err.message);
-                    }
-                    else if (result) {
-                        persistUname(data.email)
-                        history.push(Routes.VerifyOTP);
+                Auth.signUp({
+                    username: data.email,
+                    password: data.password,
+                    attributes: {
+                        email: data.email,
+                        phone_number: data.phone_number,
+                        name: data.name,
+                        'custom:role': data.role
                     }
                 })
+                    .then((result) => {
+                        persistUname(result.user.getUsername());
+                        history.push(Routes.VerifyOTP);
+                    })
+                    .catch((err) => {
+                        toast.error(err.message);
+                    })
+                    .finally(() => {
+                        setLoading(false);
+                    })
             }
         }
         setErrors(newErrors);
@@ -91,7 +94,7 @@ export function Signup() {
         <h3>{__tr("welcomeToWobb")}</h3>
         <div className={styles.formWrapper}>
             <h3>{__tr("signup")}</h3>
-            {loading && <Loader/>}
+            {loading && <Loader />}
             <form onChange={onFormChange} action="" className={styles.form} onSubmit={onSubmit}>
                 {
                     socialModeEnabled && <div className={styles.socialAccount}>

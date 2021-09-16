@@ -15,7 +15,7 @@ export function ProfileDrawer() {
 
     return <Box className={styles.page}>
         <Box paddingY={2} width="100%">
-            <UserResumeCard />
+            {/*<UserResumeCard  /> */}
         </Box>
         <Box className={styles.actions}>
             <TextTransformNoneButton variant="outlined" color="primary">{__tr("message")}</TextTransformNoneButton>

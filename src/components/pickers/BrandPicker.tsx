@@ -1,42 +1,40 @@
-import { Box, Divider, IconButton, List, ListItem, ListItemAvatar, ListItemSecondaryAction, ListItemText, Radio, TextField } from "@material-ui/core";
+import { Box, Divider, IconButton, List, ListItem, ListItemAvatar, ListItemSecondaryAction, ListItemText, Radio, RadioGroup, TextField } from "@material-ui/core";
 import { useCallback } from "react";
 import { useMemo } from "react";
 import { useState } from "react";
 import { MdAdd, MdEdit } from "react-icons/md";
 import { TextTransformNoneButton } from "../TextTransformNoneButton";
 import { __tr } from "../../i18n";
+import { Brand } from "../../models";
+import { useAppUser, useBrands } from "../../state/selectors";
+import { useDispatch } from "react-redux";
+import { DataStore } from "@aws-amplify/datastore";
+import { appendBrand } from "../../state/action-creators";
 
-interface Brand { 
-    name: string;
-    url: string;
+interface Props {
+    brand?: Brand;
+    onChange(value: Brand): any;
 }
 
-const Brands: Brand[] = [
-    {
-        name: 'Plum',
-        url: 'www.plum.com'
-    },
-    {
-        name: 'Soultree',
-        url: 'www.soultr.ee'
-    },
-    {
-        name: 'Elle',
-        url: 'www.el.le'
-    }
-]
+export function BrandPicker(props: Props) {
+    const [name, setBrandName] = useState("");
+    const [website, setBrandWebsite] = useState("");
+    const [busy, setBusy] = useState(false);
 
-export function BrandPicker() {
+    const { user } = useAppUser();
+    const brands = useBrands();
+    const dispatch = useDispatch();
+
     const [adding, setAdding] = useState(false);
     const [editing, setEditing] = useState(false);
     const [updateCandidate, setUpdateCandidate] = useState<Brand>();
 
     const brandsWithoutUpdate = useMemo(() => {
-        if(!editing && !updateCandidate){
-            return Brands;
+        if (!editing && !updateCandidate) {
+            return brands;
         }
-        return Brands.filter((b) => b.name !== updateCandidate?.name && b.url !== updateCandidate?.url);
-    },[editing, updateCandidate]);
+        return brands.filter((b) => b.id !== updateCandidate?.id);
+    }, [editing, updateCandidate, brands]);
 
     const cancelAddOrUpdate = useCallback(() => {
         setAdding(false);
@@ -46,16 +44,51 @@ export function BrandPicker() {
 
     const selectForUpdate = useCallback((brand: Brand) => {
         setUpdateCandidate(brand);
+        setBrandWebsite(brand.website || "");
+        setBrandName(brand.name || "");
         setEditing(true);
     }, []);
 
-    const onAppendBrand = useCallback(() => {
+    const onAppendBrand = useCallback(async () => {
+        setBusy(true);
+        let saved = await DataStore.save(
+            new Brand({
+                name,
+                website,
+                uid: user.sub
+            })
+        );
+        dispatch(appendBrand(saved));
+        setBrandName("");
+        setBrandWebsite("");
+        setBusy(false);
+        props.onChange(saved);
+    }, [dispatch, name, website, user, props]);
 
-    }, []);
+    const onUpdateBrand = useCallback(async () => {
+        if (updateCandidate) {
+            setBusy(true);
+            let saved = await DataStore.save(
+                Brand.copyOf(updateCandidate, (b) => {
+                    b.name = name;
+                    b.website = website;
+                })
+            );
+            dispatch(appendBrand(saved));
+            setBrandName("");
+            setBrandWebsite("");
+            setUpdateCandidate(undefined);
+            setEditing(false);
+            setBusy(false);
+        }
+    }, [dispatch, name, updateCandidate, website]);
 
-    const onUpdateBrand = useCallback(() => {
 
-    }, []);
+    const onRadioChange = useCallback((brand: Brand, checked: boolean) => {
+        if (checked) {
+            props.onChange(brand);
+        }
+    }, [props]);
 
     return <Box minWidth="320px">
         {!adding && <>
@@ -72,13 +105,14 @@ export function BrandPicker() {
             <Divider />
         </>
         }
-        { (adding || editing) && <Box padding={1}>
+        {(adding || editing) && <Box padding={1}>
             <Box marginY={.75}>
                 <TextField
                     size="small"
                     variant="outlined"
                     placeholder={__tr("enterBrandName")}
-                    value={updateCandidate?.name}
+                    value={name}
+                    onChange={(ev) => setBrandName(ev.currentTarget.value)}
                     fullWidth />
             </Box>
             <Box marginY={.75}>
@@ -86,7 +120,8 @@ export function BrandPicker() {
                     size="small"
                     variant="outlined"
                     placeholder={__tr("enterBrandWebsite")}
-                    value={updateCandidate?.url}
+                    value={website}
+                    onChange={(ev) => setBrandWebsite(ev.currentTarget.value)}
                     fullWidth />
             </Box>
             <Box paddingY={.5} display="flex" flexDirection="row" alignItems="center" justifyContent="center">
@@ -94,7 +129,8 @@ export function BrandPicker() {
                     <TextTransformNoneButton
                         variant="contained"
                         color="primary"
-                        size="small">
+                        size="small"
+                        onClick={updateCandidate ? onUpdateBrand : onAppendBrand}>
                         {__tr("save")}
                     </TextTransformNoneButton>
                 </Box>
@@ -115,10 +151,10 @@ export function BrandPicker() {
                 brandsWithoutUpdate.map((b) => {
                     return <ListItem dense button key={b.name}>
                         <ListItemAvatar>
-                            <Radio color="primary" size="small" />
+                            <Radio color="primary" size="small" value={b.id} checked={props.brand?.id === b.id} onChange={(ev, check) => onRadioChange(b, check)} />
                         </ListItemAvatar>
                         <ListItemText
-                            primary={b.name}/>
+                            primary={b.name} />
                         <ListItemSecondaryAction>
                             <IconButton size="small" onClick={() => selectForUpdate(b)}>
                                 <MdEdit size={16} />

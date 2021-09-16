@@ -2,12 +2,15 @@
  * DEPRECATED COMPONENT
  */
 
+import { DataStore } from "@aws-amplify/datastore";
 import { Box, Grid, InputLabel, TextField, withStyles } from "@material-ui/core";
 import { useState } from "react";
 import { ChangeEvent, useCallback } from "react";
 import { TextTransformNoneButton } from "../components/TextTransformNoneButton";
 import { Validators } from "../core/validators";
 import { __tr } from "../i18n";
+import { TaskStatus } from "../models";
+import { Task } from "../models";
 
 
 const CustomizedBtn = withStyles({
@@ -20,7 +23,7 @@ const CustomizedBtn = withStyles({
 export function EditAddress() {
     const[errors, setErrors] = useState<any>({});
 
-    const onSubmit = useCallback((ev: ChangeEvent<HTMLFormElement>) => {
+    const onSubmit = useCallback(async(ev: ChangeEvent<HTMLFormElement>) => {
         let form = ev.currentTarget;
         let data = {
             address: form.address.value,

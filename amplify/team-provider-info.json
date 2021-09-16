@@ -1,0 +1,20 @@
+{
+  "staging": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-wobb-staging-60327-authRole",
+      "UnauthRoleArn": "arn:aws:iam::431104670392:role/amplify-wobb-staging-60327-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::431104670392:role/amplify-wobb-staging-60327-authRole",
+      "Region": "ap-south-1",
+      "DeploymentBucketName": "amplify-wobb-staging-60327-deployment",
+      "UnauthRoleName": "amplify-wobb-staging-60327-unauthRole",
+      "StackName": "amplify-wobb-staging-60327",
+      "StackId": "arn:aws:cloudformation:ap-south-1:431104670392:stack/amplify-wobb-staging-60327/d10ca3a0-11fc-11ec-bd26-061f4f80da78",
+      "AmplifyAppId": "dtv8ailagvwd"
+    },
+    "categories": {
+      "auth": {
+        "Wobb": {}
+      }
+    }
+  }
+}

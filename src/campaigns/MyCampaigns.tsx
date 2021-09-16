@@ -4,7 +4,7 @@ import { AppMetadata } from "../components/AppMetadata";
 import { BoxNewCampaign } from "./BoxNewCampaign";
 import { BoxRecommendedCampaigns } from "./BoxRecommendedCampaigns";
 import { CampaignStatusList } from "./CampaignStatusList.tsx";
-import { CampaignsWithApplicants } from "./CampaignsWithApplicants";
+import { PostedCampaignTable } from "./PostedCampaignTable";
 import { CampaignsWithDeliverables } from "./CampaignsWithDeliverables";
 import { CampaignTabs } from "./CampaignTabs";
 import { MainCarousel } from "./MainCarousel";
@@ -42,7 +42,7 @@ export function MyCampaigns() {
             <Paper elevation={0}>
                 {
                     status && status === "posted" &&
-                    <CampaignsWithApplicants />
+                    <PostedCampaignTable />
                 }
                 {
                     status && status === "applied" &&

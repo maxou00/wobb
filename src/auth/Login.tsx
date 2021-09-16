@@ -57,7 +57,7 @@ function Login(props: Props) {
             errs.emailOrPhone = __tr("errorInvalidEmailOrPhone")
         }
 
-        if (!Validators.isValidPassword(data.password)) {
+        if (!data.password) {
             errs.password = __tr("errorInvalidPassword");
         }
 
