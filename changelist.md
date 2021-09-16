@@ -1,6 +1,7 @@
 # Changes List applied to the provided schema.
 
-###### Note: Everytime you will see a property named `uid` remember it means `user identifier`. I will use specially that name to track user on entities. It It links to the user's __sub__ property in the user pool pf the project. `sub` is based on uuid and is unique, non-reassignable.
+###### Note: Everytime you will see a property named `uid` remember it means `user identifier`. I will use specially that name to track user on entities. It It links to the user's __sub__ property in the user pool pf the project. `sub` is based on uuid and is unique, non-reassignable. Also, composite properties formatted as JSON as stored as AWSJson (stringified).
+
 
 ### Entity `Profile`
     - added `uid`.
@@ -16,12 +17,9 @@
     - `FollowerRanges`: *AWSJson* array containing properties of selected ranges.
     - `Payout`: *AWSJson* containing payout specified for this campaign.
     - 'Deliverables`: AWSJson array containing deliverables codes with their count.
+    - `Brand`: the brand author of this campaign
 
-### Relation `BrandedCampaign`
-    Links a campaign to a specified brand. 
-    - campaign: the campaign
-    - brand: the brand author of this campaign
-    
+
 ### `Deliverable` enum
     - `DEDICATED_VIDEO`
     - `INTEGRATED VIDEO`
