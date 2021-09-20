@@ -7,13 +7,13 @@ import { ViewApplicants } from "./ViewApplicants";
 export function ViewCampaign() {
     return <div>
         <Switch>
-            <Route path={Routes.viewCampaignApplicants("a-simple-id")}>
+            <Route path={Routes.viewCampaignApplicants(":id")}>
                 <ViewApplicants />
             </Route>
-            <Route path={Routes.viewCampaignTasks("a-simple-id")}>
+            <Route path={Routes.viewCampaignTasks(":id")}>
                 <TaskView />
             </Route>
-            <Route path={Routes.viewCampaign("a-simple-id")} exact>
+            <Route path={Routes.viewCampaign(":id")} exact>
                 <SingleCampaign />
             </Route>
         </Switch>

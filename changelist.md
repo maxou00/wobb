@@ -1,7 +1,8 @@
 # Changes List applied to the provided schema.
 
-###### Note: Everytime you will see a property named `uid` remember it means `user identifier`. I will use specially that name to track user on entities. It It links to the user's __sub__ property in the user pool pf the project. `sub` is based on uuid and is unique, non-reassignable. Also, composite properties formatted as JSON as stored as AWSJson (stringified).
+Note: Everytime you will see a property named `uid` remember it means `user identifier`. I will use specially that name to track user on entities. It It links to the user's __sub__ property in the user pool pf the project. `sub` is based on uuid and is unique, non-reassignable. Also, composite properties formatted as JSON as stored as AWSJson (stringified).
 
+Renamed every `Infleuncer(s)` to `Influencer(s)`
 
 ### Entity `Profile`
     - added `uid`.
@@ -18,9 +19,9 @@
     - `Payout`: *AWSJson* containing payout specified for this campaign.
     - 'Deliverables`: AWSJson array containing deliverables codes with their count.
     - `Brand`: the brand author of this campaign
+    - `uid`: user
 
-
-### `Deliverable` enum
+### enum `Deliverable`
     - `DEDICATED_VIDEO`
     - `INTEGRATED VIDEO`
     - `SHORT`
@@ -31,7 +32,17 @@
     - `VIDEO_POST`
     - `CONTENT_ONLY`
 
-### `PayoutType` enum
+### enum `PayoutType`
     - `BARTER`
     - `VARIABLE`
     - `FIXED`
+
+### enum `JobStatus`
+    - `SHORT_LISTED`
+    - `HIRED`
+    - `ONGOING`
+    - `COMPLETED`
+
+### Entity `Jobs` have been renamed to `Job`
+    - `status`: JobStatus
+    - `Influencer`: 1:1 relationship with `User`

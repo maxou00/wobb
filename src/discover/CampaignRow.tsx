@@ -1,10 +1,14 @@
 import { css } from "@emotion/css"
 import { Paper } from "@material-ui/core"
+import { useMemo } from "react"
 import { MdLink } from "react-icons/md"
 import { Link } from "react-router-dom"
 import { IconCash, IconCoins, IconPlatform } from "../components/Icons"
+import { Payout } from "../core"
 import { CssVariables } from "../css-variables"
 import { __tr } from "../i18n"
+import { CampaignStatus } from "../models"
+import { Campaign, PayoutType } from "../models"
 import { Routes } from "../routes"
 
 const styles = {
@@ -81,7 +85,44 @@ const styles = {
     `
 }
 
-export function CampaignRow(props: {campaign: any}) {
+export function CampaignRow(props: {campaign: Campaign}) {
+    const payout = useMemo(() => {
+        if(props.campaign.Payout) {
+            return JSON.parse(props.campaign.Payout) as Payout;
+        }
+        return undefined;
+    }, [props]);
+
+    const currency = useMemo(() => {
+        if(payout?.type === PayoutType.FIXED) {
+            return payout.cash.currency;
+        }
+        if(payout?.type === PayoutType.VARIABLE) {
+            return payout.maxCash.currency;
+        }
+        if(payout?.type === PayoutType.BARTER) {
+            return payout.productMRP.currency;
+        }
+        return undefined;
+    }, [payout]);
+
+    const amount = useMemo(() => {
+        if(payout?.type === PayoutType.FIXED) {
+            return payout.cash.amount;
+        }
+        if(payout?.type === PayoutType.VARIABLE) {
+            return payout.maxCash.amount;
+        }
+        if(payout?.type === PayoutType.BARTER) {
+            return payout.productMRP.amount;
+        }
+        return undefined;
+    }, [payout]);
+
+    const isActive = useMemo(() => {
+        return props.campaign.CampaignStatus === CampaignStatus.PUBLISHED
+    }, [props.campaign]);
+
     return <Paper elevation={1}>
         <div className={styles.wrapper}>
             <table className={styles.table}>
@@ -91,7 +132,7 @@ export function CampaignRow(props: {campaign: any}) {
                             <div className={styles.img}></div>
                         </td>
                         <td className={styles.cell}>
-                            <span className={styles.campaignTitle}>{props.campaign.campaignName}</span>
+                            <span className={styles.campaignTitle}>{props.campaign.Name}</span>
                         </td>
                         <td className={styles.cell}>
                             <div className={styles.contentHeaderCell}>
@@ -123,29 +164,29 @@ export function CampaignRow(props: {campaign: any}) {
                     </tr>
                     <tr>
                         <td className={styles.cell} >
-                            <Link to={props.campaign.brand.website} className={styles.campaignLink}>
-                                <span className="url">{props.campaign.brand.name}</span>
+                            <Link to={props.campaign.Brand?.website || "/"} className={styles.campaignLink}>
+                                <span className="url">{props.campaign.Brand?.name || ""}</span>
                                 <span className="icon">
                                     <MdLink size={16} />
                                 </span>
                             </Link>
                         </td>
                         <td className={styles.cell}>
-                            <span className={styles.contentValue}>{props.campaign.platform}</span>
+                            <span className={styles.contentValue}>{props.campaign.Platform}</span>
                         </td>
                         <td className={styles.cell}>
-                            <span className={styles.contentValue}>{props.campaign.cash.currency} {props.campaign.cash.amount}</span>
+                            <span className={styles.contentValue}>{currency || ""} {amount || "-"}</span>
                         </td>
                         <td className={styles.cell}>
-                            <span className={styles.contentValue}>{props.campaign.coins}</span>
+                            <span className={styles.contentValue}>{/** There is no coin property in the campaigns. maybe there is an equivalence to be set, mapping fiat currencies to coins. */}</span>
                         </td>
                         <td className={styles.cell} align="center">
-                            <Link to={Routes.viewCampaign("a-campaign-id")} className={styles.campaignActionLink}>{__tr("viewDetails")}</Link>
+                            <Link to={Routes.viewCampaign(props.campaign.id)} className={styles.campaignActionLink}>{__tr("viewDetails")}</Link>
                         </td>
                     </tr>
                 </tbody>
             </table>
-            <span className={styles.badge}>active</span>
+            {isActive && <span className={styles.badge}>{__tr("active")}</span>}
         </div>
     </Paper>
 }

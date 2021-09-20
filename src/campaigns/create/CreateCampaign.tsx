@@ -23,11 +23,12 @@ import { DataStore } from "@aws-amplify/datastore";
 import { toast } from "react-toastify";
 import { useDispatch } from "react-redux";
 import { appendCampaign } from "../../state/action-creators";
+import { useAppUser } from "../../state/selectors";
 
 interface Props extends DialogProps { }
 
 export function CreateCampaign(props: Props) {
-
+    const { user } = useAppUser();
     const dispatch = useDispatch();
     const [busy, setBusy] = useState(false);
     const [goalOpen, setGoalOpen] = useState(false);
@@ -156,6 +157,7 @@ export function CreateCampaign(props: Props) {
         }
 
         let campaign = new Campaign({
+            uid: user.sub,
             Name: campaignTitle,
             Goals: promotionGoal,
             Platform: platform,
@@ -173,7 +175,7 @@ export function CreateCampaign(props: Props) {
         });
 
         return campaign;
-    }, [advancedRequirements, brand, campaignTitle, categories, deliverables, followerRanges, noInfluencers, payout, platform, promotionGoal]);
+    }, [advancedRequirements, brand, campaignTitle, categories, deliverables, followerRanges, noInfluencers, payout, platform, promotionGoal, user.sub]);
 
     const validateCampaign = useCallback(() => {
         let nextErrs: any = {};

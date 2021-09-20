@@ -75,6 +75,7 @@ type Campaign @model @auth(rules: [{allow: public}]) {
   Payout: AWSJSON
   Deliverables: [AWSJSON]
   Brand: Brand @connection
+  uid: String!
 }
 
 enum Gender {
@@ -119,7 +120,6 @@ type ChatRoom @model @auth(rules: [{allow: public}]) {
 type Message @model @auth(rules: [{allow: public}]) @key(name: "byUser", fields: ["userID"]) @key(name: "byChatRoom", fields: ["chatroomID"]) {
   id: ID!
   content: String
-  untitledfield: String
   userID: ID
   chatroomID: ID
 }

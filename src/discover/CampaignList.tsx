@@ -1,14 +1,16 @@
 import { css } from "@emotion/css";
 import { CampaignRow } from "./CampaignRow";
-import campaigns from "../core/api/campaigns.json";
+import { Campaign } from "../models";
+import { __tr } from "../i18n";
 
 const listStyles = css``;
 
-export function CampaignList() {
+export function CampaignList(props: {campaigns: Campaign[]}) {
+
     return <div className={listStyles}>
         {
-            campaigns.map((c) => {
-                return <CampaignRow campaign={c} key={c.id}/>
+            props.campaigns.map((c) => {
+                return <CampaignRow campaign={c} key={c.id} />
             })
         }
     </div>

@@ -161,6 +161,7 @@
     "newPassword": "New Password",
     "notifications": "Notifications",
     "notSelected": "Not Selected",
+    "noCampaignToShow": "No campaign to show.",
     "numberOfInfluencers": "Number Of Influencers",
     "oldPassword": "Old password",
     "onTimeDelivery": "On-Time Delivery",
@@ -220,6 +221,13 @@
     "signup": "Signup",
     "sortBy": "Sort By",
     "status": "Status",
+
+    "status_draft": "Draft",
+    "status_ongoing": "Ongoing",
+    "status_submitted": "Pending",
+    "status_published": "Active",
+    "status_completed": "Completed",
+
     "state": "State",
     "shippingAddress": "Shipping Address",
     "short": "Short",

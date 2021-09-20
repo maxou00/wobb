@@ -141,7 +141,6 @@ export declare class User {
 export declare class Message {
   readonly id: string;
   readonly content?: string;
-  readonly untitledfield?: string;
   readonly userID?: string;
   readonly chatroomID?: string;
   readonly createdAt?: string;
@@ -200,6 +199,7 @@ export declare class Campaign {
   readonly Payout?: string;
   readonly Deliverables?: (string | null)[];
   readonly Brand?: Brand;
+  readonly uid: string;
   readonly createdAt?: string;
   readonly updatedAt?: string;
   constructor(init: ModelInit<Campaign, CampaignMetaData>);

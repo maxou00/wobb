@@ -5,9 +5,11 @@ import { Link } from "react-router-dom";
 import styles from "../styles/CampaignTable.module.scss";
 import { UppercaseSbText } from "../components/custom";
 import { Routes } from "../routes";
-import posted from "../core/api/postedCampaigns.json";
+import { usePostedCampaigns } from "../state/selectors";
+import { CssVariables } from "../css-variables";
 
 export function PostedCampaignTable() {
+    const postedCampaigns = usePostedCampaigns().sort((p1,p2) => Date.parse(p2.createdAt || "") - Date.parse(p1.createdAt || "")) ;
 
     return <div className={styles.section}>
         <TableContainer>
@@ -28,21 +30,21 @@ export function PostedCampaignTable() {
                 </TableHead>
                 <TableBody>
                     {
-                        posted.map((p) => {
-                            return <TableRow key={p.campaignId}>
+                        postedCampaigns.map((p) => {
+                            return <TableRow key={p.id}>
                                 <TableCell>
                                     <div className={styles.campaignTitleRow}>
                                         <Avatar>
                                             <MdPerson size={24} />
                                         </Avatar>
-                                        <Typography variant="body1" className={styles.title}>{p.campaignName}</Typography>
+                                        <Typography variant="body1" className={styles.title}>{p.Name || ""}</Typography>
                                     </div>
                                 </TableCell>
                                 <TableCell>
-                                    { p.status === "active" ? "Active" : "Closed" }
+                                    { __tr(`status_${p.CampaignStatus?.toLowerCase() || ""}`) }
                                 </TableCell>
                                 <TableCell>
-                                    <Link to={Routes.viewCampaignApplicants("a-simple-id")}>View({p.applicants})</Link>
+                                    <Link to={Routes.viewCampaignApplicants(p.id)} style={{fontWeight: 500, color: CssVariables.colorPrimary}}>View({p.CampaignUsers?.length || 0})</Link>
                                 </TableCell>
                                 <TableCell>
                                     <IconButton size="small">

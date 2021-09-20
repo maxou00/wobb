@@ -2,12 +2,13 @@ import { Auth } from "aws-amplify";
 import { AnyAction } from "redux";
 import { ThunkAction } from "redux-thunk";
 import { IAppState } from ".";
-import { setBrands, setCurrentUser, setUserProfile } from "./action-creators";
+import { setBrands, setCampaigns, setCurrentUser, setUserProfile } from "./action-creators";
 import { cognitoUserAttributesToObject } from "./utils";
 import { DataStore } from "aws-amplify"
 import { Profile } from "../models";
 import { CognitoUser } from "@aws-amplify/auth";
 import { Brand } from "../models";
+import { Campaign } from "../models";
 
 export function initializeState(): ThunkAction<Promise<any>, IAppState, {}, AnyAction> {
     return async (dispatch, getState) => {
@@ -16,6 +17,7 @@ export function initializeState(): ThunkAction<Promise<any>, IAppState, {}, AnyA
                 await dispatch(fetchCognitoUser());
                 await dispatch(fetchUserProfile());
                 await dispatch(fetchUserBrands());
+                await dispatch(fetchUserCampaigns());
                 res(true);
             } catch (error) {
                 res(false);
@@ -64,6 +66,23 @@ export function fetchUserBrands(): ThunkAction<Promise<any>, IAppState, {}, AnyA
                 if(user) {
                     let brands = await DataStore.query(Brand, b => b.uid("eq", user.sub));
                     dispatch(setBrands(brands));
+                }
+                res(true);
+            } catch (error) {
+                res(false);
+            }
+        })
+    }
+}
+
+export function fetchUserCampaigns(): ThunkAction<Promise<any>, IAppState, {}, AnyAction> {
+    return async (dispatch, getState) => {
+        return new Promise(async (res, rej) => {
+            try {
+                let user = getState().userState.user;
+                if(user) {
+                    let campaigns = await DataStore.query(Campaign, c => c.uid("eq", user.sub));
+                    dispatch(setCampaigns(campaigns));
                 }
                 res(true);
             } catch (error) {

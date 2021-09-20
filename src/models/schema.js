@@ -408,13 +408,6 @@ export const schema = {
                     "isRequired": false,
                     "attributes": []
                 },
-                "untitledfield": {
-                    "name": "untitledfield",
-                    "isArray": false,
-                    "type": "String",
-                    "isRequired": false,
-                    "attributes": []
-                },
                 "userID": {
                     "name": "userID",
                     "isArray": false,
@@ -956,6 +949,13 @@ export const schema = {
                         "targetName": "campaignBrandId"
                     }
                 },
+                "uid": {
+                    "name": "uid",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": true,
+                    "attributes": []
+                },
                 "createdAt": {
                     "name": "createdAt",
                     "isArray": false,
@@ -1298,5 +1298,5 @@ export const schema = {
         }
     },
     "nonModels": {},
-    "version": "933d7bf676c71cb1be9167e60c213c78"
+    "version": "a662a2f1719deefcb7df5f95dbd75356"
 };

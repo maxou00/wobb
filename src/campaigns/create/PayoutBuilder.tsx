@@ -63,11 +63,11 @@ export function PayoutBuilder(props: PayoutBuilderProps) {
 
     const onCurrencyChange = useCallback((ev: ChangeEvent<HTMLInputElement>) => {
         let value = ev.currentTarget.value;
-        setCurrency(value);
+        setCurrency(value.toUpperCase());
         submitChanges();
     }, [submitChanges]);
 
-    const onVariablePayChange = useCallback((ev: ChangeEvent<HTMLInputElement>) => {
+    const onAmountChange = useCallback((ev: ChangeEvent<HTMLInputElement>) => {
         let value = ev.currentTarget.value;
         setAmount(value);
 
@@ -106,7 +106,7 @@ export function PayoutBuilder(props: PayoutBuilderProps) {
                         fullWidth
                         name="currency"
                         variant="outlined"
-                        onChange={(ev) => onCurrencyChange}
+                        onChange={onCurrencyChange}
                         value={currency}
                         error={errors.currency}
                         helperText={errors.currency}/>
@@ -119,7 +119,7 @@ export function PayoutBuilder(props: PayoutBuilderProps) {
                         name="amount"
                         variant="outlined"
                         value={amount}
-                        onChange={onVariablePayChange}
+                        onChange={onAmountChange}
                         error={errors.amount}
                         helperText={errors.amount}/>
                 </Grid>
@@ -139,7 +139,7 @@ export function PayoutBuilder(props: PayoutBuilderProps) {
                         fullWidth
                         name="currency"
                         variant="outlined"
-                        onChange={(ev) => onCurrencyChange}
+                        onChange={onCurrencyChange}
                         value={currency}
                         error={errors.currency}
                         helperText={errors.currency}/>
@@ -152,7 +152,7 @@ export function PayoutBuilder(props: PayoutBuilderProps) {
                         name="amount"
                         variant="outlined"
                         value={amount}
-                        onChange={onVariablePayChange}
+                        onChange={onAmountChange}
                         error={errors.amount}
                         helperText={errors.amount}/>
                 </Grid>
@@ -173,7 +173,7 @@ export function PayoutBuilder(props: PayoutBuilderProps) {
                         fullWidth
                         name="currency"
                         variant="outlined"
-                        onChange={(ev) => onCurrencyChange}
+                        onChange={onCurrencyChange}
                         value={currency}
                         error={errors.currency}
                         helperText={errors.currency}/>
@@ -186,7 +186,7 @@ export function PayoutBuilder(props: PayoutBuilderProps) {
                         name="amount"
                         variant="outlined"
                         value={amount}
-                        onChange={onVariablePayChange}
+                        onChange={onAmountChange}
                         error={errors.amount}
                         helperText={errors.amount}/>
                 </Grid>

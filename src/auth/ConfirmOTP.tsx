@@ -75,7 +75,7 @@ export function ConfirmOTP() {
             <form action="" className={styles.form}>
                 <Box marginY={2}>
                     <OTPInput length={6} onChange={confirmOTP} />
-                </Box>
+                </Box>  
                 {loading && <Box marginY={2} width={'100%'} display="flex" flexDirection="row" alignItems="center" justifyContent="center">
                     <PropagateLoader size={12} color={CssVariables.colorPrimary} />
                 </Box>}
