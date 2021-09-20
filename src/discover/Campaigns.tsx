@@ -2,6 +2,7 @@ import { DataStore } from "@aws-amplify/datastore";
 import { Box, Grid, Paper, Typography } from "@material-ui/core";
 import { useCallback, useEffect, useState } from "react";
 import { PropagateLoader } from "react-spinners";
+import { padZero } from "../core/utils";
 import { CssVariables } from "../css-variables";
 import { __tr } from "../i18n";
 import { CampaignStatus } from "../models";
@@ -39,7 +40,7 @@ export function Campaigns() {
     return <Grid container spacing={2}>
         <Grid item xs={12}>
             <Box display="flex" flexDirection="row" alignItems="center" justifyContent="center">
-                <Typography variant="h6">{campaigns.length} {__tr("campaigns")}</Typography>
+                <Typography variant="h6">{padZero(campaigns.length)} {__tr("campaigns")}</Typography>
             </Box>
         </Grid>
         <Grid item xs={9}>

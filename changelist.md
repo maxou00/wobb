@@ -19,6 +19,7 @@ Renamed every `Infleuncer(s)` to `Influencer(s)`
     - `Payout`: *AWSJson* containing payout specified for this campaign.
     - 'Deliverables`: AWSJson array containing deliverables codes with their count.
     - `Brand`: the brand author of this campaign
+    - `Gender`: a Gender specification for this campaign
     - `uid`: user
 
 ### enum `Deliverable`

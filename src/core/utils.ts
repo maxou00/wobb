@@ -65,3 +65,16 @@ export function padZero(value: number) {
   }
   return ''+value;
 }
+
+export function capitalize(str: string) {
+  if(str.length === 0) {
+    return str;
+  }
+  
+  let cap =str[0].toUpperCase();
+  if(str.length > 1) {
+    cap += str.substring(1).toLowerCase();
+  }
+  return cap;
+}
+

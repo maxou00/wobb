@@ -3,6 +3,7 @@ import { Box, Typography } from "@material-ui/core";
 import { MdDone } from "react-icons/md";
 import { TextTransformNoneButton } from "../components/TextTransformNoneButton";
 import { CssVariables } from "../css-variables";
+import { Campaign } from "../models";
 
 const styles = {
     header: css`
@@ -28,7 +29,7 @@ const styles = {
     `
 }
 
-export function ApplyCampaign() {
+export function ApplyCampaign(props: { onApply():any }) {
     return <Box>
         <Box padding={2} className={styles.header}>
             <Box className={styles.applyIcon}>
@@ -42,7 +43,7 @@ export function ApplyCampaign() {
                 Apply earliest and increase your chances of getting hired.
             </Typography>
             <Box marginY={2}>
-                <TextTransformNoneButton variant="outlined" color="primary" size="large" fullWidth>
+                <TextTransformNoneButton onClick={props.onApply} variant="outlined" color="primary" size="large" fullWidth>
                     Apply Now
                 </TextTransformNoneButton>
             </Box>

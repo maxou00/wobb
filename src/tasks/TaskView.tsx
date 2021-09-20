@@ -1,4 +1,5 @@
 import { Grid, Paper } from "@material-ui/core";
+import { SubCampaignRouteProps } from "../campaigns/ViewCampaign";
 import { TaskContent } from "./TaskContent";
 import { TaskDeliverables } from "./TaskDeliverables";
 import { TaskSubmit } from "./TaskSubmit";

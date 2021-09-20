@@ -180,6 +180,8 @@
     "phoneNumber": "Phone Number",
     "placeholderSignupPassword": "Must be at least 8 characters",
     "platform": "Platform",
+    "platform_followers_above": "{{platform}} influencers with followers above {{start}}",
+    "platform_followers_between": "{{platform}} influencers with followers between {{start}} and {{end}}",
     "pleaseEnterEmail": "Please enter your registered email address or phone number to continue.",
     "pleaseEnterOtp": "Please enter the OTP sent to mobile number or email ID",
     "pinCode": "Pin code",
