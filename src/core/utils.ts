@@ -57,3 +57,11 @@ export function callRazorPay(cost: number) {
       });
       rzp1.open();
 }
+
+
+export function padZero(value: number) {
+  if(value >= 0 && value < 10) {
+    return "0"+value;
+  }
+  return ''+value;
+}

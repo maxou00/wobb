@@ -15,23 +15,22 @@ export function Campaigns() {
     const [busy, setBusy] = useState(false);
     const { user } = useAppUser();
     const [campaigns, setCampaigns] = useState<Campaign[]>([]);
-    const [page, setCurrentPage] = useState(1);
+    const [page, setCurrentPage] = useState(0);
     const [limit, setLimit] = useState(25);
 
     const appendCurrentPage = useCallback(() => {
         setBusy(true);
         DataStore.query(Campaign, (c) => {
-            return c.id("ne","")
-            //s.CampaignStatus("eq", CampaignStatus.PUBLISHED)
-            //.uid("ne", user.sub); //skip user content.
+            return c.CampaignStatus("eq", CampaignStatus.PUBLISHED)
+            .uid("ne", user.sub); //skip user content.
         }, {
-            page, limit,
+            page, limit
         })
             .then((sets) => {
                 setBusy(false);
                 setCampaigns([...campaigns, ...sets]);
             })
-    }, [campaigns, limit, page]);
+    }, [campaigns, limit, page, user.sub]);
 
     useEffect(() => {
         appendCurrentPage();
