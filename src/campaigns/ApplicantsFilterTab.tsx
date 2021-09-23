@@ -1,10 +1,15 @@
-import { useCallback } from "react";
+import { useCallback, useMemo } from "react";
 import { useHistory } from "react-router-dom";
 import { __tr } from "../i18n";
 import { Routes } from "../routes";
 import { css } from "@emotion/css";
 import { CssVariables } from "../css-variables";
 import { useUrlFilter } from "../core/hooks";
+import { useProvidedCampaign } from "./ViewCampaign";
+import { useProvidedApplicants } from "./ViewApplicants";
+import { padZero } from "../core/utils";
+import { JobStatus } from "../models";
+import { Tab, Tabs } from "@material-ui/core";
 
 const styles = {
     tabs: css`
@@ -55,50 +60,77 @@ const styles = {
     `
 }
 
+export enum ApplicantFilter {
+    received = "received",
+    shortlisted = "shortlisted",
+    hired = "hired",
+    rejected = "rejected",
+    invited = "invited"
+}
+
 export function ApplicantsFilterTab() {
+    const { campaign } = useProvidedCampaign();
+    const { applicants } = useProvidedApplicants();
+
     const history = useHistory();
-    const status = useUrlFilter("received");
+    const status = useUrlFilter(ApplicantFilter.received);
 
     const navigate = useCallback((filter: string) => {
         if (status !== filter) {
-            history.push(Routes.viewCampaignApplicants('a-simple-id', filter));
+            history.push(Routes.viewCampaignApplicants(campaign.id, filter));
         }
-    }, [history, status]);
+    }, [campaign.id, history, status]);
 
     const isActive = useCallback((filter: string) => {
         return status === filter;
     }, [status]);
 
+    const received = useMemo(() => {
+        return applicants.filter((a) => !Boolean(a.status)).length
+    }, [applicants]);
+
+    const shortListed = useMemo(() => {
+        return applicants.filter((a) => a.status === JobStatus.SHORT_LISTED).length
+    }, [applicants]);
+
+    const hired = useMemo(() => {
+        return applicants.filter((a) => a.status === JobStatus.HIRED).length
+    }, [applicants]);
+
+    const rejected = useMemo(() => {
+        return applicants.filter((a) => a.status === JobStatus.REJECTED).length
+    }, [applicants]);
+
     return <div className={styles.tabs}>
-        <div onClick={() => navigate("received")} data-active={isActive("received")} className={styles.tab}>
+        <div onClick={() => navigate(ApplicantFilter.received)} data-active={isActive(ApplicantFilter.received)} className={styles.tab}>
             <span data-role="title" className={styles.tabTitle}>
-                {__tr("received")}
+                {__tr(ApplicantFilter.received)}
             </span>
-            <div data-role="badge" className={styles.tabBadge}><span>122</span></div>
+            <div data-role="badge" className={styles.tabBadge}><span>{padZero(received)}</span></div>
         </div>
-        <div onClick={() => navigate("shortlisted")} data-active={isActive("shortlisted")} className={styles.tab}>
+        <div onClick={() => navigate(ApplicantFilter.shortlisted)} data-active={isActive(ApplicantFilter.shortlisted)} className={styles.tab}>
             <span data-role="title" className={styles.tabTitle}>
-                {__tr("shortlisted")}
+                {__tr(ApplicantFilter.shortlisted)}
             </span>
-            <div data-role="badge" className={styles.tabBadge}><span>122</span></div>
+            <div data-role="badge" className={styles.tabBadge}><span>{padZero(shortListed)}</span></div>
         </div>
-        <div onClick={() => navigate("hired")} data-active={isActive("hired")} className={styles.tab}>
+        <div onClick={() => navigate(ApplicantFilter.hired)} data-active={isActive(ApplicantFilter.hired)} className={styles.tab}>
             <span data-role="title" className={styles.tabTitle}>
-                {__tr("hired")}
+                {__tr(ApplicantFilter.hired)}
             </span>
-            <div data-role="badge" className={styles.tabBadge}><span>122</span></div>
+            <div data-role="badge" className={styles.tabBadge}><span>{padZero(hired)}</span></div>
         </div>
-        <div onClick={() => navigate("rejected")} data-active={isActive("rejected")} className={styles.tab}>
+        <div onClick={() => navigate(ApplicantFilter.rejected)} data-active={isActive(ApplicantFilter.rejected)} className={styles.tab}>
             <span data-role="title" className={styles.tabTitle}>
-                {__tr("rejected")}
+                {__tr(ApplicantFilter.rejected)}
             </span>
-            <div data-role="badge" className={styles.tabBadge}><span>122</span></div>
+            <div data-role="badge" className={styles.tabBadge}><span>{padZero(rejected)}</span></div>
         </div>
-        <div onClick={() => navigate("invite")} data-active={isActive("invite")} className={styles.tab}>
+        <div onClick={() => navigate(ApplicantFilter.invited)} data-active={isActive(ApplicantFilter.invited)} className={styles.tab}>
             <span data-role="title" className={styles.tabTitle}>
-                {__tr("invite")}
+                {__tr(ApplicantFilter.invited)}
             </span>
-            <div data-role="badge" className={styles.tabBadge}><span>122</span></div>
+            <div data-role="badge" className={styles.tabBadge}><span>?</span></div>
         </div>
     </div>
 }

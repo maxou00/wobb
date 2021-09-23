@@ -2,6 +2,14 @@
 import { initSchema } from '@aws-amplify/datastore';
 import { schema } from './schema';
 
+const JobStatus = {
+  "SHORT_LISTED": "SHORT_LISTED",
+  "HIRED": "HIRED",
+  "ONGOING": "ONGOING",
+  "COMPLETED": "COMPLETED",
+  "REJECTED": "REJECTED"
+};
+
 const PayoutType = {
   "BARTER": "BARTER",
   "VARIABLE": "VARIABLE",
@@ -26,6 +34,12 @@ const TaskStatus = {
   "ONGOING": "ONGOING"
 };
 
+const Gender = {
+  "MALE": "MALE",
+  "FEMALE": "FEMALE",
+  "OTHERS": "OTHERS"
+};
+
 const Platform = {
   "YOUTUBE": "YOUTUBE",
   "INSTAGRAM": "INSTAGRAM"
@@ -37,12 +51,6 @@ const CampaignStatus = {
   "PUBLISHED": "PUBLISHED",
   "ONGOING": "ONGOING",
   "COMPLETED": "COMPLETED"
-};
-
-const Gender = {
-  "MALE": "MALE",
-  "FEMALE": "FEMALE",
-  "OTHERS": "OTHERS"
 };
 
 const { Brand, Task, Jobs, User, Message, ChatRoomUser, ChatRoom, CampaignUser, Campaign, Profile, Instagram } = initSchema(schema);
@@ -59,10 +67,11 @@ export {
   Campaign,
   Profile,
   Instagram,
+  JobStatus,
   PayoutType,
   Deliverable,
   TaskStatus,
+  Gender,
   Platform,
-  CampaignStatus,
-  Gender
+  CampaignStatus
 };

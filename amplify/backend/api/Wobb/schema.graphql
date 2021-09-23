@@ -1,3 +1,11 @@
+enum JobStatus {
+  SHORT_LISTED
+  HIRED
+  ONGOING
+  COMPLETED
+  REJECTED
+}
+
 enum PayoutType {
   BARTER
   VARIABLE
@@ -40,8 +48,17 @@ type Task @model @auth(rules: [{allow: public}]) @key(name: "byJobs", fields: ["
 type Jobs @model @auth(rules: [{allow: public}]) @key(name: "byCampaign", fields: ["campaignID"]) {
   id: ID!
   campaignID: ID
-  Infleuncers: [User] @connection(keyName: "byJobs", fields: ["id"])
+  Infleuncer: User @connection
   Tasks: [Task] @connection(keyName: "byJobs", fields: ["id"])
+  uid: String
+  bidPrice: Float
+  bidCurrency: String
+  status: JobStatus
+  completedAt: AWSDateTime
+  hiredAt: AWSDateTime
+  appliedAt: AWSDateTime
+  shortlistedAt: AWSDateTime
+  rejectedAt: AWSDateTime
 }
 
 enum CampaignStatus {
@@ -59,22 +76,23 @@ enum Platform {
 
 type Campaign @model @auth(rules: [{allow: public}]) {
   id: ID!
-  Name: String
+  Name: String!
   Goals: String
   minAge: Int
   maxAge: Int
   Language: String
-  Location: String
-  Platform: Platform
+  Gender: Gender
+  Platform: Platform!
   CampaignUsers: [CampaignUser] @connection(keyName: "byCampaign", fields: ["id"])
-  CampaignStatus: CampaignStatus
+  CampaignStatus: CampaignStatus!
   NoofInfleuncer: Int
   Jobs: [Jobs] @connection(keyName: "byCampaign", fields: ["id"])
+  Location: String
+  FollowerRanges: [AWSJSON!]
+  Payout: AWSJSON!
   Categories: [String]
-  FollowerRanges: [AWSJSON]
-  Payout: AWSJSON
-  Deliverables: [AWSJSON]
   Brand: Brand @connection
+  Deliverables: [AWSJSON!]
   uid: String!
 }
 
@@ -96,8 +114,8 @@ type Profile @model @auth(rules: [{allow: public}]) {
   Language: String
   Interest: String
   Instagrams: [Instagram] @connection(keyName: "byProfile", fields: ["id"])
-  uid: String
   bio: String
+  uid: String
 }
 
 type Instagram @model @auth(rules: [{allow: public}]) @key(name: "byProfile", fields: ["profileID"]) {
@@ -124,7 +142,7 @@ type Message @model @auth(rules: [{allow: public}]) @key(name: "byUser", fields:
   chatroomID: ID
 }
 
-type User @model @auth(rules: [{allow: public}]) @key(name: "byJobs", fields: ["jobsID"]) {
+type User @model @auth(rules: [{allow: public}]) {
   id: ID!
   name: String!
   imageUrl: String
@@ -132,7 +150,7 @@ type User @model @auth(rules: [{allow: public}]) @key(name: "byJobs", fields: ["
   Messages: [Message] @connection(keyName: "byUser", fields: ["id"])
   chatrooms: [ChatRoomUser] @connection(keyName: "byUser", fields: ["id"])
   campaigns: [CampaignUser] @connection(keyName: "byUser", fields: ["id"])
-  jobsID: ID
+  uid: String
 }
 
 type ChatRoomUser @model(queries: null) @key(name: "byChatRoom", fields: ["chatroomID", "userID"]) @key(name: "byUser", fields: ["userID", "chatroomID"]) @auth(rules: [{allow: public}, {allow: public}]) {

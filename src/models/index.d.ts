@@ -1,5 +1,13 @@
 import { ModelInit, MutableModel, PersistentModelConstructor } from "@aws-amplify/datastore";
 
+export enum JobStatus {
+  SHORT_LISTED = "SHORT_LISTED",
+  HIRED = "HIRED",
+  ONGOING = "ONGOING",
+  COMPLETED = "COMPLETED",
+  REJECTED = "REJECTED"
+}
+
 export enum PayoutType {
   BARTER = "BARTER",
   VARIABLE = "VARIABLE",
@@ -24,6 +32,12 @@ export enum TaskStatus {
   ONGOING = "ONGOING"
 }
 
+export enum Gender {
+  MALE = "MALE",
+  FEMALE = "FEMALE",
+  OTHERS = "OTHERS"
+}
+
 export enum Platform {
   YOUTUBE = "YOUTUBE",
   INSTAGRAM = "INSTAGRAM"
@@ -35,12 +49,6 @@ export enum CampaignStatus {
   PUBLISHED = "PUBLISHED",
   ONGOING = "ONGOING",
   COMPLETED = "COMPLETED"
-}
-
-export enum Gender {
-  MALE = "MALE",
-  FEMALE = "FEMALE",
-  OTHERS = "OTHERS"
 }
 
 
@@ -115,8 +123,17 @@ export declare class Task {
 export declare class Jobs {
   readonly id: string;
   readonly campaignID?: string;
-  readonly Infleuncers?: (User | null)[];
+  readonly Infleuncer?: User;
   readonly Tasks?: (Task | null)[];
+  readonly uid?: string;
+  readonly bidPrice?: number;
+  readonly bidCurrency?: string;
+  readonly status?: JobStatus | keyof typeof JobStatus;
+  readonly completedAt?: string;
+  readonly hiredAt?: string;
+  readonly appliedAt?: string;
+  readonly shortlistedAt?: string;
+  readonly rejectedAt?: string;
   readonly createdAt?: string;
   readonly updatedAt?: string;
   constructor(init: ModelInit<Jobs, JobsMetaData>);
@@ -131,7 +148,7 @@ export declare class User {
   readonly Messages?: (Message | null)[];
   readonly chatrooms?: (ChatRoomUser | null)[];
   readonly campaigns?: (CampaignUser | null)[];
-  readonly jobsID?: string;
+  readonly uid?: string;
   readonly createdAt?: string;
   readonly updatedAt?: string;
   constructor(init: ModelInit<User, UserMetaData>);
@@ -183,22 +200,23 @@ export declare class CampaignUser {
 
 export declare class Campaign {
   readonly id: string;
-  readonly Name?: string;
+  readonly Name: string;
   readonly Goals?: string;
   readonly minAge?: number;
   readonly maxAge?: number;
   readonly Language?: string;
-  readonly Location?: string;
-  readonly Platform?: Platform | keyof typeof Platform;
+  readonly Gender?: Gender | keyof typeof Gender;
+  readonly Platform: Platform | keyof typeof Platform;
   readonly CampaignUsers?: (CampaignUser | null)[];
-  readonly CampaignStatus?: CampaignStatus | keyof typeof CampaignStatus;
+  readonly CampaignStatus: CampaignStatus | keyof typeof CampaignStatus;
   readonly NoofInfleuncer?: number;
   readonly Jobs?: (Jobs | null)[];
+  readonly Location?: string;
+  readonly FollowerRanges?: string[];
+  readonly Payout: string;
   readonly Categories?: (string | null)[];
-  readonly FollowerRanges?: (string | null)[];
-  readonly Payout?: string;
-  readonly Deliverables?: (string | null)[];
   readonly Brand?: Brand;
+  readonly Deliverables?: string[];
   readonly uid: string;
   readonly createdAt?: string;
   readonly updatedAt?: string;
@@ -218,8 +236,8 @@ export declare class Profile {
   readonly Language?: string;
   readonly Interest?: string;
   readonly Instagrams?: (Instagram | null)[];
-  readonly uid?: string;
   readonly bio?: string;
+  readonly uid?: string;
   readonly createdAt?: string;
   readonly updatedAt?: string;
   constructor(init: ModelInit<Profile, ProfileMetaData>);

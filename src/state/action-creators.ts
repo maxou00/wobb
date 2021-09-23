@@ -1,4 +1,5 @@
-import { Brand, Campaign, Profile } from "../models";
+import { mainModule } from "process";
+import { Brand, Campaign, Jobs, Profile } from "../models";
 import { IAction } from "./actions";
 
 export function setCurrentUser(user: any): IAction{
@@ -64,3 +65,23 @@ export function removeCampaign(campaignId: string): IAction {
     }
 }
 
+export function setJobs(jobs: Jobs[]):IAction {
+    return {
+        type: "set_jobs",
+        jobs
+    }
+}
+
+export function appendJob(job: Jobs): IAction {
+    return {
+        type: "append_jobs",
+        job
+    }
+}
+
+export function removeJob(job: Jobs): IAction {
+    return {
+        type: "remove_jobs",
+        jobId: job.id
+    }
+}

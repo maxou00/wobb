@@ -2,16 +2,20 @@ import { DataStore } from "@aws-amplify/datastore";
 import { Avatar, Box, Chip, Typography } from "@material-ui/core";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { MdDone, MdLink } from "react-icons/md";
+import { useDispatch } from "react-redux";
 import { IconCash, IconPlatform } from "../components/Icons";
 import { TextTransformNoneButton } from "../components/TextTransformNoneButton";
 import { UnmodifiableProgress } from "../components/UnmodifiableProgress";
 import { DeliverableWithCount, FollowerRange, Payout } from "../core";
-import { capitalize, padZero } from "../core/utils";
+import { capitalize, litteralFollowerRange, padZero } from "../core/utils";
 import { __tr, __trParams } from "../i18n";
+import { Jobs } from "../models";
 import { CampaignStatus, Profile } from "../models";
 import { Campaign, PayoutType } from "../models";
+import { useAppUser, useSingleJob } from "../state/selectors";
 import styles from "../styles/CampaignDetails.module.scss";
-import { useCampaignContext } from "./ViewCampaign";
+import { useProvidedCampaign } from "./ViewCampaign";
+import { WithApplyCampaign, WithApplyCampaignProps } from "./WithApplyCampaign";
 
 interface SectionProps {
     campaign: Campaign;
@@ -108,6 +112,7 @@ export function CampaignPostedBy(props: SectionProps) {
 }
 
 function AboutBrand(props: SectionProps) {
+    ///make an api call to retrieve the brand desscription and show it.
     return <Box className={styles.aboutBrand}>
         <Typography variant="h6" className={styles.title}>About the Brand</Typography>
         <Typography variant="body2" className={styles.text}>
@@ -161,14 +166,14 @@ function WhoCanApply(props: SectionProps) {
         if (decoded.lower && decoded.upper) {
             return __trParams("platform_followers_between", {
                 platform: capitalize(props.campaign.Platform || ""),
-                start: decoded.lower,
-                end: decoded.upper
+                start: litteralFollowerRange(decoded.lower).toString().bold(),
+                end: litteralFollowerRange(decoded.upper).toString().bold()
             })
         }
         if (decoded.lower) {
             return __trParams("platform_followers_above", {
                 platform: capitalize(props.campaign.Platform || ""),
-                start: decoded.lower,
+                start: litteralFollowerRange(decoded.lower).toString().bold(),
             })
         }
         return "";
@@ -184,28 +189,27 @@ function WhoCanApply(props: SectionProps) {
                         <span className={styles.iconSuccess}>
                             <MdDone fill='white' size={14} />
                         </span>
-                        <Typography variant="body2" className={styles.text}>{rangeToStr(decoded)}</Typography>
+                        <Typography variant="body2" className={styles.text}>
+                            <span dangerouslySetInnerHTML={{
+                                __html: rangeToStr(decoded)
+                            }} />
+                        </Typography>
                     </Box>
                 })
             }
-            <Box className={styles.criteria}>
+            {props.campaign.Gender && <Box className={styles.criteria}>
                 <span className={styles.iconSuccess}>
                     <MdDone fill='white' size={14} />
                 </span>
-                <Typography variant="body2" className={styles.text}></Typography>
-            </Box>
-            <Box className={styles.criteria}>
+                <Typography variant="body2" className={styles.text}>Gender {__tr(props.campaign.Gender || "")}</Typography>
+            </Box>}
+
+            {props.campaign.minAge && props.campaign.maxAge && <Box className={styles.criteria}>
                 <span className={styles.iconSuccess}>
                     <MdDone fill='white' size={14} />
                 </span>
-                <Typography variant="body2" className={styles.text}>Gender Female</Typography>
-            </Box>
-            <Box className={styles.criteria}>
-                <span className={styles.iconSuccess}>
-                    <MdDone fill='white' size={14} />
-                </span>
-                <Typography variant="body2" className={styles.text}>Age group: 20-30 years</Typography>
-            </Box>
+                <Typography variant="body2" className={styles.text}>Age group: {props.campaign.minAge} - {props.campaign.maxAge} years</Typography>
+            </Box>}
         </Box>
         <Box className={styles.tags}>
             {
@@ -219,6 +223,19 @@ function WhoCanApply(props: SectionProps) {
 
 
 function Openings(props: SectionProps) {
+    const [filled, setFilled] = useState(0);
+    const [applicants, setApplicants] = useState(0);
+    
+    useEffect(() => {
+        
+        DataStore.query(Jobs, j => j.campaignID("eq", props.campaign.id))
+            .then((jobs) => {
+                setFilled( jobs.filter((j) => Boolean(j.status)).length );
+                setApplicants( jobs.filter((j) => !Boolean(j.status)).length );
+            });
+
+    }, [props]);
+
     return <Box className={styles.openings}>
         <Typography variant="h6" className={styles.title}>Openings</Typography>
         <Box className={styles.body}>
@@ -226,26 +243,34 @@ function Openings(props: SectionProps) {
                 <span className={styles.iconSuccess}>
                     <MdDone fill='white' size={14} />
                 </span>
-                <Typography variant="body2" className={styles.text}>Total Slots: 50</Typography>
+                <Typography variant="body2" className={styles.text}>Total Slots: {padZero(props.campaign.NoofInfleuncer || 0)}</Typography>
             </Box>
             <Box className={styles.criteria}>
                 <span className={styles.iconSuccess}>
                     <MdDone fill='white' size={14} />
                 </span>
-                <Typography variant="body2" className={styles.text}>Filled Slots: 22</Typography>
+                <Typography variant="body2" className={styles.text}>Filled Slots: {padZero(filled || 0)}</Typography>
             </Box>
             <Box className={styles.criteria}>
                 <span className={styles.iconSuccess}>
                     <MdDone fill='white' size={14} />
                 </span>
-                <Typography variant="body2" className={styles.text}>Applicants: 22</Typography>
+                <Typography variant="body2" className={styles.text}>Applicants: {padZero(applicants || 0)}</Typography>
             </Box>
         </Box>
     </Box>
 }
 
-export function CampaignDetails() {
-    const { campaign } = useCampaignContext();
+function BaseCampaignDetails(props: WithApplyCampaignProps) {
+    const { campaign } = useProvidedCampaign();
+
+    const job = useSingleJob(campaign.id);
+
+    const onApply = useCallback(async () => {
+        if(props.canApply) {
+            props.apply();
+        }
+    }, [props]);
 
     return <Box className={styles.page}>
         <CampaignHeader campaign={campaign} />
@@ -257,8 +282,10 @@ export function CampaignDetails() {
             <WhoCanApply campaign={campaign} />
             <Openings campaign={campaign} />
         </Box>
-        <Box paddingX={4} paddingY={2}>
-            <TextTransformNoneButton variant="contained" color="primary" size="large">Apply Now</TextTransformNoneButton>
-        </Box>
+        { !job && <Box paddingX={4} paddingY={2}>
+            <TextTransformNoneButton disabled={props.busy} variant="contained" color="primary" size="large" onClick={onApply}>Apply Now</TextTransformNoneButton>
+        </Box> }
     </Box>
 }
+
+export const CampaignDetails = WithApplyCampaign(BaseCampaignDetails);

@@ -1,4 +1,5 @@
 import { CognitoUser } from "amazon-cognito-identity-js";
+import { Jobs } from "../models";
 import { RAZORPAY_KEY_ID, UserPool } from "./constants";
 import { randomID } from "./roles";
 
@@ -76,5 +77,17 @@ export function capitalize(str: string) {
     cap += str.substring(1).toLowerCase();
   }
   return cap;
+}
+
+export function litteralFollowerRange(range: number) {
+  if(range >= 1000000) {
+    let value = (range / 1000000)
+    return `${value}M`
+  }
+  if(range >= 1000) {
+    let value = (range / 1000)
+    return `${value}K`
+  }
+  return range.toString();
 }
 

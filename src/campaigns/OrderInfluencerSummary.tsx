@@ -1,10 +1,13 @@
 import { css } from "@emotion/css";
 import { Box, Button, Divider, Typography, withStyles } from "@material-ui/core";
+import { useMemo } from "react";
 import { IconCart } from "../components/Icons";
 import { TextTransformNoneButton } from "../components/TextTransformNoneButton";
 import { callRazorPay } from "../core/utils";
 import { CssVariables } from "../css-variables";
 import { __tr } from "../i18n";
+import { JobStatus } from "../models";
+import { useProvidedApplicants } from "./ViewApplicants";
 
 const PayButton = withStyles({
     root: {
@@ -36,6 +39,12 @@ const styles = {
     `
 }
 export function OrderInfluencerSummary() {
+    const {applicants} = useProvidedApplicants();
+
+    const shortListed = useMemo(() => {
+        return applicants.filter((a) => a.status === JobStatus.SHORT_LISTED);
+    }, [applicants]);
+
     return <Box>
         <Box marginBottom={1} padding={2} display="flex" flexDirection="row" alignItems="center" justifyContent="space-between">
             <Box display="flex" flexDirection="row" alignItems="center" justifyContent="flex-start">

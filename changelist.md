@@ -43,7 +43,16 @@ Renamed every `Infleuncer(s)` to `Influencer(s)`
     - `HIRED`
     - `ONGOING`
     - `COMPLETED`
+    - `REJECTED` to keep track of jobs applications that have been rejected.
 
 ### Entity `Jobs` have been renamed to `Job`
+    - `uid` of the influencer linked to this job.
     - `status`: JobStatus
     - `Influencer`: 1:1 relationship with `User`
+    - `appliedAt`: AWSDatetime indicating when the user applied for this campaign
+    - `shortlistedAt`: AWSDatetime indicating when this application has been shortlisted
+    - `hiredAt`: AWSDatetime indicating when this user has been hired for the campaign
+    - `completedAt`: AWSDatetime indicating when this user has completed this Job.
+    - `rejectedAt`: AWSDatetime indicating when this user application has been rejected.
+    - `bidPrice` bid price submitted by this influencer
+    - `bidCurrency` currency of the bid price

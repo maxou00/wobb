@@ -1,9 +1,11 @@
 import { css } from "@emotion/css";
 import { Box, Typography } from "@material-ui/core";
+import { useCallback } from "react";
 import { MdDone } from "react-icons/md";
 import { TextTransformNoneButton } from "../components/TextTransformNoneButton";
 import { CssVariables } from "../css-variables";
-import { Campaign } from "../models";
+import { __tr, __trParams } from "../i18n";
+import { WithApplyCampaign, WithApplyCampaignProps } from "./WithApplyCampaign";
 
 const styles = {
     header: css`
@@ -29,24 +31,32 @@ const styles = {
     `
 }
 
-export function ApplyCampaign(props: { onApply():any }) {
+function BaseApplyCampaign(props: WithApplyCampaignProps) {
+
+    const onApply = useCallback(() => {
+        if(props.canApply) {
+            props.apply();
+        }
+    }, [props]);
+    
     return <Box>
         <Box padding={2} className={styles.header}>
             <Box className={styles.applyIcon}>
                 <MdDone size={16}/>
             </Box>
-            <Typography variant="h6" className={styles.title}>Apply Now</Typography>
+            <Typography variant="h6" className={styles.title}>{__tr("applyNow")}</Typography>
         </Box>
         <Box padding={2}>
             <Typography variant="body2">
-                Right campaign for you?
-                Apply earliest and increase your chances of getting hired.
+                {__tr("applyNowText")}
             </Typography>
             <Box marginY={2}>
-                <TextTransformNoneButton onClick={props.onApply} variant="outlined" color="primary" size="large" fullWidth>
-                    Apply Now
+                <TextTransformNoneButton disabled={props.busy} onClick={onApply} variant="outlined" color="primary" size="large" fullWidth>
+                    {__tr("applyNow")}
                 </TextTransformNoneButton>
             </Box>
         </Box>
     </Box>
 }
+
+export const ApplyCampaign = WithApplyCampaign(BaseApplyCampaign);

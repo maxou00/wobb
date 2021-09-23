@@ -165,7 +165,7 @@ export function CreateCampaign(props: Props) {
             NoofInfleuncer: parseInt(noInfluencers),
             Categories: categories,
             FollowerRanges: followerRanges.map((r) => JSON.stringify(r)),
-            Payout: JSON.stringify(payout),
+            Payout: JSON.stringify(payout || {}),
             Deliverables: deliverables.map((d) => JSON.stringify(d)),
             Brand: brand,
             minAge: advancedRequirements ? advancedRequirements.age.from : undefined,

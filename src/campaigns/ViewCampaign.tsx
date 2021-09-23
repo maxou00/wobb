@@ -1,6 +1,6 @@
-import { DataStore } from "@aws-amplify/datastore";
+import { DataStore, OpType } from "@aws-amplify/datastore";
 import { Box } from "@material-ui/core";
-import { createContext, useCallback, useContext, useEffect, useState } from "react";
+import { createContext, PropsWithChildren, useCallback, useContext, useEffect, useState } from "react";
 import { Route, Switch, useRouteMatch } from "react-router";
 import { PropagateLoader } from "react-spinners";
 import { CssVariables } from "../css-variables";
@@ -15,46 +15,67 @@ export interface SubCampaignRouteProps {
     onUpdated?(update: Campaign): any;
 }
 
-const CampaignContext = createContext<{ campaign: Campaign, onChange(update?: Campaign): any }>({} as any);
+const CampaignContext = createContext<{ campaign: Campaign, onRefresh(update?: Campaign): any }>({} as any);
 
-export function useCampaignContext() {
+export function useProvidedCampaign() {
     return useContext(CampaignContext);
+}
+
+export function ProvideCampaign(props: PropsWithChildren<{ campaign: Campaign, onRefresh: () => any }>) {
+    return <CampaignContext.Provider value={{
+        campaign: props.campaign,
+        onRefresh: props.onRefresh
+    }}>
+        {
+            props.children
+        }
+    </CampaignContext.Provider>
 }
 
 
 export function ViewCampaign() {
     const [campaign, setCampaign] = useState<Campaign>();
-    const match = useRouteMatch();
+    const [busy, setBusy] = useState(false);
+
+    const { id } = useRouteMatch().params as any;
 
     const fetchCampaign = useCallback(() => {
-        let id = (match.params as any).id
+        setBusy(true);
         DataStore.query(Campaign, c => c.id("eq", id))
             .then((result) => {
                 if (result.length > 0) {
                     setCampaign(result[0]);
                 }
             })
-    }, [match]);
+            .finally(() => {
+                setBusy(false);
+            })
+    }, [id]);
 
-    const onCampaignChanged = useCallback((camp: Campaign) => {
-        fetchCampaign();
-    }, []);
-
-
-    useEffect(() => {
+    const onCampaignChanged = useCallback((camp?: Campaign) => {
         fetchCampaign();
     }, [fetchCampaign]);
 
+    useEffect(() => {
+        fetchCampaign();
+        let subscription = DataStore.observe(Campaign, c => c.id("eq", id)).subscribe((value) => {
+            if(value.opType === OpType.UPDATE) {
+                setCampaign(value.element);
+            }
+        })
+
+        return () => {
+            subscription.unsubscribe();
+        }
+    }, [fetchCampaign, id]);
+
     return <div>
-        {!campaign &&
-            <Box width="100%" height="320px">
-                <PropagateLoader size="18px" color={CssVariables.colorPrimary} />
+        {(!campaign && busy) &&
+            <Box width="100%" height="320px" display="flex" flexDirection="row" alignItems="center"justifyContent="center">
+                <PropagateLoader size="12px" color={CssVariables.colorPrimary} />
             </Box>
         }
-        {campaign && <CampaignContext.Provider value={{
-            campaign,
-            onChange: onCampaignChanged
-        }}>
+        {campaign && <ProvideCampaign campaign={campaign} onRefresh={onCampaignChanged}>
             <Switch>
                 <Route path={Routes.viewCampaignApplicants(":id")}>
                     <ViewApplicants />
@@ -66,6 +87,6 @@ export function ViewCampaign() {
                     <SingleCampaign />
                 </Route>
             </Switch>
-        </CampaignContext.Provider>}
+        </ProvideCampaign>}
     </div>
 }

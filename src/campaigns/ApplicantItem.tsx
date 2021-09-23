@@ -2,6 +2,7 @@ import { css } from "@emotion/css";
 import { Avatar } from "@material-ui/core";
 import { UnmodifiableProgress } from "../components/UnmodifiableProgress";
 import { CssVariables } from "../css-variables";
+import { useProvidedJob } from "./ApplicantsTable";
 
 const styles = {
     item: css`
@@ -35,13 +36,13 @@ const styles = {
     `
 }
 export function ApplicantItem() {
-
+    const {job} = useProvidedJob();
     return <div className={styles.item}>
         <div>
             <Avatar/>
         </div>
         <div className={styles.text}>
-            <span className={styles.name}>Influencer name</span>
+            <span className={styles.name}>{job.Infleuncer?.name}</span>
             <UnmodifiableProgress progress={60} />
             <span className={styles.match}>88% match</span>
         </div>

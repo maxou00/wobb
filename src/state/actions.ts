@@ -1,5 +1,5 @@
 import { CognitoUser } from "amazon-cognito-identity-js";
-import { Brand, Campaign, Profile } from "../models";
+import { Brand, Campaign, Jobs, Profile } from "../models";
 
 interface ISetActiveUser {
     type: 'set_active_user',
@@ -47,7 +47,25 @@ interface RemoveBrand {
     brandId: string;
 }
 
-type IGlobalActions = SetBrands | AppendBrand | RemoveBrand
-    | SetCampaigns | AppendCampaign | RemoveCampaign;
+interface SetJobs {
+    type: 'set_jobs';
+    jobs: Jobs[];
+}
+
+interface AppendJobs {
+    type: 'append_jobs';
+    job: Jobs;
+}
+
+interface RemoveJobs {
+    type: 'remove_jobs';
+    jobId: string;
+}
+
+type BrandAction = SetBrands | AppendBrand | RemoveBrand;
+type CampaignAction = SetCampaigns | AppendCampaign | RemoveCampaign;
+type JobsAction = SetJobs | AppendJobs | RemoveJobs;
+
+type IGlobalActions = BrandAction | CampaignAction | JobsAction;
 
 export type IAction = IUserActions | IGlobalActions

@@ -5,9 +5,13 @@ import { Link } from "react-router-dom";
 import styles from "../styles/CampaignTable.module.scss";
 import { UppercaseSbText } from "../components/custom";
 import { Routes } from "../routes";
-import appliedCampaigns from "../core/api/appliedCampaigns.json";
+import { useAppliedCampaigns, useJobs } from "../state/selectors";
+import { JobStatus } from "../models";
 
 export function CampaignsWithDeliverables() {
+    const campaigns = useAppliedCampaigns().sort((p1,p2) => Date.parse(p2.createdAt || "") - Date.parse(p1.createdAt || ""));
+    const jobs = useJobs();
+
     return <div className={styles.section}>
         <TableContainer>
             <Table>
@@ -27,22 +31,23 @@ export function CampaignsWithDeliverables() {
                 </TableHead>
                 <TableBody>
                     {
-                        appliedCampaigns.map((c) => {
-                            return <TableRow key={c.campaignId}>
+                        campaigns.map((c) => {
+                            let job = jobs.find((j) => j.campaignID === c.id);
+                            return <TableRow key={c.id}>
                                 <TableCell>
                                     <div className={styles.campaignTitleRow}>
                                         <Avatar>
                                             <MdPerson size={24} />
                                         </Avatar>
-                                        <Typography variant="body1" className={styles.title}>{c.campaignName}</Typography>
+                                        <Typography variant="body1" className={styles.title}>{c.Name}</Typography>
                                     </div>
                                 </TableCell>
                                 <TableCell>
-                                    Applied
+                                    {__tr(job?.status?.toLowerCase() || "applied")}
                                 </TableCell>
                                 <TableCell>
-                                    { c.status === "hired" && <Link to={Routes.viewCampaignTasks("a-simple-id")}>Submit Task</Link> }
-                                    { c.status !== "hired" && <Link to={Routes.viewCampaignTasks("a-simple-id")}>View Task</Link> }
+                                    { job?.status === JobStatus.HIRED && <Link to={Routes.viewCampaignTasks(c.id)}>Submit Task</Link> }
+                                    { !job?.status && <Link to={Routes.viewCampaignTasks(c.id)}>View Task</Link> }
                                 </TableCell>
                                 <TableCell>
                                     <IconButton size="small">
@@ -51,6 +56,11 @@ export function CampaignsWithDeliverables() {
                                 </TableCell>
                             </TableRow>
                         })
+                    }
+                    {
+                        campaigns.length === 0 && <TableRow>
+                            <TableCell colSpan={4}>{__tr("noCampaignToShow")}</TableCell>
+                        </TableRow>
                     }
                 </TableBody>
             </Table>

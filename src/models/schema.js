@@ -181,18 +181,17 @@ export const schema = {
                     "isRequired": false,
                     "attributes": []
                 },
-                "Infleuncers": {
-                    "name": "Infleuncers",
-                    "isArray": true,
+                "Infleuncer": {
+                    "name": "Infleuncer",
+                    "isArray": false,
                     "type": {
                         "model": "User"
                     },
                     "isRequired": false,
                     "attributes": [],
-                    "isArrayNullable": true,
                     "association": {
-                        "connectionType": "HAS_MANY",
-                        "associatedWith": "jobsID"
+                        "connectionType": "BELONGS_TO",
+                        "targetName": "jobsInfleuncerId"
                     }
                 },
                 "Tasks": {
@@ -208,6 +207,71 @@ export const schema = {
                         "connectionType": "HAS_MANY",
                         "associatedWith": "jobsID"
                     }
+                },
+                "uid": {
+                    "name": "uid",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "bidPrice": {
+                    "name": "bidPrice",
+                    "isArray": false,
+                    "type": "Float",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "bidCurrency": {
+                    "name": "bidCurrency",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "status": {
+                    "name": "status",
+                    "isArray": false,
+                    "type": {
+                        "enum": "JobStatus"
+                    },
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "completedAt": {
+                    "name": "completedAt",
+                    "isArray": false,
+                    "type": "AWSDateTime",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "hiredAt": {
+                    "name": "hiredAt",
+                    "isArray": false,
+                    "type": "AWSDateTime",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "appliedAt": {
+                    "name": "appliedAt",
+                    "isArray": false,
+                    "type": "AWSDateTime",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "shortlistedAt": {
+                    "name": "shortlistedAt",
+                    "isArray": false,
+                    "type": "AWSDateTime",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "rejectedAt": {
+                    "name": "rejectedAt",
+                    "isArray": false,
+                    "type": "AWSDateTime",
+                    "isRequired": false,
+                    "attributes": []
                 },
                 "createdAt": {
                     "name": "createdAt",
@@ -333,10 +397,10 @@ export const schema = {
                         "associatedWith": "user"
                     }
                 },
-                "jobsID": {
-                    "name": "jobsID",
+                "uid": {
+                    "name": "uid",
                     "isArray": false,
-                    "type": "ID",
+                    "type": "String",
                     "isRequired": false,
                     "attributes": []
                 },
@@ -363,15 +427,6 @@ export const schema = {
                 {
                     "type": "model",
                     "properties": {}
-                },
-                {
-                    "type": "key",
-                    "properties": {
-                        "name": "byJobs",
-                        "fields": [
-                            "jobsID"
-                        ]
-                    }
                 },
                 {
                     "type": "auth",
@@ -814,7 +869,7 @@ export const schema = {
                     "name": "Name",
                     "isArray": false,
                     "type": "String",
-                    "isRequired": false,
+                    "isRequired": true,
                     "attributes": []
                 },
                 "Goals": {
@@ -845,10 +900,12 @@ export const schema = {
                     "isRequired": false,
                     "attributes": []
                 },
-                "Location": {
-                    "name": "Location",
+                "Gender": {
+                    "name": "Gender",
                     "isArray": false,
-                    "type": "String",
+                    "type": {
+                        "enum": "Gender"
+                    },
                     "isRequired": false,
                     "attributes": []
                 },
@@ -858,7 +915,7 @@ export const schema = {
                     "type": {
                         "enum": "Platform"
                     },
-                    "isRequired": false,
+                    "isRequired": true,
                     "attributes": []
                 },
                 "CampaignUsers": {
@@ -881,7 +938,7 @@ export const schema = {
                     "type": {
                         "enum": "CampaignStatus"
                     },
-                    "isRequired": false,
+                    "isRequired": true,
                     "attributes": []
                 },
                 "NoofInfleuncer": {
@@ -905,19 +962,18 @@ export const schema = {
                         "associatedWith": "campaignID"
                     }
                 },
-                "Categories": {
-                    "name": "Categories",
-                    "isArray": true,
+                "Location": {
+                    "name": "Location",
+                    "isArray": false,
                     "type": "String",
                     "isRequired": false,
-                    "attributes": [],
-                    "isArrayNullable": true
+                    "attributes": []
                 },
                 "FollowerRanges": {
                     "name": "FollowerRanges",
                     "isArray": true,
                     "type": "AWSJSON",
-                    "isRequired": false,
+                    "isRequired": true,
                     "attributes": [],
                     "isArrayNullable": true
                 },
@@ -925,13 +981,13 @@ export const schema = {
                     "name": "Payout",
                     "isArray": false,
                     "type": "AWSJSON",
-                    "isRequired": false,
+                    "isRequired": true,
                     "attributes": []
                 },
-                "Deliverables": {
-                    "name": "Deliverables",
+                "Categories": {
+                    "name": "Categories",
                     "isArray": true,
-                    "type": "AWSJSON",
+                    "type": "String",
                     "isRequired": false,
                     "attributes": [],
                     "isArrayNullable": true
@@ -948,6 +1004,14 @@ export const schema = {
                         "connectionType": "BELONGS_TO",
                         "targetName": "campaignBrandId"
                     }
+                },
+                "Deliverables": {
+                    "name": "Deliverables",
+                    "isArray": true,
+                    "type": "AWSJSON",
+                    "isRequired": true,
+                    "attributes": [],
+                    "isArrayNullable": true
                 },
                 "uid": {
                     "name": "uid",
@@ -1087,15 +1151,15 @@ export const schema = {
                         "associatedWith": "profileID"
                     }
                 },
-                "uid": {
-                    "name": "uid",
+                "bio": {
+                    "name": "bio",
                     "isArray": false,
                     "type": "String",
                     "isRequired": false,
                     "attributes": []
                 },
-                "bio": {
-                    "name": "bio",
+                "uid": {
+                    "name": "uid",
                     "isArray": false,
                     "type": "String",
                     "isRequired": false,
@@ -1241,6 +1305,16 @@ export const schema = {
         }
     },
     "enums": {
+        "JobStatus": {
+            "name": "JobStatus",
+            "values": [
+                "SHORT_LISTED",
+                "HIRED",
+                "ONGOING",
+                "COMPLETED",
+                "REJECTED"
+            ]
+        },
         "PayoutType": {
             "name": "PayoutType",
             "values": [
@@ -1271,6 +1345,14 @@ export const schema = {
                 "ONGOING"
             ]
         },
+        "Gender": {
+            "name": "Gender",
+            "values": [
+                "MALE",
+                "FEMALE",
+                "OTHERS"
+            ]
+        },
         "Platform": {
             "name": "Platform",
             "values": [
@@ -1287,16 +1369,8 @@ export const schema = {
                 "ONGOING",
                 "COMPLETED"
             ]
-        },
-        "Gender": {
-            "name": "Gender",
-            "values": [
-                "MALE",
-                "FEMALE",
-                "OTHERS"
-            ]
         }
     },
     "nonModels": {},
-    "version": "a662a2f1719deefcb7df5f95dbd75356"
+    "version": "3c1d268e330863b9683e977b2e0fa06f"
 };

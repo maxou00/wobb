@@ -8,13 +8,16 @@ import { TextTransformNoneButton } from "../components/TextTransformNoneButton";
 import { CssVariables } from "../css-variables";
 import { OrderInfluencerSummary } from "./OrderInfluencerSummary";
 import { DeliverableDashboard } from "./DeliverableDashboards";
-import { useCallback } from "react";
+import { useCallback, useMemo } from "react";
 import { SendMessageToApplicants } from "../messaging/MessageToApplicantsDialog";
 import { useState } from "react";
 import { ShareBriefDialog } from "../messaging/ShareBriefDialog";
 import { MarkCampaignAsCompleteDialog } from "./MarkCampaignAsCompleteDialog";
 import { CampaignStatusNavigation } from "./CampaignStatusNavigation";
 import { DeliverableList } from "./Deliverables";
+import { useProvidedApplicants } from "./ViewApplicants";
+import { ApplicantFilter } from "./ApplicantsFilterTab";
+import { JobStatus } from "../models";
 
 const WhiteButton = withStyles({
     root: {
@@ -28,12 +31,38 @@ const WhiteButton = withStyles({
 })(TextTransformNoneButton);
 
 export function Applicants() {
+    const { applicants } = useProvidedApplicants();
     const [sendingMessage, setSendingMessage] = useState(false);
     const [sharingBrief, setSharingBrief] = useState(false);
     const [markAsComplete, setMarkAsComplete] = useState(false);
 
     const filter = useUrlQuery("filter", "applied");
     const status = useUrlQuery("status", "all");
+
+    const filteredApplicants = useMemo(() => {
+        return applicants.filter((ap) => {
+            let status = ap.status
+            switch (filter) {
+                case "applied": {
+                    return !Boolean(status)
+                }
+                case ApplicantFilter.received: {
+                    return !Boolean(status)
+                }
+                case ApplicantFilter.shortlisted: {
+                    return status === JobStatus.SHORT_LISTED
+                }
+                case ApplicantFilter.hired: {
+                    return status === JobStatus.HIRED || status === JobStatus.COMPLETED || status === JobStatus.ONGOING
+                }
+                case ApplicantFilter.rejected: {
+                    return status === JobStatus.REJECTED
+                }
+                default:
+                    return true;
+            }
+        })
+    }, [applicants, filter])
 
     const onSendMessage = useCallback(() => {
         setSendingMessage(true);
@@ -60,13 +89,13 @@ export function Applicants() {
                     <WhiteButton disableElevation variant="contained">{__tr("export")}</WhiteButton>
                 </Box>
                 {
-                    filter === "shortlisted" &&
+                    filter === ApplicantFilter.shortlisted &&
                     <Box paddingX={.5}>
                         <WhiteButton disableElevation variant="contained">{__tr("reject")}</WhiteButton>
                     </Box>
                 }
                 {
-                    filter === "hired" && <>
+                    filter === ApplicantFilter.hired && <>
                         <Box paddingX={.5}>
                             <WhiteButton disableElevation variant="contained" onClick={onSendMessage}>{__tr("message")}</WhiteButton>
                         </Box>
@@ -86,13 +115,13 @@ export function Applicants() {
         <Grid item xs={8}>
             <Paper elevation={0}>
                 {
-                    filter === "hired" && status !== "all" &&
-                    <DeliverableList />
+                    filter === ApplicantFilter.hired && status !== "all" &&
+                    <DeliverableList applicants={filteredApplicants} />
                 }
                 {
-                    (filter !== "hired" || status === "all") &&
+                    (filter !== ApplicantFilter.hired || status === "all") &&
                     <TableContainer>
-                        <ApplicantsTable filter={filter} />
+                        <ApplicantsTable applicants={filteredApplicants} filter={filter} />
                     </TableContainer>
                 }
             </Paper>
@@ -100,18 +129,21 @@ export function Applicants() {
         <Grid item xs={4}>
             <Grid container spacing={2}>
                 <Grid item xs={12}>
-                    <Paper elevation={0}>
+                    {[ApplicantFilter.received, ApplicantFilter.rejected, ApplicantFilter.invited].includes(filter as ApplicantFilter) && <Paper elevation={0}>
                         <ApplicantsFilter />
-                    </Paper>
-                    <Paper elevation={0}>
+                    </Paper>}
+                    {
+                        ///Removed composition
+                    /*{ filter === ApplicantFilter.hired && <Paper elevation={0}>
                         <DeliverableDashboard />
-                    </Paper>
-                    <Paper elevation={0}>
+                    </Paper> }*/
+                    }
+                    {filter === ApplicantFilter.shortlisted && <Paper elevation={0}>
                         <OrderInfluencerSummary />
-                    </Paper>
-                    <Paper elevation={0}>
+                    </Paper>}
+                    {filter === ApplicantFilter.hired && <Paper elevation={0}>
                         <CampaignStatusNavigation />
-                    </Paper>
+                    </Paper>}
                 </Grid>
                 <Grid item xs={12}>
                     <AppMetadata />

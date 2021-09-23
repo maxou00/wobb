@@ -1,4 +1,4 @@
-import { Brand, Campaign, Profile } from "../models";
+import { Brand, Campaign, Jobs, Profile } from "../models";
 
 export interface IAppUser {
     user: any ;
@@ -7,6 +7,7 @@ export interface IAppUser {
 
 export interface GlobalState {
     campaigns: Campaign[];
+    jobs: Jobs[];
     brands: Brand[];
 }
 

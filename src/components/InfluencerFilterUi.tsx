@@ -13,7 +13,7 @@ const styles = {
     `
 }
 
-interface InfluencerFilter {
+export interface InfluencerFilter {
     sortBy?: string;
     followerRange: {
         min: number;

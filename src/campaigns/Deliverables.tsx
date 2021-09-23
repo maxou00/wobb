@@ -4,6 +4,7 @@ import { useState } from "react";
 import { MdMoreHoriz } from "react-icons/md";
 import { TextTransformNoneButton } from "../components/TextTransformNoneButton";
 import { useUrlQuery } from "../core/hooks";
+import { Jobs } from "../models";
 import styles from "../styles/PendingDeliverables.module.scss";
 import { RequestRevisionDialog } from "./RequestRevisionDialog";
 
@@ -119,7 +120,7 @@ export function DeliverableView(props: DeliverableActionsProps) {
     </Box>
 }
 
-export function DeliverableList() {
+export function DeliverableList(props: {applicants: Jobs[]}) {
     const [requestingRevision, setRequestingRevision] = useState(false);
     const [approving, setApproving] = useState(false);
 

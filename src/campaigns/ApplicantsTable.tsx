@@ -1,13 +1,20 @@
+import { DataStore } from "@aws-amplify/datastore";
 import { css } from "@emotion/css";
 import { Box, Button, Checkbox, IconButton, Table, TableBody, TableCell, TableHead, TableRow, TableSortLabel, withStyles } from "@material-ui/core";
 import { Delete } from "@material-ui/icons";
-import { CSSProperties } from "react";
+import { createContext, CSSProperties, PropsWithChildren, useCallback, useContext, useState } from "react";
 import { MdArrowDropDown } from "react-icons/md";
+import { toast } from "react-toastify";
 import { IconifiedDeliverableState } from "../components/IconifiedDeliverableState";
 import { TextTransformNoneButton } from "../components/TextTransformNoneButton";
 import { CssVariables } from "../css-variables";
 import { __tr } from "../i18n";
+import { JobStatus } from "../models";
+import { Jobs } from "../models";
+import { useAppUser } from "../state/selectors";
 import { ApplicantItem } from "./ApplicantItem";
+import { ApplicantFilter } from "./ApplicantsFilterTab";
+import { useProvidedCampaign } from "./ViewCampaign";
 
 const GreenButton = withStyles({
     root: {
@@ -30,6 +37,7 @@ const DeleteButton = withStyles({
 
 interface Props {
     filter: string;
+    applicants: Jobs[];
 }
 
 const actionsStyles = {
@@ -88,6 +96,23 @@ const customStyles = {
     date: css``,
 }
 
+interface JobContextScheme {
+    job: Jobs;
+}
+
+const SingleJobContext = createContext<JobContextScheme>({} as any);
+
+export function useProvidedJob() {
+    return useContext(SingleJobContext);
+}
+
+export function ProvideSingleJob(props: PropsWithChildren<{ job: Jobs }>) {
+    return <SingleJobContext.Provider value={{ job: props.job }}>
+        {props.children}
+    </SingleJobContext.Provider>
+}
+
+
 function ApplicantTableHeader(props: { filter: string }) {
 
     if (props.filter === "hired") {
@@ -134,46 +159,49 @@ function ApplicantTableHeader(props: { filter: string }) {
     </TableRow>
 }
 
-function ApplicantRow(props: { filter: string }) {
+function ApplicantRow(props: { filter: string, applicant: Jobs }) {
 
-    if (props.filter === "hired") {
-        return <TableRow>
-            <TableCell>
-                <Checkbox />
-            </TableCell>
-            <TableCell>
-                <ApplicantItem />
-            </TableCell>
-            <TableCell>
-                <ApplicantDeliverables />
-            </TableCell>
-            <TableCell>
-                <Box display="flex" flexDirection="column" alignItems="center" justifyContent="center">
-                    <Box height={50} display="flex" flexDirection="column" alignItems="center" justifyContent="center">
-                        <span>Today</span>
+    return <ProvideSingleJob job={props.applicant}>
+        {
+            props.filter === ApplicantFilter.hired && <TableRow>
+                <TableCell>
+                    <Checkbox />
+                </TableCell>
+                <TableCell>
+                    <ApplicantItem />
+                </TableCell>
+                <TableCell>
+                    <ApplicantDeliverables />
+                </TableCell>
+                <TableCell>
+                    <Box display="flex" flexDirection="column" alignItems="center" justifyContent="center">
+                        <Box height={50} display="flex" flexDirection="column" alignItems="center" justifyContent="center">
+                            <span>Today</span>
+                        </Box>
+                        <Box height={50} display="flex" flexDirection="column" alignItems="center" justifyContent="center">
+                            <span>Yesterday</span>
+                        </Box>
                     </Box>
-                    <Box height={50} display="flex" flexDirection="column" alignItems="center" justifyContent="center">
-                        <span>Yesterday</span>
-                    </Box>
-                </Box>
-            </TableCell>
-        </TableRow>
-    }
-    
-    return <TableRow>
-        <TableCell>
-            <Checkbox />
-        </TableCell>
-        <TableCell>
-            <ApplicantItem />
-        </TableCell>
-        <TableCell>218K</TableCell>
-        <TableCell>4.5%</TableCell>
-        <TableCell>₹1000</TableCell>
-        <TableCell>
-            <ApplicableActions filter={props.filter} />
-        </TableCell>
-    </TableRow>
+                </TableCell>
+            </TableRow>
+        }
+        {
+            props.filter !== ApplicantFilter.hired && <TableRow>
+                <TableCell>
+                    <Checkbox />
+                </TableCell>
+                <TableCell>
+                    <ApplicantItem />
+                </TableCell>
+                <TableCell>218K</TableCell>
+                <TableCell>4.5%</TableCell>
+                <TableCell>{ props.applicant.bidCurrency } {props.applicant.bidPrice}</TableCell>
+                <TableCell>
+                    <ApplicableActions filter={props.filter} />
+                </TableCell>
+            </TableRow>
+        }
+    </ProvideSingleJob>
 }
 
 function ApplicantDeliverables() {
@@ -181,36 +209,73 @@ function ApplicantDeliverables() {
         <div className={customStyles.deliverableWrapper}>
             <span className={customStyles.title}>1.Reel</span>
             <div className={customStyles.deliverable}>
-                <IconifiedDeliverableState/>
+                <IconifiedDeliverableState />
             </div>
         </div>
         <div className={customStyles.deliverableWrapper}>
             <span className={customStyles.title}>2. Static Story</span>
             <div className={customStyles.deliverable}>
-                <IconifiedDeliverableState reviewed={false} submitted={true}/>
+                <IconifiedDeliverableState reviewed={false} submitted={true} />
             </div>
         </div>
     </div>
 }
 
 export function ApplicableActions(props: { filter: string }) {
+    const [busy, setBusy] = useState(false);
+
+    const { user, profile } = useAppUser();
+    const { job } = useProvidedJob();
+    const { campaign } = useProvidedCampaign();
+
+    const onShortlist = useCallback(async () => {
+
+        setBusy(true);
+        DataStore.save(
+            Jobs.copyOf(job, j => {
+                j.status = JobStatus.SHORT_LISTED;
+                j.shortlistedAt = new Date(Date.now()).toISOString()
+            })
+        )
+        .then((job) => {
+            setBusy(false);
+            toast.success(__tr("done"))
+        })
+
+    }, [job]);
+
+    const onReject = useCallback(async () => {
+
+        setBusy(true);
+        DataStore.save(
+            Jobs.copyOf(job, j => {
+                j.status = JobStatus.REJECTED;
+                j.rejectedAt = new Date(Date.now()).toISOString()
+            })
+        )
+        .then((job) => {
+            setBusy(false);
+            toast.success(__tr("done"))
+        })
+
+    }, [job]);
+
     return <div className={actionsStyles.row}>
         {
-            (props.filter === "received" || props.filter === "rejected") &&
-            <Box marginX={.5}>
-                <GreenButton variant="contained" size="small" disableElevation>{__tr("shortlist")}</GreenButton>
+            ["received", "applied", "rejected"].includes(props.filter) && <Box marginX={.5}>
+                <GreenButton disabled={busy} onClick={onShortlist} variant="contained" size="small" disableElevation>{__tr("shortlist")}</GreenButton>
             </Box>
         }
         {
-            (props.filter === "invite") &&
+            (props.filter === "invited") &&
             <Box marginX={.5}>
                 <TextTransformNoneButton variant="outlined" color="primary" size="small" disableElevation>{__tr("invite")}</TextTransformNoneButton>
             </Box>
         }
         {
-            (props.filter === "received" || props.filter === "shortlisted" || props.filter === "invite") &&
+            ["received", "applied", "shortlisted", "invited"].includes(props.filter) &&
             <Box marginX={.5}>
-                <DeleteButton size="small">
+                <DeleteButton size="small" onClick={onReject}>
                     <Delete fontSize="small" />
                 </DeleteButton>
             </Box>
@@ -224,22 +289,11 @@ export function ApplicantsTable(props: Props) {
             <ApplicantTableHeader filter={props.filter} />
         </TableHead>
         <TableBody>
-            <ApplicantRow filter={props.filter} />
-            <ApplicantRow filter={props.filter} />
-            <ApplicantRow filter={props.filter} />
-            <ApplicantRow filter={props.filter} />
-            <ApplicantRow filter={props.filter} />
-            <ApplicantRow filter={props.filter} />
-            <ApplicantRow filter={props.filter} />
-            <ApplicantRow filter={props.filter} />
-            <ApplicantRow filter={props.filter} />
-            <ApplicantRow filter={props.filter} />
-            <ApplicantRow filter={props.filter} />
-            <ApplicantRow filter={props.filter} />
-            <ApplicantRow filter={props.filter} />
-            <ApplicantRow filter={props.filter} />
-            <ApplicantRow filter={props.filter} />
-            <ApplicantRow filter={props.filter} />
+            {
+                props.applicants.map((applicant) => {
+                    return <ApplicantRow key={applicant.id} applicant={applicant} filter={props.filter} />
+                })
+            }
         </TableBody>
     </Table>
 }
