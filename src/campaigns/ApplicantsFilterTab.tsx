@@ -6,10 +6,10 @@ import { css } from "@emotion/css";
 import { CssVariables } from "../css-variables";
 import { useUrlFilter } from "../core/hooks";
 import { useProvidedCampaign } from "./ViewCampaign";
-import { useProvidedApplicants } from "./ViewApplicants";
 import { padZero } from "../core/utils";
 import { JobStatus } from "../models";
 import { Tab, Tabs } from "@material-ui/core";
+import { useProvidedApplicants } from "../state/ProvidedApplicantsContext";
 
 const styles = {
     tabs: css`

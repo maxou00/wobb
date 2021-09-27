@@ -29,18 +29,16 @@ export function userFromUname() {
 declare var Razorpay: any;
 
 /// ONGOING
-export function callRazorPay(cost: number) {
+export function callRazorPay(cost: number, handler: (response: any) => any, onFailure:(failure: any) => any) {
     const options = {
         key: RAZORPAY_KEY_ID, // Enter the Key ID generated from the Dashboard
-        amount: cost+'',
+        amount: (cost*100)+'',
         // "amount": "100",
         currency: 'INR',
         name: 'Wobb',
         description: 'Campaign Payment',
         image: 'https://kapils-first-aws-bucket.s3.ap-south-1.amazonaws.com/myFirstFolderOn-aws/wobb1/favicon.ico',
-        handler: (response: any) => {
-         
-        },
+        handler,
         prefill: {
         },
         notes: {
@@ -52,10 +50,7 @@ export function callRazorPay(cost: number) {
       };
 
       const rzp1 = new Razorpay(options);
-      rzp1.on('payment.failed', (response: any) => {
-        alert('Payment Failed. Please Try Again !');
-        console.log(response);
-      });
+      rzp1.on('payment.failed', onFailure);
       rzp1.open();
 }
 

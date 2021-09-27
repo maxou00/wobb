@@ -7,7 +7,6 @@ import { __tr } from "../i18n";
 import { TextTransformNoneButton } from "../components/TextTransformNoneButton";
 import { CssVariables } from "../css-variables";
 import { OrderInfluencerSummary } from "./OrderInfluencerSummary";
-import { DeliverableDashboard } from "./DeliverableDashboards";
 import { useCallback, useMemo } from "react";
 import { SendMessageToApplicants } from "../messaging/MessageToApplicantsDialog";
 import { useState } from "react";
@@ -15,9 +14,10 @@ import { ShareBriefDialog } from "../messaging/ShareBriefDialog";
 import { MarkCampaignAsCompleteDialog } from "./MarkCampaignAsCompleteDialog";
 import { CampaignStatusNavigation } from "./CampaignStatusNavigation";
 import { DeliverableList } from "./Deliverables";
-import { useProvidedApplicants } from "./ViewApplicants";
 import { ApplicantFilter } from "./ApplicantsFilterTab";
 import { JobStatus } from "../models";
+import { useProvidedApplicants } from "../state/ProvidedApplicantsContext";
+import { padZero } from "../core/utils";
 
 const WhiteButton = withStyles({
     root: {
@@ -31,7 +31,7 @@ const WhiteButton = withStyles({
 })(TextTransformNoneButton);
 
 export function Applicants() {
-    const { applicants } = useProvidedApplicants();
+    const { applicants, selected, selectApplicants, unselectApplicants } = useProvidedApplicants();
     const [sendingMessage, setSendingMessage] = useState(false);
     const [sharingBrief, setSharingBrief] = useState(false);
     const [markAsComplete, setMarkAsComplete] = useState(false);
@@ -64,6 +64,21 @@ export function Applicants() {
         })
     }, [applicants, filter])
 
+    const hasSelectedAll = useMemo(() => {
+        return filteredApplicants.every((item) => {
+            return selected.findIndex((j) => j.id === item.id)
+        })
+    }, [selected, filteredApplicants]);
+
+    const selectOrUnselectAll = useCallback((ev, check: any) => {
+        if (check) {
+            unselectApplicants(...filteredApplicants)
+        }
+        else {
+            selectApplicants(...filteredApplicants)
+        }
+    }, [filteredApplicants, selectApplicants, unselectApplicants]);
+
     const onSendMessage = useCallback(() => {
         setSendingMessage(true);
     }, []);
@@ -79,35 +94,39 @@ export function Applicants() {
     return <Grid container spacing={2}>
         <Grid item xs={12}>
             <Box marginLeft={2} display="flex" flexDirection="row" alignItems="center" justifyContent="flex-start">
-                <Box paddingRight={2}>
-                    <div>
-                        <Checkbox />
-                        <span>{__tr("selectAll")} (103)</span>
-                    </div>
-                </Box>
-                <Box paddingX={.5}>
-                    <WhiteButton disableElevation variant="contained">{__tr("export")}</WhiteButton>
-                </Box>
                 {
-                    filter === ApplicantFilter.shortlisted &&
-                    <Box paddingX={.5}>
-                        <WhiteButton disableElevation variant="contained">{__tr("reject")}</WhiteButton>
-                    </Box>
-                }
-                {
-                    filter === ApplicantFilter.hired && <>
-                        <Box paddingX={.5}>
-                            <WhiteButton disableElevation variant="contained" onClick={onSendMessage}>{__tr("message")}</WhiteButton>
+                    filteredApplicants.length > 0 && <>
+                        <Box paddingRight={2}>
+                            <div>
+                                <Checkbox checked={hasSelectedAll} onChange={selectOrUnselectAll} />
+                                <span>{__tr("selectAll")} ({padZero(filteredApplicants.length)})</span>
+                            </div>
                         </Box>
                         <Box paddingX={.5}>
-                            <WhiteButton disableElevation variant="contained" onClick={onShareBrief}>{__tr("addOrUpdateBrief")}</WhiteButton>
+                            <WhiteButton disableElevation variant="contained">{__tr("export")}</WhiteButton>
                         </Box>
-                        <Box paddingX={.5}>
-                            <WhiteButton disableElevation variant="contained">{__tr("raiseDispute")}</WhiteButton>
-                        </Box>
-                        <Box paddingX={.5}>
-                            <WhiteButton disableElevation variant="contained" onClick={onMarkAsComplete}>{__tr("markComplete")}</WhiteButton>
-                        </Box>
+                        {
+                            filter === ApplicantFilter.shortlisted &&
+                            <Box paddingX={.5}>
+                                <WhiteButton disableElevation variant="contained">{__tr("reject")}</WhiteButton>
+                            </Box>
+                        }
+                        {
+                            filter === ApplicantFilter.hired && selected.length > 0 && <>
+                                <Box paddingX={.5}>
+                                    <WhiteButton disableElevation variant="contained" onClick={onSendMessage}>{__tr("message")}</WhiteButton>
+                                </Box>
+                                <Box paddingX={.5}>
+                                    <WhiteButton disableElevation variant="contained" onClick={onShareBrief}>{__tr("addOrUpdateBrief")}</WhiteButton>
+                                </Box>
+                                <Box paddingX={.5}>
+                                    <WhiteButton disableElevation variant="contained">{__tr("raiseDispute")}</WhiteButton>
+                                </Box>
+                                <Box paddingX={.5}>
+                                    <WhiteButton disableElevation variant="contained" onClick={onMarkAsComplete}>{__tr("markComplete")}</WhiteButton>
+                                </Box>
+                            </>
+                        }
                     </>
                 }
             </Box>
@@ -134,11 +153,11 @@ export function Applicants() {
                     </Paper>}
                     {
                         ///Removed composition
-                    /*{ filter === ApplicantFilter.hired && <Paper elevation={0}>
-                        <DeliverableDashboard />
-                    </Paper> }*/
+                        /*{ filter === ApplicantFilter.hired && <Paper elevation={0}>
+                            <DeliverableDashboard />
+                        </Paper> }*/
                     }
-                    {filter === ApplicantFilter.shortlisted && <Paper elevation={0}>
+                    {filter === ApplicantFilter.shortlisted && filteredApplicants.length > 0 && <Paper elevation={0}>
                         <OrderInfluencerSummary />
                     </Paper>}
                     {filter === ApplicantFilter.hired && <Paper elevation={0}>

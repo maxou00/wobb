@@ -11,6 +11,7 @@ import { CssVariables } from "../css-variables";
 import { __tr } from "../i18n";
 import { JobStatus } from "../models";
 import { Jobs } from "../models";
+import { useApplicantSelection, useApplicantSelectionFuncs } from "../state/ProvidedApplicantsContext";
 import { useAppUser } from "../state/selectors";
 import { ApplicantItem } from "./ApplicantItem";
 import { ApplicantFilter } from "./ApplicantsFilterTab";
@@ -160,12 +161,23 @@ function ApplicantTableHeader(props: { filter: string }) {
 }
 
 function ApplicantRow(props: { filter: string, applicant: Jobs }) {
+    const selected = useApplicantSelection(props.applicant.id);
+    const funcs = useApplicantSelectionFuncs();
+
+    const onCheckChange = useCallback((ev, check: boolean) => {
+        if (check) {
+            funcs.select(props.applicant)
+        }
+        else {
+            funcs.unselect(props.applicant)
+        }
+    }, [funcs, props.applicant]);
 
     return <ProvideSingleJob job={props.applicant}>
         {
             props.filter === ApplicantFilter.hired && <TableRow>
                 <TableCell>
-                    <Checkbox />
+                    <Checkbox checked={Boolean(selected)} onChange={onCheckChange} />
                 </TableCell>
                 <TableCell>
                     <ApplicantItem />
@@ -188,14 +200,14 @@ function ApplicantRow(props: { filter: string, applicant: Jobs }) {
         {
             props.filter !== ApplicantFilter.hired && <TableRow>
                 <TableCell>
-                    <Checkbox />
+                    <Checkbox checked={Boolean(selected)} onChange={onCheckChange} />
                 </TableCell>
                 <TableCell>
                     <ApplicantItem />
                 </TableCell>
                 <TableCell>218K</TableCell>
                 <TableCell>4.5%</TableCell>
-                <TableCell>{ props.applicant.bidCurrency } {props.applicant.bidPrice}</TableCell>
+                <TableCell>{props.applicant.bidCurrency} {props.applicant.bidPrice}</TableCell>
                 <TableCell>
                     <ApplicableActions filter={props.filter} />
                 </TableCell>
@@ -237,10 +249,10 @@ export function ApplicableActions(props: { filter: string }) {
                 j.shortlistedAt = new Date(Date.now()).toISOString()
             })
         )
-        .then((job) => {
-            setBusy(false);
-            toast.success(__tr("done"))
-        })
+            .then((job) => {
+                setBusy(false);
+                toast.success(__tr("done"))
+            })
 
     }, [job]);
 
@@ -253,10 +265,10 @@ export function ApplicableActions(props: { filter: string }) {
                 j.rejectedAt = new Date(Date.now()).toISOString()
             })
         )
-        .then((job) => {
-            setBusy(false);
-            toast.success(__tr("done"))
-        })
+            .then((job) => {
+                setBusy(false);
+                toast.success(__tr("done"))
+            })
 
     }, [job]);
 
@@ -284,6 +296,7 @@ export function ApplicableActions(props: { filter: string }) {
 }
 
 export function ApplicantsTable(props: Props) {
+
     return <Table stickyHeader>
         <TableHead>
             <ApplicantTableHeader filter={props.filter} />

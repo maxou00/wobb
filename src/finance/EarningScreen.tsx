@@ -17,7 +17,7 @@ export function EarningScreen() {
     }, [history]);
 
     return <Grid container spacing={2}>
-        <Grid item xs={2}>
+        <Grid item xs={12} lg={2}>
             <Paper elevation={0}>
                 <Box paddingY={2}>
                     <StyledTabs
@@ -33,7 +33,7 @@ export function EarningScreen() {
                 </Box>
             </Paper>
         </Grid>
-        <Grid item xs={10}>
+        <Grid item xs={12} lg={10}>
             {
                 selectedTab === "earnings" &&
                 <Earnings />

@@ -25,3 +25,5 @@ export function instagramUrlWithId(id: string) {
 export function youtubeUrlWithId(id: string) {
     return YOUTUBE_REDIRECT+'?state='+id;
 }
+
+export const GST_FEE_PERCENT = 18;
