@@ -2,6 +2,18 @@
 import { initSchema } from '@aws-amplify/datastore';
 import { schema } from './schema';
 
+const Deliverable = {
+  "DEDICATED_VIDEO": "DEDICATED_VIDEO",
+  "INTEGRATED_VIDEO": "INTEGRATED_VIDEO",
+  "SHORT": "SHORT",
+  "REEL": "REEL",
+  "SWIPE_UP_STORY": "SWIPE_UP_STORY",
+  "IGTV": "IGTV",
+  "STATIC_POST": "STATIC_POST",
+  "VIDEO_POST": "VIDEO_POST",
+  "CONTENT_ONLY": "CONTENT_ONLY"
+};
+
 const JobStatus = {
   "SHORT_LISTED": "SHORT_LISTED",
   "HIRED": "HIRED",
@@ -14,18 +26,6 @@ const PayoutType = {
   "BARTER": "BARTER",
   "VARIABLE": "VARIABLE",
   "FIXED": "FIXED"
-};
-
-const Deliverable = {
-  "DEDICATED_VIDEO": "DEDICATED_VIDEO",
-  "INTEGRATED_VIDEO": "INTEGRATED_VIDEO",
-  "SHORT": "SHORT",
-  "REEL": "REEL",
-  "SWIPE_UP_STORY": "SWIPE_UP_STORY",
-  "IGTV": "IGTV",
-  "STATIC_POST": "STATIC_POST",
-  "VIDEO_POST": "VIDEO_POST",
-  "CONTENT_ONLY": "CONTENT_ONLY"
 };
 
 const TaskStatus = {
@@ -53,9 +53,10 @@ const CampaignStatus = {
   "COMPLETED": "COMPLETED"
 };
 
-const { Brand, Task, Jobs, User, Message, ChatRoomUser, ChatRoom, CampaignUser, Campaign, Profile, Instagram } = initSchema(schema);
+const { CampaignBrief, Brand, Task, Jobs, User, Message, ChatRoomUser, ChatRoom, CampaignUser, Campaign, Profile, Instagram } = initSchema(schema);
 
 export {
+  CampaignBrief,
   Brand,
   Task,
   Jobs,
@@ -67,9 +68,9 @@ export {
   Campaign,
   Profile,
   Instagram,
+  Deliverable,
   JobStatus,
   PayoutType,
-  Deliverable,
   TaskStatus,
   Gender,
   Platform,

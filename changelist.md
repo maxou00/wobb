@@ -56,3 +56,25 @@ Renamed every `Infleuncer(s)` to `Influencer(s)`
     - `rejectedAt`: AWSDatetime indicating when this user application has been rejected.
     - `bidPrice` bid price submitted by this influencer
     - `bidCurrency` currency of the bid price
+
+
+### Entity `Task` 
+
+    - deliverableType: Deliverable.indicates which type of deliverable is expected from this task
+
+    - sharedID: tasks with same biref must share a property to be easily identified for any future update. that's the role os the sharedID property.
+
+    - completedAt
+    - acceptedAt
+    - lastUpdate
+    - dueDate
+
+### Added Entity `BriefTemplate`
+    in fact every task rely on a brief to explain to the applicant wht he have to accomplish.
+    Therefore a brief is somehow "shared" between some applicants. So i think decoupling briefs into another entity, directly connected to the campaign may help in creating and editing them so that when we want to send them to an applicant it would be easier to connect them to a task and ease edition / update and so on.
+
+    - id
+    - deliverableType: type of deliverable tied to this brief
+    - brief: the message itself
+    - dueDate: the latest due date saved for this brief.
+    - campaignId: the id of the campaign it is bound to.

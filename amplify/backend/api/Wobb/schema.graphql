@@ -1,3 +1,12 @@
+type CampaignBrief @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  deliverableType: Deliverable
+  brief: String
+  dueDate: AWSDate
+  campaignId: String
+  lastUpdate: AWSDateTime
+}
+
 enum JobStatus {
   SHORT_LISTED
   HIRED
@@ -40,9 +49,15 @@ enum TaskStatus {
 type Task @model @auth(rules: [{allow: public}]) @key(name: "byJobs", fields: ["jobsID"]) {
   id: ID!
   Title: String
-  Brief: String
-  Status: TaskStatus
+  deliverableType: Deliverable!
+  Status: TaskStatus!
   jobsID: ID
+  Brief: String
+  sharedID: String
+  acceptedAt: AWSDateTime
+  lastUpdate: AWSDateTime
+  completedAt: AWSDateTime
+  dueDate: AWSDate
 }
 
 type Jobs @model @auth(rules: [{allow: public}]) @key(name: "byCampaign", fields: ["campaignID"]) {

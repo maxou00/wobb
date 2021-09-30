@@ -1,5 +1,94 @@
 export const schema = {
     "models": {
+        "CampaignBrief": {
+            "name": "CampaignBrief",
+            "fields": {
+                "id": {
+                    "name": "id",
+                    "isArray": false,
+                    "type": "ID",
+                    "isRequired": true,
+                    "attributes": []
+                },
+                "deliverableType": {
+                    "name": "deliverableType",
+                    "isArray": false,
+                    "type": {
+                        "enum": "Deliverable"
+                    },
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "brief": {
+                    "name": "brief",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "dueDate": {
+                    "name": "dueDate",
+                    "isArray": false,
+                    "type": "AWSDate",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "campaignId": {
+                    "name": "campaignId",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "lastUpdate": {
+                    "name": "lastUpdate",
+                    "isArray": false,
+                    "type": "AWSDateTime",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "createdAt": {
+                    "name": "createdAt",
+                    "isArray": false,
+                    "type": "AWSDateTime",
+                    "isRequired": false,
+                    "attributes": [],
+                    "isReadOnly": true
+                },
+                "updatedAt": {
+                    "name": "updatedAt",
+                    "isArray": false,
+                    "type": "AWSDateTime",
+                    "isRequired": false,
+                    "attributes": [],
+                    "isReadOnly": true
+                }
+            },
+            "syncable": true,
+            "pluralName": "CampaignBriefs",
+            "attributes": [
+                {
+                    "type": "model",
+                    "properties": {}
+                },
+                {
+                    "type": "auth",
+                    "properties": {
+                        "rules": [
+                            {
+                                "allow": "public",
+                                "operations": [
+                                    "create",
+                                    "update",
+                                    "delete",
+                                    "read"
+                                ]
+                            }
+                        ]
+                    }
+                }
+            ]
+        },
         "Brand": {
             "name": "Brand",
             "fields": {
@@ -90,11 +179,13 @@ export const schema = {
                     "isRequired": false,
                     "attributes": []
                 },
-                "Brief": {
-                    "name": "Brief",
+                "deliverableType": {
+                    "name": "deliverableType",
                     "isArray": false,
-                    "type": "String",
-                    "isRequired": false,
+                    "type": {
+                        "enum": "Deliverable"
+                    },
+                    "isRequired": true,
                     "attributes": []
                 },
                 "Status": {
@@ -103,13 +194,55 @@ export const schema = {
                     "type": {
                         "enum": "TaskStatus"
                     },
-                    "isRequired": false,
+                    "isRequired": true,
                     "attributes": []
                 },
                 "jobsID": {
                     "name": "jobsID",
                     "isArray": false,
                     "type": "ID",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "Brief": {
+                    "name": "Brief",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "sharedID": {
+                    "name": "sharedID",
+                    "isArray": false,
+                    "type": "String",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "acceptedAt": {
+                    "name": "acceptedAt",
+                    "isArray": false,
+                    "type": "AWSDateTime",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "lastUpdate": {
+                    "name": "lastUpdate",
+                    "isArray": false,
+                    "type": "AWSDateTime",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "completedAt": {
+                    "name": "completedAt",
+                    "isArray": false,
+                    "type": "AWSDateTime",
+                    "isRequired": false,
+                    "attributes": []
+                },
+                "dueDate": {
+                    "name": "dueDate",
+                    "isArray": false,
+                    "type": "AWSDate",
                     "isRequired": false,
                     "attributes": []
                 },
@@ -1305,6 +1438,20 @@ export const schema = {
         }
     },
     "enums": {
+        "Deliverable": {
+            "name": "Deliverable",
+            "values": [
+                "DEDICATED_VIDEO",
+                "INTEGRATED_VIDEO",
+                "SHORT",
+                "REEL",
+                "SWIPE_UP_STORY",
+                "IGTV",
+                "STATIC_POST",
+                "VIDEO_POST",
+                "CONTENT_ONLY"
+            ]
+        },
         "JobStatus": {
             "name": "JobStatus",
             "values": [
@@ -1321,20 +1468,6 @@ export const schema = {
                 "BARTER",
                 "VARIABLE",
                 "FIXED"
-            ]
-        },
-        "Deliverable": {
-            "name": "Deliverable",
-            "values": [
-                "DEDICATED_VIDEO",
-                "INTEGRATED_VIDEO",
-                "SHORT",
-                "REEL",
-                "SWIPE_UP_STORY",
-                "IGTV",
-                "STATIC_POST",
-                "VIDEO_POST",
-                "CONTENT_ONLY"
             ]
         },
         "TaskStatus": {
@@ -1372,5 +1505,5 @@ export const schema = {
         }
     },
     "nonModels": {},
-    "version": "3c1d268e330863b9683e977b2e0fa06f"
+    "version": "2ddba2b269f0125842fe927910d9f68b"
 };

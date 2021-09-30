@@ -1,5 +1,17 @@
 import { ModelInit, MutableModel, PersistentModelConstructor } from "@aws-amplify/datastore";
 
+export enum Deliverable {
+  DEDICATED_VIDEO = "DEDICATED_VIDEO",
+  INTEGRATED_VIDEO = "INTEGRATED_VIDEO",
+  SHORT = "SHORT",
+  REEL = "REEL",
+  SWIPE_UP_STORY = "SWIPE_UP_STORY",
+  IGTV = "IGTV",
+  STATIC_POST = "STATIC_POST",
+  VIDEO_POST = "VIDEO_POST",
+  CONTENT_ONLY = "CONTENT_ONLY"
+}
+
 export enum JobStatus {
   SHORT_LISTED = "SHORT_LISTED",
   HIRED = "HIRED",
@@ -12,18 +24,6 @@ export enum PayoutType {
   BARTER = "BARTER",
   VARIABLE = "VARIABLE",
   FIXED = "FIXED"
-}
-
-export enum Deliverable {
-  DEDICATED_VIDEO = "DEDICATED_VIDEO",
-  INTEGRATED_VIDEO = "INTEGRATED_VIDEO",
-  SHORT = "SHORT",
-  REEL = "REEL",
-  SWIPE_UP_STORY = "SWIPE_UP_STORY",
-  IGTV = "IGTV",
-  STATIC_POST = "STATIC_POST",
-  VIDEO_POST = "VIDEO_POST",
-  CONTENT_ONLY = "CONTENT_ONLY"
 }
 
 export enum TaskStatus {
@@ -52,6 +52,10 @@ export enum CampaignStatus {
 }
 
 
+
+type CampaignBriefMetaData = {
+  readOnlyFields: 'createdAt' | 'updatedAt';
+}
 
 type BrandMetaData = {
   readOnlyFields: 'createdAt' | 'updatedAt';
@@ -97,6 +101,19 @@ type InstagramMetaData = {
   readOnlyFields: 'createdAt' | 'updatedAt';
 }
 
+export declare class CampaignBrief {
+  readonly id: string;
+  readonly deliverableType?: Deliverable | keyof typeof Deliverable;
+  readonly brief?: string;
+  readonly dueDate?: string;
+  readonly campaignId?: string;
+  readonly lastUpdate?: string;
+  readonly createdAt?: string;
+  readonly updatedAt?: string;
+  constructor(init: ModelInit<CampaignBrief, CampaignBriefMetaData>);
+  static copyOf(source: CampaignBrief, mutator: (draft: MutableModel<CampaignBrief, CampaignBriefMetaData>) => MutableModel<CampaignBrief, CampaignBriefMetaData> | void): CampaignBrief;
+}
+
 export declare class Brand {
   readonly id: string;
   readonly name?: string;
@@ -111,9 +128,15 @@ export declare class Brand {
 export declare class Task {
   readonly id: string;
   readonly Title?: string;
-  readonly Brief?: string;
-  readonly Status?: TaskStatus | keyof typeof TaskStatus;
+  readonly deliverableType: Deliverable | keyof typeof Deliverable;
+  readonly Status: TaskStatus | keyof typeof TaskStatus;
   readonly jobsID?: string;
+  readonly Brief?: string;
+  readonly sharedID?: string;
+  readonly acceptedAt?: string;
+  readonly lastUpdate?: string;
+  readonly completedAt?: string;
+  readonly dueDate?: string;
   readonly createdAt?: string;
   readonly updatedAt?: string;
   constructor(init: ModelInit<Task, TaskMetaData>);

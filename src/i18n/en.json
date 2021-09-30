@@ -69,6 +69,7 @@
     "downloading": "Downloading",
     "downloaded": "Downloaded",
     "draft": "Draft",
+    "dueDate": "Due Date",
     "editProfile": "Edit Profile",
     "email": "Email",
     "engagement": "Engagement",
@@ -225,6 +226,7 @@
     "savedAsDraft": "Saved Campaign As Draft",
     "searchSomething": "Search something",
     "selectAll": "Select All",
+    "sharedTaskWith": "Shared with {{name}}",
     "shortlist": "Shortlist",
     "signup": "Signup",
     "sortBy": "Sort By",
@@ -237,6 +239,7 @@
     "status_completed": "Completed",
 
     "state": "State",
+    "shareBrief": "Share a brief",
     "shippingAddress": "Shipping Address",
     "short": "Short",
     "shortlisted": "Shortlisted",

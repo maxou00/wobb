@@ -66,16 +66,16 @@ export function Applicants() {
 
     const hasSelectedAll = useMemo(() => {
         return filteredApplicants.every((item) => {
-            return selected.findIndex((j) => j.id === item.id)
+            return Boolean( selected.find((j) => j.id === item.id) )
         })
     }, [selected, filteredApplicants]);
 
     const selectOrUnselectAll = useCallback((ev, check: any) => {
         if (check) {
-            unselectApplicants(...filteredApplicants)
+            selectApplicants(...filteredApplicants)
         }
         else {
-            selectApplicants(...filteredApplicants)
+            unselectApplicants(...filteredApplicants)
         }
     }, [filteredApplicants, selectApplicants, unselectApplicants]);
 
